@@ -1,0 +1,14 @@
+* whitespace=indent-with-non-tab,tabwidth=4,eol=lf
+
+*.doc -text diff=word
+*.html text eol=lf ident diff=html
+*.java text eol=lf ident diff=java
+*.jpg -text diff=exif
+*.jsp text eol=lf ident
+*.pdf -text
+*.png -text diff=exif
+*.proto text eol=lf ident
+*.py text eol=lf diff=python
+*.tex text eol=lf ident diff=tex
+*.txt text eol=lf ident
+*.xml text eol=lf ident

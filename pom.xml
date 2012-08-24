@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cathive.fx</groupId>
+	<artifactId>fx-guice</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>CathiveFX Guice Library</name>
+	<description>Classes and utilities that integrate Google Guice into your JavaFX2 applications</description>
+	<url>http://www.cathive.com/</url>
+	<inceptionYear>2012</inceptionYear>
+
+	<properties>
+		<netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
+		<org-netbeans-modules-html-editor-lib.default-html-public-id>HTML5</org-netbeans-modules-html-editor-lib.default-html-public-id>
+		<org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>4</org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>true</org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>120</org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>
+		<org-netbeans-modules-editor-indent.CodeStyle.project.text-line-wrap>none</org-netbeans-modules-editor-indent.CodeStyle.project.text-line-wrap>
+	</properties>
+
+	<prerequisites>
+		<maven>3.0.0</maven>
+	</prerequisites>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+			<comments></comments>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>The Cat Hive Developers</name>
+		<url>http://www.cathive.com/</url>
+	</organization>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/cathive/fx-guice/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<id>headcr4sh</id>
+			<name>Benjamin P. Jung</name>
+			<email>headcr4sh@googlemail.com</email>
+			<url>http://profiles.google.com/headcr4sh</url>
+			<organization>Terreon</organization>
+			<organizationUrl>http://terreon.de/</organizationUrl>
+			<timezone>Europe/Berlin</timezone>
+			<properties/>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:https://github.com/cathive/fx-guice.git</connection>
+		<developerConnection>scm:git://github.com/cathive/fx-guice.git</developerConnection>
+		<tag>master</tag>
+		<url>https://github.com/cathive/fx-guice/</url>
+	</scm>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<compilerVersion>1.7</compilerVersion>
+						<encoding>UTF-8</encoding>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>${project.build.sourceDirectory}</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.css</include>
+					<include>**/*.fxml</include>
+					<include>**/*.js</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>3.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.5.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>javafx-bundled-with-jdk</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.oracle</groupId>
+					<artifactId>javafx-runtime</artifactId>
+					<version>LATEST</version>
+					<scope>system</scope>
+					<systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+</project>

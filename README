@@ -1,0 +1,5 @@
+This library provides some useful classees that help you integrate
+Google Guice into your JavaFX2 based applications.
+
+The idea for that class was born after I read an article on
+fxexperience.com (http://fxexperience.com/2011/10/fxml-guice/).

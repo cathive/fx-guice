@@ -1,0 +1,51 @@
+# compiled (binary) files
+a.out
+*.o
+*.mo
+*.class
+*.py[co]
+
+# Other version control systems
+.hg
+.svn
+CVS
+
+# Mac OSX specific stuff
+.DS_Store
+
+# Windows specific stuff
+[Th]humbs.db
+[Dd]esktop.ini
+
+# editor files
+*.swp
+*.tmproj
+tmtags
+*.orig
+*~
+
+# Rejected patches
+*.rej
+
+# backup files
+*.old
+*.bak
+*.orig
+
+# Eclipse specific settings
+.classpath
+.project
+.settings/
+.externalToolBuilders/
+bin/
+
+# NetBeans specific settings
+nbproject/private/
+
+# Various build and distribution directories
+target/
+build/
+dist/
+
+# Java Crash Dumps
+hs_err_pid*.log
