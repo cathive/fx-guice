@@ -35,55 +35,55 @@ import com.google.inject.Injector;
  */
 public final class GuiceFXMLLoader {
 
-	/**
-	 * Guice Injector that will be used to fetch an instance of our `controller
-	 * class`.
-	 */
-	private final Injector injector;
+    /**
+     * Guice Injector that will be used to fetch an instance of our `controller
+     * class`.
+     */
+    private final Injector injector;
 
-	@Inject
-	public GuiceFXMLLoader(final Injector injector) {
-		super();
-		if (injector == null) {
-			throw new IllegalArgumentException("The Injector instance must not be null.");
-		}
-		this.injector = injector;
-	}
+    @Inject
+    public GuiceFXMLLoader(final Injector injector) {
+        super();
+        if (injector == null) {
+            throw new IllegalArgumentException("The Injector instance must not be null.");
+        }
+        this.injector = injector;
+    }
 
-	/**
-	 * Loads an object hierarchy from a FXML document.
-	 * <p>A simple wrapper around the
-	 * {@link FXMLLoader#load(URL, ResourceBundle) load method}
-	 * of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related
-	 * magic.</p>
-	 * 
-	 * @param url
-	 *             URL of the FXML resource to be loaded.
-	 * @param resources
-	 *             Resources to be used to localize strings.
-	 * @return
-	 *             The loaded object hierarchy
-	 * @throws IOException
-	 * @see {@link FXMLLoader#load(URL, ResourceBundle)}
-	 */
-	public <N> N load(final URL url, final ResourceBundle resources) throws IOException {
+    /**
+     * Loads an object hierarchy from a FXML document.
+     * <p>A simple wrapper around the
+     * {@link FXMLLoader#load(URL, ResourceBundle) load method}
+     * of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related
+     * magic.</p>
+     * 
+     * @param url
+     *             URL of the FXML resource to be loaded.
+     * @param resources
+     *             Resources to be used to localize strings.
+     * @return
+     *             The loaded object hierarchy
+     * @throws IOException
+     * @see {@link FXMLLoader#load(URL, ResourceBundle)}
+     */
+    public <N> N load(final URL url, final ResourceBundle resources) throws IOException {
 
-		final FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(url);
-		loader.setResources(resources);
-		loader.setControllerFactory(new Callback<Class<?>, Object>() {
-			@Override
-			public Object call(Class<?> param) {
-				// Use our Guice injector to fetch an instance of the desired
-				// controller class
-				return injector.getInstance(param);
-			}
-		});
+        final FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        loader.setResources(resources);
+        loader.setControllerFactory(new Callback<Class<?>, Object>() {
+            @Override
+            public Object call(Class<?> param) {
+                // Use our Guice injector to fetch an instance of the desired
+                // controller class
+                return injector.getInstance(param);
+            }
+        });
 
-		@SuppressWarnings("unchecked")
-		final N value = (N) loader.load(url.openStream());
-		return value;
+        @SuppressWarnings("unchecked")
+        final N value = (N) loader.load(url.openStream());
+        return value;
 
-	}
+    }
 
 }
