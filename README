@@ -1,5 +1,22 @@
-This library provides some useful classees that help you integrate
-Google Guice into your JavaFX2 based applications.
+=================================================================== README =====
 
-The idea for that class was born after I read an article on
-fxexperience.com (http://fxexperience.com/2011/10/fxml-guice/).
+  This library provides some useful classees that help you integrate
+    Google Guice into your JavaFX2 based applications.
+
+  The idea for that class was born after I read an article on
+    fxexperience.com (http://fxexperience.com/2011/10/fxml-guice/).
+    Therefore,... credits go to `Richard Bair´ for the initial idea.
+
+  A compiled and ready-to-use version of this library can be found in the
+    Sonatype OSS Maven Repository (oss.sonatype.org). To use the library
+    in your maven based projects just add the following lines to your
+    `pom.xml´:
+
+      <dependency>
+        <groupId>com.cathive.fx</groupId>
+        <artifactId>fx-guice</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+
+  Currently there is no stable version available (thus... you'll have to
+    use the current SNAPSHOT version instead... for now... :)
