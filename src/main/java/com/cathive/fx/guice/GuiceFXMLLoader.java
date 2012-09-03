@@ -41,6 +41,13 @@ public final class GuiceFXMLLoader {
      */
     private final Injector injector;
 
+    /**
+     * This constructor is usually never called directly.
+     * <p>Instead use an existing {@link com.google.inject.Injector} instance
+     * to fetch an instance of this class.</p>
+     * @param injector
+     *              Usually injected via Guice.
+     */
     @Inject
     public GuiceFXMLLoader(final Injector injector) {
         super();
@@ -53,7 +60,7 @@ public final class GuiceFXMLLoader {
     /**
      * Loads an object hierarchy from a FXML document.
      * <p>A simple wrapper around the
-     * {@link FXMLLoader#load(URL, ResourceBundle) load method}
+     * {@link javafx.fxml.FXMLLoader#load(URL, ResourceBundle) load method}
      * of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related
      * magic.</p>
      * 
@@ -64,7 +71,7 @@ public final class GuiceFXMLLoader {
      * @return
      *             The loaded object hierarchy
      * @throws IOException
-     * @see {@link FXMLLoader#load(URL, ResourceBundle)}
+     * @see javafx.fxml.FXMLLoader#load(URL, ResourceBundle)
      */
     public <N> N load(final URL url, final ResourceBundle resources) throws IOException {
 
@@ -89,7 +96,7 @@ public final class GuiceFXMLLoader {
     /**
      * Loads an object hierarchy from a FXML document.
      * <p>A simple wrapper around the
-     * {@link FXMLLoader#load(URL) load method}
+     * {@link javafx.fxml.FXMLLoader#load(URL) load method}
      * of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related
      * magic.</p>
      * 
@@ -98,7 +105,7 @@ public final class GuiceFXMLLoader {
      * @return
      *             The loaded object hierarchy
      * @throws IOException
-     * @see {@link FXMLLoader#load(URL)}
+     * @see javafx.fxml.FXMLLoader#load(URL)
      */
     public <N> N load(final URL url) throws IOException {
         // Delegate method call
