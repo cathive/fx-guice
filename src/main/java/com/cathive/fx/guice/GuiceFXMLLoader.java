@@ -86,4 +86,23 @@ public final class GuiceFXMLLoader {
 
     }
 
+    /**
+     * Loads an object hierarchy from a FXML document.
+     * <p>A simple wrapper around the
+     * {@link FXMLLoader#load(URL) load method}
+     * of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related
+     * magic.</p>
+     * 
+     * @param url
+     *             URL of the FXML resource to be loaded.
+     * @return
+     *             The loaded object hierarchy
+     * @throws IOException
+     * @see {@link FXMLLoader#load(URL)}
+     */
+    public <N> N load(final URL url) throws IOException {
+        // Delegate method call
+        return load(url, null);
+    }
+
 }
