@@ -28,7 +28,8 @@ public abstract class GuiceApplication extends Application {
 
         super.init();
 
-        final Class<GuiceApplication> clazz = GuiceApplication.class;
+        @SuppressWarnings("unchecked")
+        final Class<GuiceApplication> clazz = (Class<GuiceApplication>) getClass();
         final GuiceApplication instance = this;
 
         final Injector inj = createInjector();
@@ -41,9 +42,6 @@ public abstract class GuiceApplication extends Application {
 
         // Create a child injector and bind the instance of this GuiceApplication
         // to any instances of GuiceApplication.class.
-        // Note: this means that you cannot have two different subclasses of GuiceApplication
-        //       within the same context. A limitation that should usually be not a problem,
-        //       though.
         injector = inj.createChildInjector(new AbstractModule() {
             @Override
             protected void configure() {
