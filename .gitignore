@@ -49,3 +49,4 @@ dist/
 
 # Java Crash Dumps
 hs_err_pid*.log
+/test-output
