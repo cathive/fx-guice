@@ -16,6 +16,11 @@
 
 package com.cathive.fx.guice;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 
@@ -33,6 +38,12 @@ public abstract class GuiceApplication extends Application {
      * @see #getInjector()
      */
     private Injector injector;
+
+    private static final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
+    static {
+    	injectAnnotationClasses.add(com.google.inject.Inject.class);
+    	injectAnnotationClasses.add(javax.inject.Inject.class);
+    }
 
     /**
      * To make sure that the initialization of Guice-based JavaFX application
@@ -52,6 +63,15 @@ public abstract class GuiceApplication extends Application {
         if (inj == null) {
             throw new IllegalStateException("Injector has not been created (yet).");
         }
+
+        // Checks the GuiceApplication instance and makes sure that none of the constructors is
+        // annotated with @Inject!
+        for (final Constructor<?> c: instance.getClass().getConstructors()) {
+            if (isInjectAnnotationPresent(c)) {
+                throw new IllegalStateException("GuiceApplication with construtor that is marked with @Inject is not allowed!");
+            }
+        }
+        
 
         // Inject all fields annotated with @Inject into this GuiceApplication instance.
         inj.injectMembers(instance);
@@ -86,6 +106,28 @@ public abstract class GuiceApplication extends Application {
      */
     public final Injector getInjector() {
         return this.injector;
+    }
+
+
+    /**
+     * Helper method to determine whether a given constructor is annotated with one of the Inject annotations
+     * known by Guice.
+     * @param constructor
+     *     Constructor to be analyzed. Must not be <code>null</code>
+     * @return
+     *     <code>true</code> if the given constructor is annotated with an Inject annotation,
+     *     <code>false<code> otherwise.
+     * @see javax.inject.Inject
+     * @see com.google.inject.Inject
+     */
+    private static final boolean isInjectAnnotationPresent(final Constructor<?> constructor) {
+        for (final Class<? extends Annotation> annotationClass: injectAnnotationClasses) {
+            if (constructor.isAnnotationPresent(annotationClass)) {
+                // Directly returns if an @Inject annotation can be found.
+                return true;
+            }
+        }
+        return false;
     }
 
 }
