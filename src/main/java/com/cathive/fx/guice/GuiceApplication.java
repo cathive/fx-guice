@@ -61,7 +61,7 @@ public abstract class GuiceApplication extends Application {
 
         final Injector inj = createInjector();
         if (inj == null) {
-            throw new IllegalStateException("Injector has not been created (yet).");
+            throw new IllegalStateException("Injector has not been created (yet)!");
         }
 
         // Checks the GuiceApplication instance and makes sure that none of the constructors is
