@@ -54,6 +54,12 @@ public class GuiceApplicationTest {
         }.init();
     }
 
+    @Test(expectedExceptions = IllegalStateException.class)
+    public void testInitializationWithAppWithInjectedConstructors() throws Exception {
+        final InvalidGuiceApplicationWithWrongConstructor app = new InvalidGuiceApplicationWithWrongConstructor();
+        app.init();
+    }
+
     @Test(dependsOnMethods = "testInitializationWithNullArg")
     public void testInitializationWithValidInjector() throws Exception {
 
@@ -75,6 +81,29 @@ public class GuiceApplicationTest {
 
         assertNotNull(app.helloString);
         assertEquals(app.helloString, HELLO_VALUE);
+    }
+
+    static class InvalidGuiceApplicationWithWrongConstructor extends GuiceApplication {
+
+        @Inject
+        public InvalidGuiceApplicationWithWrongConstructor() {
+            super();
+            // Invalid constructor, because it is annotated with @Inject.
+        }
+
+        @Override
+        public Injector createInjector() {
+            return Guice.createInjector(new AbstractModule() {
+                @Override
+                protected void configure() {
+                    // Intentionally left empty!
+                }
+            });
+        }
+        @Override
+        public void start(Stage primaryStage) throws Exception {
+            // Do nothing...
+        }
     }
 
     static class ValidGuiceApplication extends GuiceApplication {
