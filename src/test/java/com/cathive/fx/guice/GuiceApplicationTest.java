@@ -18,6 +18,8 @@ package com.cathive.fx.guice;
 
 import static org.testng.Assert.*;
 
+import java.util.List;
+
 import javafx.stage.Stage;
 
 import org.testng.annotations.Test;
@@ -26,6 +28,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
@@ -47,7 +50,7 @@ public class GuiceApplicationTest {
             }
 
             @Override
-            public Injector createInjector() {
+            public Injector createInjector(List<Module> modules) {
                 // Return null to cause IllegalArgumentException
                 return null;
             }
@@ -89,13 +92,14 @@ public class GuiceApplicationTest {
         }
 
         @Override
-        public Injector createInjector() {
-            return Guice.createInjector(new AbstractModule() {
+        public Injector createInjector(List<Module> modules) {
+            modules.add(new AbstractModule() {
                 @Override
                 protected void configure() {
                     bind(String.class).annotatedWith(Names.named(HELLO_KEY)).toInstance(HELLO_VALUE);
                 }
             });
+            return Guice.createInjector(modules);
         }
 
     }

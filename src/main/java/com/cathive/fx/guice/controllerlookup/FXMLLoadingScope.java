@@ -5,20 +5,31 @@ import java.util.ArrayList;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
-import com.google.inject.Singleton;
 
-@Singleton
+/**
+ * Handles construction of objects annotated with {@link FXMLScoped}.
+ * 
+ * @author Andy
+ *
+ */
 public class FXMLLoadingScope implements Scope {
 
     private ArrayList<IdentifiableController> identifiables;
 
+    /**
+     * Enter the scope. From here on in, controllers implementing
+     * {@link IdentifiableController} and annotated wih {@link FXMLScoped} will
+     * be retrievable from any {@link ControllerLookup} instance that is
+     * injected.
+     */
     public void enter() {
-
         identifiables = new ArrayList<IdentifiableController>();
     }
 
+    /**
+     * End the scope.
+     */
     public void exit() {
-
         identifiables = null;
     }
 
@@ -48,5 +59,9 @@ public class FXMLLoadingScope implements Scope {
 
     public ArrayList<IdentifiableController> getControllers() {
         return identifiables;
+    }
+
+    public boolean isInScope() {
+        return (identifiables != null);
     }
 }

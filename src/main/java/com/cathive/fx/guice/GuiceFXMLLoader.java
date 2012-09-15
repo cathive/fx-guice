@@ -21,10 +21,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.util.Callback;
 
 import javax.inject.Inject;
 
+import com.cathive.fx.guice.controllerlookup.FXMLLoadingScope;
 import com.google.inject.Injector;
 
 /**
@@ -40,6 +42,8 @@ public final class GuiceFXMLLoader {
      * class`.
      */
     private final Injector injector;
+    
+    private final FXMLLoadingScope fxmlLoadingScope;
 
     /**
      * This constructor is usually never called directly.
@@ -55,6 +59,8 @@ public final class GuiceFXMLLoader {
             throw new IllegalArgumentException("The Injector instance must not be null.");
         }
         this.injector = injector;
+        
+        fxmlLoadingScope = injector.getInstance(FXMLLoadingScope.class);
     }
 
     /**
@@ -73,8 +79,16 @@ public final class GuiceFXMLLoader {
      * @throws IOException
      * @see javafx.fxml.FXMLLoader#load(URL, ResourceBundle)
      */
+    @SuppressWarnings("unchecked")
     public <N> N load(final URL url, final ResourceBundle resources) throws IOException {
 
+        return (N)loadWithController(url, resources).getNode();
+    }
+    
+    public <N extends Node> FXMLResult<N> loadWithController(final URL url, final ResourceBundle resources) throws IOException  {
+        
+        fxmlLoadingScope.enter();
+        
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
         loader.setResources(resources);
@@ -89,8 +103,10 @@ public final class GuiceFXMLLoader {
 
         @SuppressWarnings("unchecked")
         final N value = (N) loader.load(url.openStream());
-        return value;
-
+        
+        fxmlLoadingScope.exit();
+        
+        return new FXMLResult<N>(value, loader.getController());
     }
 
     /**

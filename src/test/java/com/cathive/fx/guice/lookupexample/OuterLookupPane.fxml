@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="578.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.lookupexample.OuterLookupController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <fx:include fx:id="examplePane1" source="InnerLookupPane.fxml" prefHeight="100.0" />
+    <fx:include fx:id="examplePane2" source="InnerLookupPane.fxml" prefHeight="100.0" />
+  </children>
+</VBox>

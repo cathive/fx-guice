@@ -16,10 +16,15 @@
 
 package com.cathive.fx.guice;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
+
+import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
+import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * @author Benjamin P. Jung
@@ -48,7 +53,13 @@ public abstract class GuiceApplication extends Application {
         final Class<GuiceApplication> clazz = (Class<GuiceApplication>) getClass();
         final GuiceApplication instance = this;
 
-        final Injector inj = createInjector();
+        ArrayList<Module> modules;
+        
+        modules = new ArrayList<Module>();
+        modules.add(new FXMLLoadingModule());
+        
+        final Injector inj = createInjector(modules);
+        
         if (inj == null) {
             throw new IllegalStateException("Injector has not been created (yet).");
         }
@@ -68,13 +79,17 @@ public abstract class GuiceApplication extends Application {
     }
 
     /**
-     * This method initializes the Guice Injector to be used for
-     * dependency injection in the context of this application instance.
-     * <p>This method <strong>must not</strong> return <code>null</code>.
-     * @return
-     *     The injector to be used in context of this application.
+     * This method initializes the Guice Injector to be used for dependency
+     * injection in the context of this application instance.
+     * <p>
+     * This method <strong>must not</strong> return <code>null</code>.
+     * 
+     * @param modules
+     *            A mutable list of {@link Module} instances that should be
+     *            loaded when creating the injector.
+     * @return The injector to be used in context of this application.
      */
-    public abstract Injector createInjector();
+    public abstract Injector createInjector(List<Module> modules);
 
     /**
      * Returns the Google Guice Injector that is used within the context
@@ -87,5 +102,4 @@ public abstract class GuiceApplication extends Application {
     public final Injector getInjector() {
         return this.injector;
     }
-
 }
