@@ -18,7 +18,6 @@ package com.cathive.fx.guice;
 
 import static org.testng.Assert.*;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.scene.layout.AnchorPane;
@@ -88,7 +87,7 @@ public class GuiceFXMLLoaderTest {
 
         // Load the FXML file and check that afterwards the controller must be initialized.
         final AnchorPane pane = fxmlLoader.load(getClass().getResource("/ExamplePane.fxml"),
-                ResourceBundle.getBundle("ExamplePane", Locale.ENGLISH));
+                ResourceBundle.getBundle("ExamplePane"));
         assertTrue(ctrl.isInitialized());
         assertNotNull(ctrl.getRootPane());
         assertEquals(ctrl.getRootPane(), pane);
