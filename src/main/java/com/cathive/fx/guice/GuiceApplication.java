@@ -16,9 +16,6 @@
 
 package com.cathive.fx.guice;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.application.Application;
 
 import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
@@ -52,17 +49,14 @@ public abstract class GuiceApplication extends Application {
         @SuppressWarnings("unchecked")
         final Class<GuiceApplication> clazz = (Class<GuiceApplication>) getClass();
         final GuiceApplication instance = this;
-
-        ArrayList<Module> modules;
         
-        modules = new ArrayList<Module>();
-        modules.add(new FXMLLoadingModule());
-        
-        final Injector inj = createInjector(modules);
+        Injector inj = createInjector();
         
         if (inj == null) {
             throw new IllegalStateException("Injector has not been created (yet).");
         }
+        
+        inj = inj.createChildInjector(new FXMLLoadingModule());
 
         // Inject all fields annotated with @Inject into this GuiceApplication instance.
         inj.injectMembers(instance);
@@ -89,7 +83,7 @@ public abstract class GuiceApplication extends Application {
      *            loaded when creating the injector.
      * @return The injector to be used in context of this application.
      */
-    public abstract Injector createInjector(List<Module> modules);
+    public abstract Injector createInjector();
 
     /**
      * Returns the Google Guice Injector that is used within the context

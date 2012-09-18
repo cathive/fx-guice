@@ -1,6 +1,5 @@
 package com.cathive.fx.guice;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -16,7 +15,6 @@ import com.cathive.fx.guice.lookupexample.OuterLookupController;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.google.inject.ProvisionException;
 
 import static org.testng.Assert.*;
@@ -30,8 +28,8 @@ public class ControllerLookupApplicationTest {
         }
 
         @Override
-        public Injector createInjector(List<Module> modules) {
-            return Guice.createInjector(modules);
+        public Injector createInjector() {
+            return Guice.createInjector();
         }
     }
     
