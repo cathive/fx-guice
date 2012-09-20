@@ -42,8 +42,8 @@ public abstract class GuiceApplication extends Application {
 
     private static final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
     static {
-    	injectAnnotationClasses.add(com.google.inject.Inject.class);
-    	injectAnnotationClasses.add(javax.inject.Inject.class);
+        injectAnnotationClasses.add(com.google.inject.Inject.class);
+        injectAnnotationClasses.add(javax.inject.Inject.class);
     }
 
     /**
