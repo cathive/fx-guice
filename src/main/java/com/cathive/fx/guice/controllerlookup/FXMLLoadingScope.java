@@ -10,7 +10,7 @@ import com.google.inject.Scope;
 /**
  * Handles construction of objects annotated with {@link FXMLController}.
  * 
- * @author Andy
+ * @author Andy Till
  *
  */
 public class FXMLLoadingScope implements Scope {

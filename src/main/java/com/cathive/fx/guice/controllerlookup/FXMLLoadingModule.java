@@ -23,7 +23,7 @@ public class FXMLLoadingModule extends AbstractModule {
         
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
     }
-    
+
     @Provides
     public ControllerLookup provideControllerLookup() {
         if(!fxmlLoadingScope.isInScope()) {
