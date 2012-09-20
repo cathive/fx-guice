@@ -21,18 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+
+import javax.inject.Inject;
+
+import com.cathive.fx.guice.FXMLController;
 
 /**
  * 
  * @author Benjamin P. Jung
  */
-@Singleton
+@FXMLController
 public class ExamplePaneController implements Initializable {
 
 	private List<String> methodCalls = new ArrayList<>();
