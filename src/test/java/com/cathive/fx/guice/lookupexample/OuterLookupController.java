@@ -1,9 +1,11 @@
 package com.cathive.fx.guice.lookupexample;
 
+import com.cathive.fx.guice.FXMLController;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.cathive.fx.guice.controllerlookup.IdentifiableController;
 import com.google.inject.Inject;
 
+@FXMLController
 public class OuterLookupController {
 
     @Inject

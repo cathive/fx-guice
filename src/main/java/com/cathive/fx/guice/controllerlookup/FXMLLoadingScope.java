@@ -17,6 +17,9 @@ public class FXMLLoadingScope implements Scope {
 
     private ArrayList<IdentifiableController> identifiables;
 
+    public FXMLLoadingScope() {
+        super();
+    }
     /**
      * Enter the scope. From here on in, controllers implementing
      * {@link IdentifiableController} and annotated wih {@link FXMLController} will

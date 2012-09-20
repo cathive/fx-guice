@@ -26,6 +26,7 @@ import javafx.application.Application;
 import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
+import com.google.inject.util.Modules;
 
 /**
  * @author Benjamin P. Jung
@@ -65,8 +66,6 @@ public abstract class GuiceApplication extends Application {
         if (inj == null) {
             throw new IllegalStateException("Injector has not been created (yet)!");
         }
-        
-        inj = inj.createChildInjector(new FXMLLoadingModule());
 
         // Checks the GuiceApplication instance and makes sure that none of the constructors is
         // annotated with @Inject!
@@ -75,10 +74,6 @@ public abstract class GuiceApplication extends Application {
                 throw new IllegalStateException("GuiceApplication with construtor that is marked with @Inject is not allowed!");
             }
         }
-        
-
-        // Inject all fields annotated with @Inject into this GuiceApplication instance.
-        inj.injectMembers(instance);
 
         // Create a child injector and bind the instance of this GuiceApplication
         // to any instances of GuiceApplication.class.
@@ -87,7 +82,10 @@ public abstract class GuiceApplication extends Application {
             protected void configure() {
                 bind(clazz).toInstance(instance);
             }
-        });
+        }, new FXMLLoadingModule());
+
+        // Inject all fields annotated with @Inject into this GuiceApplication instance.
+        injector.injectMembers(instance);
 
     }
 
