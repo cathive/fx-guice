@@ -49,3 +49,6 @@ dist/
 
 # Java Crash Dumps
 hs_err_pid*.log
+
+# Test output (seems TestNG and Eclipse specific)
+test-output/

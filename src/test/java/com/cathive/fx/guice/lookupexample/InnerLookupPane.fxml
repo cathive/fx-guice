@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.lookupexample.InnerLookupController">
+	<!-- TODO Add Nodes -->
+</VBox>
+
