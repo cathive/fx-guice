@@ -2,12 +2,13 @@ package com.cathive.fx.guice.controllerlookup;
 
 import java.util.ArrayList;
 
+import com.cathive.fx.guice.FXMLController;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
 
 /**
- * Handles construction of objects annotated with {@link FXMLScoped}.
+ * Handles construction of objects annotated with {@link FXMLController}.
  * 
  * @author Andy
  *
@@ -18,7 +19,7 @@ public class FXMLLoadingScope implements Scope {
 
     /**
      * Enter the scope. From here on in, controllers implementing
-     * {@link IdentifiableController} and annotated wih {@link FXMLScoped} will
+     * {@link IdentifiableController} and annotated wih {@link FXMLController} will
      * be retrievable from any {@link ControllerLookup} instance that is
      * injected.
      */

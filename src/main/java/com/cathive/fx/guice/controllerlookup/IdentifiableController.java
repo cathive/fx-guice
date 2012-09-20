@@ -1,5 +1,7 @@
 package com.cathive.fx.guice.controllerlookup;
 
+import com.cathive.fx.guice.FXMLController;
+
 import javafx.scene.Parent;
 
 /**
@@ -8,7 +10,7 @@ import javafx.scene.Parent;
  * 
  * @author Andy Till
  * 
- * @see FXMLScoped
+ * @see FXMLController
  * @see ParentIDFinder
  */
 public interface IdentifiableController {

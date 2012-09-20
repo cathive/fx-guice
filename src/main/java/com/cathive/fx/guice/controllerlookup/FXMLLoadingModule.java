@@ -1,6 +1,7 @@
 package com.cathive.fx.guice.controllerlookup;
 
 
+import com.cathive.fx.guice.FXMLController;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Provides;
@@ -18,7 +19,7 @@ public class FXMLLoadingModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bindScope(FXMLScoped.class, fxmlLoadingScope);
+        bindScope(FXMLController.class, fxmlLoadingScope);
         
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
     }

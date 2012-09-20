@@ -1,10 +1,12 @@
-package com.cathive.fx.guice.controllerlookup;
+package com.cathive.fx.guice;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.*;
 
+import com.cathive.fx.guice.controllerlookup.ControllerLookup;
+import com.cathive.fx.guice.controllerlookup.IdentifiableController;
 import com.google.inject.Scope;
 import com.google.inject.ScopeAnnotation;
 
@@ -19,6 +21,6 @@ import com.google.inject.ScopeAnnotation;
 @ScopeAnnotation
 @Retention(RUNTIME) 
 @Target({ TYPE, METHOD }) 
-public @interface FXMLScoped {
+public @interface FXMLController {
 
 }
