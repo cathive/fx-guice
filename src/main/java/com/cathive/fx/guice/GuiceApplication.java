@@ -26,7 +26,6 @@ import javafx.application.Application;
 import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 
 /**
  * @author Benjamin P. Jung
