@@ -47,7 +47,7 @@ public class ControllerLookupApplicationTest {
         loader = new GuiceFXMLLoader(app.getInjector());
         
         result = loader.loadWithController(
-            getClass().getResource("/com/cathive/fx/guice/lookupexample/OuterLookupPane.fxml"), 
+            getClass().getResource("/OuterLookupPane.fxml"), 
             ResourceBundle.getBundle("ExamplePane", Locale.ENGLISH)
         );
     }
