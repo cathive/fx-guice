@@ -95,12 +95,8 @@ public abstract class GuiceApplication extends Application {
     /**
      * This method initializes the Guice Injector to be used for dependency
      * injection in the context of this application instance.
-     * <p>
-     * This method <strong>must not</strong> return <code>null</code>.
+     * <p>This method <strong>must not</strong> return <code>null</code>.</p>
      * 
-     * @param modules
-     *            A mutable list of {@link Module} instances that should be
-     *            loaded when creating the injector.
      * @return The injector to be used in context of this application.
      */
     public abstract Injector createInjector();
