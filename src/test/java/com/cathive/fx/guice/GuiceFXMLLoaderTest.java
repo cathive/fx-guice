@@ -16,20 +16,23 @@
 
 package com.cathive.fx.guice;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 import java.util.ResourceBundle;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.cathive.fx.guice.example.ExamplePaneController;
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 
 /**
  * 
@@ -42,17 +45,23 @@ public class GuiceFXMLLoaderTest {
     private Injector injector = null;
 
     private GuiceFXMLLoader fxmlLoader = null;
+
     private ExamplePaneController ctrl;
 
     @BeforeClass
-    private void initialize() {
-        final Module module = new AbstractModule() {
+    private void initialize() throws Exception {
+    	final GuiceApplication app = new GuiceApplication () {
             @Override
-            protected void configure() {
-                bind(GuiceFXMLLoader.class);
+            public Injector createInjector() {
+                return Guice.createInjector();
+            }
+            @Override
+            public void start(Stage arg0) throws Exception {
+                // Intentionally left empty!
             }
         };
-        this.injector = Guice.createInjector(module);
+        app.init();
+        this.injector = app.getInjector();
     }
 
     @Test(description = "Assert that an instance of the GuiceFXMLLoader without an Injector Instance cannot be created", expectedExceptions = IllegalArgumentException.class)
