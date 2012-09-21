@@ -33,7 +33,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.cathive.fx.guice.example.ExamplePaneController;
-import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
