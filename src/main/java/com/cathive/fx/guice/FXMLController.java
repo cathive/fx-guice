@@ -20,7 +20,7 @@ import com.google.inject.ScopeAnnotation;
  */
 @ScopeAnnotation
 @Retention(RUNTIME) 
-@Target({ TYPE, METHOD }) 
+@Target({ TYPE }) 
 public @interface FXMLController {
 
 }
