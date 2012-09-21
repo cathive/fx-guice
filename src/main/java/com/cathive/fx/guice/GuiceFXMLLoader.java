@@ -24,9 +24,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Callback;
 
-import javax.inject.Inject;
-
 import com.cathive.fx.guice.controllerlookup.FXMLLoadingScope;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
@@ -54,6 +53,12 @@ public final class GuiceFXMLLoader {
      * to fetch an instance of this class.</p>
      * @param injector
      *              Usually injected via Guice.
+     * @throws IllegalArgumentException
+     *              if you try to pass a <code>null</code> value as
+     *              injector instance.
+     * @throws IllegalStateException
+     *              if the injector has no binding for the {@link FXMLController}
+     *              loading scope.
      */
     @Inject
     public GuiceFXMLLoader(final Injector injector) {
@@ -61,9 +66,27 @@ public final class GuiceFXMLLoader {
         if (injector == null) {
             throw new IllegalArgumentException("The Injector instance must not be null.");
         }
+        if (!injector.getScopeBindings().containsKey(FXMLController.class)) {
+            throw new IllegalStateException("FXMLController loading scope is not bound in your Injector.");
+        }
         this.injector = injector;
         
         fxmlLoadingScope = injector.getInstance(FXMLLoadingScope.class);
+    }
+
+    /** Delegate to {@link FXMLLoader#getController()}. */ 
+    @SuppressWarnings("unchecked")
+    public <T> T getController() {
+        return (T) loader.getController();
+    }
+
+    /** Delegate to {@link FXMLLoader#getLocation(). */
+    public URL getLocation() {
+        return loader.getLocation();
+    }
+    /** Delegate to {@link FXMLLoader#getResources(). */
+    public ResourceBundle getResources() {
+        return loader.getResources();
     }
 
     /**
@@ -109,11 +132,6 @@ public final class GuiceFXMLLoader {
         fxmlLoadingScope.exit();
 
         return new FXMLResult<N>(value, loader.getController());
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getController() {
-        return (T) loader.getController();
     }
 
     /**
