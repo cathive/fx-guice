@@ -22,6 +22,8 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +35,7 @@ import org.testng.annotations.Test;
 import com.cathive.fx.guice.example.ExamplePaneController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 /**
  * 
@@ -52,8 +55,8 @@ public class GuiceFXMLLoaderTest {
     private void initialize() throws Exception {
     	final GuiceApplication app = new GuiceApplication () {
             @Override
-            public Injector createInjector() {
-                return Guice.createInjector();
+            public Collection<Module> initModules() {
+                return new HashSet<Module>();
             }
             @Override
             public void start(Stage arg0) throws Exception {
@@ -83,8 +86,7 @@ public class GuiceFXMLLoaderTest {
     }
 
     @Test(dependsOnMethods = "instantiationViaGuiceTest")
-    public void fxmlLoadingTest() throws Exception {
-
+    public void fxmlControllerInstantiationTest() throws Exception {
         // Fetches an instance of the ExamplePaneController and makes sure it is not (yet) initialized.
         ctrl = injector.getInstance(ExamplePaneController.class);
         assertNotNull(ctrl);
@@ -93,10 +95,20 @@ public class GuiceFXMLLoaderTest {
         assertNull(ctrl.getRootPane());
         assertTrue(ctrl.getMethodCalls().contains("postConstruct()"));
         assertEquals(ctrl.getMethodCalls().size(), 1);
+    }
+
+    @Test(dependsOnMethods = "fxmlControllerInstantiationTest")
+    public void fxmlLoadingTest() throws Exception {
 
         // Load the FXML file and check that afterwards the controller must be initialized.
         final AnchorPane pane = fxmlLoader.load(getClass().getResource("/ExamplePane.fxml"),
                 ResourceBundle.getBundle("ExamplePane"));
+        ctrl = fxmlLoader.getController();
+
+        // It is important, that no new instances of the FXMLController instance
+        // are created when subsequentially calling getController().
+        assertTrue(ctrl == fxmlLoader.getController());
+
         assertTrue(ctrl.isInitialized());
         assertNotNull(ctrl.getRootPane());
         assertEquals(ctrl.getRootPane(), pane);

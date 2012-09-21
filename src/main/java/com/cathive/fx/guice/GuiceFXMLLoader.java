@@ -37,6 +37,9 @@ import com.google.inject.Injector;
  */
 public final class GuiceFXMLLoader {
 
+    /** Wrapped JavaFX FXMLLoader instance. */
+    private final FXMLLoader loader = new FXMLLoader();
+
     /**
      * Guice Injector that will be used to fetch an instance of our `controller
      * class`.
@@ -86,10 +89,9 @@ public final class GuiceFXMLLoader {
     }
     
     public <N extends Node> FXMLResult<N> loadWithController(final URL url, final ResourceBundle resources) throws IOException  {
-        
+
         fxmlLoadingScope.enter();
-        
-        final FXMLLoader loader = new FXMLLoader();
+
         loader.setLocation(url);
         loader.setResources(resources);
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
@@ -103,10 +105,15 @@ public final class GuiceFXMLLoader {
 
         @SuppressWarnings("unchecked")
         final N value = (N) loader.load(url.openStream());
-        
+
         fxmlLoadingScope.exit();
-        
+
         return new FXMLResult<N>(value, loader.getController());
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getController() {
+        return (T) loader.getController();
     }
 
     /**

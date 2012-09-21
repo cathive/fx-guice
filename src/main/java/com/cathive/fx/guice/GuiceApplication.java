@@ -17,7 +17,9 @@
 package com.cathive.fx.guice;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,8 +27,9 @@ import javafx.application.Application;
 
 import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
 import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.util.Modules;
+import com.google.inject.Module;
 
 /**
  * @author Benjamin P. Jung
@@ -36,11 +39,15 @@ public abstract class GuiceApplication extends Application {
     /**
      * The Guice Injector instance that is being used within
      * the context of this application.
-     * @see #createInjector()
+     * @see #initModules()
      * @see #getInjector()
      */
     private Injector injector;
 
+    /**
+     * List of annotations that are not allowed on constructors of
+     * {@code GuiceApplication} instances.
+     */
     private static final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
     static {
         injectAnnotationClasses.add(com.google.inject.Inject.class);
@@ -60,12 +67,6 @@ public abstract class GuiceApplication extends Application {
         @SuppressWarnings("unchecked")
         final Class<GuiceApplication> clazz = (Class<GuiceApplication>) getClass();
         final GuiceApplication instance = this;
-        
-        Injector inj = createInjector();
-        
-        if (inj == null) {
-            throw new IllegalStateException("Injector has not been created (yet)!");
-        }
 
         // Checks the GuiceApplication instance and makes sure that none of the constructors is
         // annotated with @Inject!
@@ -75,28 +76,39 @@ public abstract class GuiceApplication extends Application {
             }
         }
 
-        // Create a child injector and bind the instance of this GuiceApplication
-        // to any instances of GuiceApplication.class.
-        injector = inj.createChildInjector(new AbstractModule() {
+        final Set<Module> modules = new HashSet<Module>();
+        modules.add(new AbstractModule() {
             @Override
             protected void configure() {
                 bind(clazz).toInstance(instance);
             }
-        }, new FXMLLoadingModule());
+        });
+        modules.add(new FXMLLoadingModule());
+        final Collection<Module> additionalModules = initModules();
+        modules.addAll(additionalModules);
 
-        // Inject all fields annotated with @Inject into this GuiceApplication instance.
+        // Creates an injector with all of the required modules.
+        injector = Guice.createInjector(modules);
+
+        // Injects all fields annotated with @Inject into this GuiceApplication instance.
         injector.injectMembers(instance);
 
     }
 
     /**
-     * This method initializes the Guice Injector to be used for dependency
-     * injection in the context of this application instance.
-     * <p>This method <strong>must not</strong> return <code>null</code>.</p>
+     * This method is used to fetch and/or create (Guice) modules necessary
+     * to fully construct this application.
+     * <p>The modules that are returned by this methods will be used to
+     * create the {@link Injector} instance that is used in the context
+     * of this application.</p>
+     * <p>A <code>null</code> return value is not permitted.</p>
      * 
-     * @return The injector to be used in context of this application.
+     * @return A list of modules that shall be used to create the injector
+     *         to be used in the context of this application.
+     * 
+     * @see #getInjector()
      */
-    public abstract Injector createInjector();
+    public abstract Collection<Module> initModules();
 
     /**
      * Returns the Google Guice Injector that is used within the context
@@ -104,7 +116,7 @@ public abstract class GuiceApplication extends Application {
      * @return
      *     The Guice Injector that has been created during the initialization
      *     of this JavaFX Application.
-     * @see #createInjector()
+     * @see #initModules()
      */
     public final Injector getInjector() {
         return this.injector;
@@ -121,7 +133,7 @@ public abstract class GuiceApplication extends Application {
      * @see javax.inject.Inject
      * @see com.google.inject.Inject
      */
-    private static final boolean isInjectAnnotationPresent(final Constructor<?> constructor) {
+    private static final boolean isInjectAnnotationPresent(final AccessibleObject constructor) {
         for (final Class<? extends Annotation> annotationClass: injectAnnotationClasses) {
             if (constructor.isAnnotationPresent(annotationClass)) {
                 // Directly returns if an @Inject annotation can be found.

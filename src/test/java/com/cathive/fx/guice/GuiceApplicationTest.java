@@ -18,6 +18,10 @@ package com.cathive.fx.guice;
 
 import static org.testng.Assert.*;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.stage.Stage;
 
 import org.testng.annotations.Test;
@@ -26,6 +30,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
@@ -38,7 +43,7 @@ public class GuiceApplicationTest {
     public static final String HELLO_KEY = "hello";
     public static final String HELLO_VALUE = "Hello, World!";
 
-    @Test(expectedExceptions = IllegalStateException.class)
+    @Test(expectedExceptions = NullPointerException.class)
     public void testInitializationWithNullArg() throws Exception {
         new GuiceApplication() {
             @Override
@@ -47,7 +52,7 @@ public class GuiceApplicationTest {
             }
 
             @Override
-            public Injector createInjector() {
+            public Collection<Module> initModules() {
                 // Return null to cause IllegalArgumentException
                 return null;
             }
@@ -92,13 +97,15 @@ public class GuiceApplicationTest {
         }
 
         @Override
-        public Injector createInjector() {
-            return Guice.createInjector(new AbstractModule() {
+        public Collection<Module> initModules() {
+            final Set<Module> modules = new HashSet<>();
+            modules.add(new AbstractModule() {
                 @Override
                 protected void configure() {
                     // Intentionally left empty!
                 }
             });
+            return modules;
         }
         @Override
         public void start(Stage primaryStage) throws Exception {
@@ -118,13 +125,15 @@ public class GuiceApplicationTest {
         }
 
         @Override
-        public Injector createInjector() {
-            return Guice.createInjector(new AbstractModule() {
+        public Collection<Module> initModules() {
+            final Set<Module> modules = new HashSet<>();
+            modules.add(new AbstractModule() {
                 @Override
                 protected void configure() {
                     bind(String.class).annotatedWith(Names.named(HELLO_KEY)).toInstance(HELLO_VALUE);
                 }
             });
+            return modules;
         }
 
     }
