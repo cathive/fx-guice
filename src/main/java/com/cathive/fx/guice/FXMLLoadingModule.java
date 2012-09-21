@@ -1,7 +1,7 @@
-package com.cathive.fx.guice.controllerlookup;
+package com.cathive.fx.guice;
 
 
-import com.cathive.fx.guice.FXMLController;
+import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Provider;

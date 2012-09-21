@@ -24,7 +24,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Callback;
 
-import com.cathive.fx.guice.controllerlookup.FXMLLoadingScope;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 

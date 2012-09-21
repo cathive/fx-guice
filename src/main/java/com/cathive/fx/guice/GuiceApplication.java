@@ -25,7 +25,6 @@ import java.util.Set;
 
 import javafx.application.Application;
 
-import com.cathive.fx.guice.controllerlookup.FXMLLoadingModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
