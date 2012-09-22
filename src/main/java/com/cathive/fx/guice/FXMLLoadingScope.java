@@ -16,12 +16,8 @@
 
 package com.cathive.fx.guice;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javafx.scene.Node;
@@ -41,7 +37,6 @@ import com.google.inject.Scope;
 class FXMLLoadingScope implements Scope {
 
     private GuiceFXMLLoader fxmlLoader;
-    private Node node;
 
     private Set<IdentifiableController> identifiables;
 
@@ -65,11 +60,6 @@ class FXMLLoadingScope implements Scope {
     public void exit() {
         this.identifiables = null;
         this.fxmlLoader = null;
-        this.node = null;
-    }
-
-    public void setNode(final Node node) {
-        this.node = node;
     }
 
     @Override
@@ -103,7 +93,11 @@ class FXMLLoadingScope implements Scope {
         return identifiables;
     }
 
-    public boolean isInScope() {
+    /**
+     * Checks whether the FXML Loading Scope is currently being used.
+     * @return <code>true</code> if this scope is currently active, <code>false</code> otherwise.
+     */
+    public boolean isActive() {
         return (identifiables != null);
     }
 

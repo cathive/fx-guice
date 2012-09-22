@@ -128,8 +128,6 @@ public final class GuiceFXMLLoader {
         @SuppressWarnings("unchecked")
         final N value = (N) loader.load(url.openStream());
 
-        fxmlLoadingScope.setNode(value);
-
         fxmlLoadingScope.exit();
 
         return new FXMLResult<N>(value, loader.getController());
