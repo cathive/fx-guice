@@ -241,7 +241,7 @@
         <dependency>
           <groupId>com.oracle</groupId>
           <artifactId>javafx-runtime</artifactId>
-          <version>LATEST</version>
+          <version>[2.2,)</version>
           <scope>system</scope>
           <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
         </dependency>
