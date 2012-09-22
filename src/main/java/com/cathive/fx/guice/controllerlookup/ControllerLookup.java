@@ -16,6 +16,7 @@
 
 package com.cathive.fx.guice.controllerlookup;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,9 +31,9 @@ import java.util.List;
  */
 public class ControllerLookup {
     
-    private final List<IdentifiableController> identifiables;
+    private final Collection<IdentifiableController> identifiables;
 
-    public ControllerLookup(List<IdentifiableController> identifiables) {
+    public ControllerLookup(Collection<IdentifiableController> identifiables) {
         this.identifiables = identifiables;
     }
     
@@ -48,7 +49,7 @@ public class ControllerLookup {
      */
     @SuppressWarnings("unchecked")
     public <T> T lookup(String id) {
-        for (IdentifiableController controller : identifiables) {
+        for (final IdentifiableController controller : identifiables) {
             if(controller.getId().equals(id)) {
                 return (T) controller;
             }

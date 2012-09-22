@@ -20,7 +20,7 @@ import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.google.inject.Provider;
-import com.google.inject.Provides;
+import com.google.inject.matcher.Matchers;
 
 /**
  * {@link Module} enabling interaction between multiple controllers loaded in
@@ -36,10 +36,11 @@ public class FXMLLoadingModule extends AbstractModule {
 
     @Override
     protected void configure() {
-    	final FXMLLoadingScope fxmlLoadingScope = new FXMLLoadingScope();
+        final FXMLLoadingScope fxmlLoadingScope = new FXMLLoadingScope();
         bindScope(FXMLController.class, fxmlLoadingScope);
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
         bind(ControllerLookup.class).toProvider(new ControllerLookupProvider(fxmlLoadingScope));
+        bindListener(Matchers.any(), new FXMLControllerTypeListener(fxmlLoadingScope));
     }
 
 
@@ -51,11 +52,11 @@ public class FXMLLoadingModule extends AbstractModule {
         }
         @Override
         public ControllerLookup get() {
-            if(!fxmlLoadingScope.isInScope()) {
-                throw new IllegalStateException("A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
+            if (!fxmlLoadingScope.isInScope()) {
+                throw new IllegalStateException(
+                        "A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
             }
-            
-            return new ControllerLookup(fxmlLoadingScope.getControllers());
+            return new ControllerLookup(fxmlLoadingScope.getIdentifiables());
         }
     }
 

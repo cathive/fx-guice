@@ -43,7 +43,7 @@ public final class GuiceFXMLLoader {
      * class`.
      */
     private final Injector injector;
-    
+
     private final FXMLLoadingScope fxmlLoadingScope;
 
     /**
@@ -112,7 +112,7 @@ public final class GuiceFXMLLoader {
     
     public <N extends Node> FXMLResult<N> loadWithController(final URL url, final ResourceBundle resources) throws IOException  {
 
-        fxmlLoadingScope.enter();
+        fxmlLoadingScope.enter(this);
 
         loader.setLocation(url);
         loader.setResources(resources);
@@ -127,6 +127,8 @@ public final class GuiceFXMLLoader {
 
         @SuppressWarnings("unchecked")
         final N value = (N) loader.load(url.openStream());
+
+        fxmlLoadingScope.setNode(value);
 
         fxmlLoadingScope.exit();
 

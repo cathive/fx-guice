@@ -16,6 +16,7 @@
 
 package com.cathive.fx.guice.controllerlookup;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
 
 /**
@@ -35,7 +36,7 @@ public class ParentIDFinder {
      *         be returned if non-{@code null} and so on. If no parent's have an
      *         ID set then {@code null} is returned.
      */
-    public static String getParentId(Parent node) {
+    public static String getParentId(Node node) {
         if(node == null) {
             return null;
         }

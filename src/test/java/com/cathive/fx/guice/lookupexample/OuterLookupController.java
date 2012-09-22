@@ -10,7 +10,7 @@ public class OuterLookupController {
 
     @Inject
     private ControllerLookup controllerLookup;
-    
+
     public InnerLookupController getControllerForPane1() {
         return controllerLookup.lookup("examplePane1");
     }

@@ -36,7 +36,9 @@ import com.google.inject.ScopeAnnotation;
  */
 @ScopeAnnotation
 @Retention(RUNTIME) 
-@Target({ TYPE }) 
+@Target({ TYPE, FIELD }) 
 public @interface FXMLController {
-    // Intentionally left empty
+
+    public String controllerId() default "";
+
 }

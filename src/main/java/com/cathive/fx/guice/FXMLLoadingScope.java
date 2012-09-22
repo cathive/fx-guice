@@ -17,6 +17,14 @@
 package com.cathive.fx.guice;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javafx.scene.Node;
 
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.cathive.fx.guice.controllerlookup.IdentifiableController;
@@ -30,9 +38,12 @@ import com.google.inject.Scope;
  * @author Andy Till
  *
  */
-public class FXMLLoadingScope implements Scope {
+class FXMLLoadingScope implements Scope {
 
-    private ArrayList<IdentifiableController> identifiables;
+    private GuiceFXMLLoader fxmlLoader;
+    private Node node;
+
+    private Set<IdentifiableController> identifiables;
 
     public FXMLLoadingScope() {
         super();
@@ -43,46 +54,57 @@ public class FXMLLoadingScope implements Scope {
      * be retrievable from any {@link ControllerLookup} instance that is
      * injected.
      */
-    public void enter() {
-        identifiables = new ArrayList<IdentifiableController>();
+    public void enter(final GuiceFXMLLoader fxmlLoader) {
+        this.fxmlLoader = fxmlLoader;
+        this.identifiables = new HashSet<>();
     }
 
     /**
      * End the scope.
      */
     public void exit() {
-        identifiables = null;
+        this.identifiables = null;
+        this.fxmlLoader = null;
+        this.node = null;
+    }
+
+    public void setNode(final Node node) {
+        this.node = node;
     }
 
     @Override
     public <T> Provider<T> scope(final Key<T> key, final Provider<T> unscoped) {
         return new Provider<T>() {
             @Override
-            @SuppressWarnings("unchecked")
             public T get() {
-                return (T) provideObject(key, unscoped);
+                final T providedObject = unscoped.get();
+                if (identifiables != null && providedObject instanceof IdentifiableController) {
+                    final IdentifiableController identifiable = (IdentifiableController) providedObject;
+                    identifiables.add(identifiable);
+                }
+                return providedObject;
             }
         };
     }
 
-    protected <T> Object provideObject(Key<T> key, Provider<T> unscoped) {
-
-        Object providedObject = unscoped.get();
-
-        if (providedObject instanceof IdentifiableController) {
-            if (identifiables != null) {
-                identifiables.add((IdentifiableController) providedObject);
+	public <T> T getInstance(final String controllerId) {
+        for (final IdentifiableController identifiable: identifiables) {
+            if (identifiable.getId().equals(controllerId)) {
+                @SuppressWarnings("unchecked")
+                T controllerInstance = (T) identifiable;
+                return controllerInstance;
             }
         }
-
-        return providedObject;
+        // TODO Throw an exception maybe?
+        return null;
     }
 
-    public ArrayList<IdentifiableController> getControllers() {
+    public Collection<IdentifiableController> getIdentifiables() {
         return identifiables;
     }
 
     public boolean isInScope() {
         return (identifiables != null);
     }
+
 }
