@@ -31,6 +31,7 @@ tmtags
 *.old
 *.bak
 *.orig
+*.releaseBackup
 
 # Eclipse specific settings
 .classpath
