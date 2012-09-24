@@ -100,13 +100,11 @@ public class GuiceFXMLLoaderTest {
     public void fxmlLoadingTest() throws Exception {
 
         // Load the FXML file and check that afterwards the controller must be initialized.
-        final AnchorPane pane = fxmlLoader.load(getClass().getResource("/ExamplePane.fxml"),
+        final GuiceFXMLLoader.Result result = fxmlLoader.load(getClass().getResource("/ExamplePane.fxml"),
                 ResourceBundle.getBundle("ExamplePane"));
-        ctrl = fxmlLoader.getController();
-
-        // It is important, that no new instances of the FXMLController instance
-        // are created when subsequentially calling getController().
-        assertTrue(ctrl == fxmlLoader.getController());
+        assertNotNull(result);
+        final AnchorPane pane = result.getRoot(); 
+        ctrl = result.getController();
 
         assertTrue(ctrl.isInitialized());
         assertNotNull(ctrl.getRootPane());

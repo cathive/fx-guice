@@ -1,11 +1,13 @@
 package com.cathive.fx.guice;
 
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import org.testng.annotations.BeforeMethod;
@@ -14,13 +16,9 @@ import org.testng.annotations.Test;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.cathive.fx.guice.lookupexample.InnerLookupController;
 import com.cathive.fx.guice.lookupexample.OuterLookupController;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.ProvisionException;
-
-import static org.testng.Assert.*;
 
 public class ControllerLookupApplicationTest {
 
@@ -40,7 +38,7 @@ public class ControllerLookupApplicationTest {
     
     private GuiceFXMLLoader loader;
 
-    private FXMLResult<Node> result;
+    private GuiceFXMLLoader.Result result;
     
     @BeforeMethod
     public void setup() throws Exception {
@@ -49,7 +47,7 @@ public class ControllerLookupApplicationTest {
 
         loader = new GuiceFXMLLoader(app.getInjector());
         
-        result = loader.loadWithController(
+        result = loader.load(
             getClass().getResource("/OuterLookupPane.fxml"), 
             ResourceBundle.getBundle("ExamplePane", Locale.ENGLISH)
         );

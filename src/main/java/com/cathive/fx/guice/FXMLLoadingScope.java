@@ -20,8 +20,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.scene.Node;
-
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.cathive.fx.guice.controllerlookup.IdentifiableController;
 import com.google.inject.Key;

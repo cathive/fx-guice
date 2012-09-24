@@ -16,7 +16,9 @@
 
 package com.cathive.fx.guice;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,9 +29,7 @@ import javafx.stage.Stage;
 import org.testng.annotations.Test;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;

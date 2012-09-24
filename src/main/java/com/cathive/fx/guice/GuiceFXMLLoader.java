@@ -18,8 +18,11 @@ package com.cathive.fx.guice;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Callback;
@@ -34,9 +37,6 @@ import com.google.inject.Injector;
  * @author Benjamin P. Jung
  */
 public final class GuiceFXMLLoader {
-
-    /** Wrapped JavaFX FXMLLoader instance. */
-    private final FXMLLoader loader = new FXMLLoader();
 
     /**
      * Guice Injector that will be used to fetch an instance of our `controller
@@ -73,21 +73,6 @@ public final class GuiceFXMLLoader {
         fxmlLoadingScope = injector.getInstance(FXMLLoadingScope.class);
     }
 
-    /** Delegate to {@link FXMLLoader#getController()}. */ 
-    @SuppressWarnings("unchecked")
-    public <T> T getController() {
-        return (T) loader.getController();
-    }
-
-    /** Delegate to {@link FXMLLoader#getLocation(). */
-    public URL getLocation() {
-        return loader.getLocation();
-    }
-    /** Delegate to {@link FXMLLoader#getResources(). */
-    public ResourceBundle getResources() {
-        return loader.getResources();
-    }
-
     /**
      * Loads an object hierarchy from a FXML document.
      * <p>A simple wrapper around the
@@ -100,20 +85,15 @@ public final class GuiceFXMLLoader {
      * @param resources
      *             Resources to be used to localize strings.
      * @return
-     *             The loaded object hierarchy
+     *             The loaded object hierarchy encapsulated in a special result object.
      * @throws IOException
      * @see javafx.fxml.FXMLLoader#load(URL, ResourceBundle)
      */
-    @SuppressWarnings("unchecked")
-    public <N> N load(final URL url, final ResourceBundle resources) throws IOException {
-
-        return (N)loadWithController(url, resources).getNode();
-    }
-    
-    public <N extends Node> FXMLResult<N> loadWithController(final URL url, final ResourceBundle resources) throws IOException  {
+    public Result load(final URL url, final ResourceBundle resources) throws IOException  {
 
         fxmlLoadingScope.enter(this);
 
+        final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
         loader.setResources(resources);
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
@@ -125,12 +105,16 @@ public final class GuiceFXMLLoader {
             }
         });
 
-        @SuppressWarnings("unchecked")
-        final N value = (N) loader.load(url.openStream());
+        final Node value = (Node) loader.load(url.openStream());
 
         fxmlLoadingScope.exit();
 
-        return new FXMLResult<N>(value, loader.getController());
+        final Result result = new Result();
+        result.location.set(loader.getLocation());
+        result.controller.set(loader.getController());
+        result.root.set(loader.getRoot());
+        result.charset.set(loader.getCharset());
+        return result;
     }
 
     /**
@@ -143,13 +127,38 @@ public final class GuiceFXMLLoader {
      * @param url
      *             URL of the FXML resource to be loaded.
      * @return
-     *             The loaded object hierarchy
+     *             The loaded object hierarchy encapsulated in a special result object.
      * @throws IOException
      * @see javafx.fxml.FXMLLoader#load(URL)
      */
-    public <N> N load(final URL url) throws IOException {
+    public Result load(final URL url) throws IOException {
         // Delegate method call
         return load(url, null);
+    }
+
+
+    /**
+     * A simple wrapper around the result of an FXML loading operation.
+     * @author Benjamin P. Jung
+     */
+    public final static class Result {
+
+        private ReadOnlyObjectWrapper<URL> location = new ReadOnlyObjectWrapper<>();
+        public ReadOnlyObjectProperty<URL> locationProperty() { return this.location.getReadOnlyProperty(); }
+        public URL getUrl() { return this.location.get(); }
+
+        private ReadOnlyObjectWrapper<Object> root = new ReadOnlyObjectWrapper<>();
+        public ReadOnlyObjectProperty<Object> rootProperty() { return this.root.getReadOnlyProperty(); }
+        @SuppressWarnings("unchecked") public <N> N getRoot() { return (N) root.get(); }
+
+        private ReadOnlyObjectWrapper<Object> controller = new ReadOnlyObjectWrapper<>();
+        public ReadOnlyObjectProperty<Object> controllerProperty() { return this.controller.getReadOnlyProperty(); }
+        @SuppressWarnings("unchecked") public <N> N getController() { return (N) this.controller.get(); }
+
+        private ReadOnlyObjectWrapper<Charset> charset = new ReadOnlyObjectWrapper<>();
+        public ReadOnlyObjectProperty<Charset> charsetProperty() { return this.charset.getReadOnlyProperty(); }
+        public Charset getCharset() { return this.charset.get(); }
+
     }
 
 }
