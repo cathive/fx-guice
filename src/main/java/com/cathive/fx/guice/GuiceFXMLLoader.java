@@ -33,6 +33,8 @@ import com.google.inject.Injector;
 /**
  * If you want to `guicify` your JavaFX experience you can use an instance of
  * this class instead of the FXMLLoader that ships with JavaFX 2.x.
+ * <p>The easiest way to use this class is by just injecting it into your
+ * JavaFX application in the right places.</p>
  * @see javafx.fxml.FXMLLoader
  * @author Benjamin P. Jung
  */
@@ -54,6 +56,8 @@ public final class GuiceFXMLLoader {
      * <p>Instead use an existing {@link com.google.inject.Injector} instance
      * to fetch an instance of this class.</p>
      * @param injector
+     *              Usually injected via Guice.
+     * @param fxmlLoadingScope
      *              Usually injected via Guice.
      * @throws IllegalArgumentException
      *              if you try to pass a <code>null</code> value as
@@ -138,7 +142,7 @@ public final class GuiceFXMLLoader {
      * @see javafx.fxml.FXMLLoader#load(URL)
      */
     public Result load(final URL url) throws IOException {
-        // Delegate method call
+        // Delegates method call.
         return load(url, null);
     }
 
@@ -149,25 +153,57 @@ public final class GuiceFXMLLoader {
      */
     public static final class Result {
 
-        private ReadOnlyObjectWrapper<URL> location = new ReadOnlyObjectWrapper<>();
-        public ReadOnlyObjectProperty<URL> locationProperty() { return this.location.getReadOnlyProperty(); }
-        public URL getUrl() { return this.location.get(); }
+        private final ReadOnlyObjectWrapper<URL> location = new ReadOnlyObjectWrapper<>();
+        private final ReadOnlyObjectWrapper<ResourceBundle> resources = new ReadOnlyObjectWrapper<>();
+        private final ReadOnlyObjectWrapper<Object> root = new ReadOnlyObjectWrapper<>();
+        private final ReadOnlyObjectWrapper<Object> controller = new ReadOnlyObjectWrapper<>();
+        private final ReadOnlyObjectWrapper<Charset> charset = new ReadOnlyObjectWrapper<>();
 
-        private ReadOnlyObjectWrapper<ResourceBundle> resources = new ReadOnlyObjectWrapper<>();
-        public ReadOnlyObjectProperty<ResourceBundle> resourcesProperty() { return this.resources.getReadOnlyProperty(); }
-        public ResourceBundle getResources() { return this.resources.get(); }
+        public ReadOnlyObjectProperty<URL> locationProperty() {
+            return this.location.getReadOnlyProperty();
+        }
 
-        private ReadOnlyObjectWrapper<Object> root = new ReadOnlyObjectWrapper<>();
-        public ReadOnlyObjectProperty<Object> rootProperty() { return this.root.getReadOnlyProperty(); }
-        @SuppressWarnings("unchecked") public <N> N getRoot() { return (N) root.get(); }
+        public URL getUrl() {
+            return this.location.get();
+        }
 
-        private ReadOnlyObjectWrapper<Object> controller = new ReadOnlyObjectWrapper<>();
-        public ReadOnlyObjectProperty<Object> controllerProperty() { return this.controller.getReadOnlyProperty(); }
-        @SuppressWarnings("unchecked") public <N> N getController() { return (N) this.controller.get(); }
+        public ReadOnlyObjectProperty<ResourceBundle> resourcesProperty() {
+            return this.resources.getReadOnlyProperty();
+        }
 
-        private ReadOnlyObjectWrapper<Charset> charset = new ReadOnlyObjectWrapper<>();
-        public ReadOnlyObjectProperty<Charset> charsetProperty() { return this.charset.getReadOnlyProperty(); }
-        public Charset getCharset() { return this.charset.get(); }
+        public ResourceBundle getResources() {
+            return this.resources.get();
+        }
+
+        public ReadOnlyObjectProperty<Object> rootProperty() {
+            return this.root.getReadOnlyProperty();
+        }
+
+        @SuppressWarnings("unchecked")
+        public <N> N getRoot() {
+            return (N) root.get();
+        }
+
+        public ReadOnlyObjectProperty<Object> controllerProperty() {
+            return this.controller.getReadOnlyProperty();
+        }
+
+        /**
+         * @return The controller associated with the root object.
+         * @see #getRoot()
+         */
+        @SuppressWarnings("unchecked")
+        public <N> N getController() {
+            return (N) this.controller.get();
+        }
+
+        public ReadOnlyObjectProperty<Charset> charsetProperty() {
+            return this.charset.getReadOnlyProperty();
+        }
+
+        public Charset getCharset() {
+            return this.charset.get();
+        }
 
     }
 
