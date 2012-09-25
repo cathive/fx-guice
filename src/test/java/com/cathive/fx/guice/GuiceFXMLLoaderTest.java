@@ -68,8 +68,8 @@ public class GuiceFXMLLoaderTest {
 
     @Test(description = "Assert that an instance of the GuiceFXMLLoader without an Injector Instance cannot be created", expectedExceptions = IllegalArgumentException.class)
     public void instantiationViaConstructorTest() throws Exception {
-        // Constructor call with null argument must fail!
-        new GuiceFXMLLoader(null);
+        // Constructor call with null arguments must fail!
+        new GuiceFXMLLoader(null, null);
     }
 
     @Test(dependsOnMethods = "instantiationViaConstructorTest")

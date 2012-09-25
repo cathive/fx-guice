@@ -25,6 +25,7 @@ import com.cathive.fx.guice.controllerlookup.IdentifiableController;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
+import com.google.inject.Singleton;
 
 /**
  * Handles construction of objects annotated with {@link FXMLController}.
@@ -32,6 +33,7 @@ import com.google.inject.Scope;
  * @author Andy Till
  *
  */
+@Singleton
 class FXMLLoadingScope implements Scope {
 
     private GuiceFXMLLoader fxmlLoader;

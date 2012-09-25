@@ -44,6 +44,9 @@ public final class GuiceFXMLLoader {
      */
     private final Injector injector;
 
+    /**
+     * The loading scope that is being entered when loading FXML files.
+     */
     private final FXMLLoadingScope fxmlLoadingScope;
 
     /**
@@ -60,7 +63,7 @@ public final class GuiceFXMLLoader {
      *              loading scope.
      */
     @Inject
-    public GuiceFXMLLoader(final Injector injector) {
+    public GuiceFXMLLoader(final Injector injector, final FXMLLoadingScope fxmlLoadingScope) {
         super();
         if (injector == null) {
             throw new IllegalArgumentException("The Injector instance must not be null.");
@@ -69,8 +72,7 @@ public final class GuiceFXMLLoader {
             throw new IllegalStateException("FXMLController loading scope is not bound in your Injector.");
         }
         this.injector = injector;
-        
-        fxmlLoadingScope = injector.getInstance(FXMLLoadingScope.class);
+        this.fxmlLoadingScope = fxmlLoadingScope;
     }
 
     /**
@@ -105,16 +107,20 @@ public final class GuiceFXMLLoader {
             }
         });
 
-        final Node value = (Node) loader.load(url.openStream());
+        final Node root = (Node) loader.load(url.openStream());
+
+        // Prepares the result that is being returned after loading the FXML hierarchy.
+        final Result result = new Result();
+        result.location.set(loader.getLocation());
+        result.resources.set(loader.getResources());
+        result.controller.set(loader.getController());
+        result.root.set(root);
+        result.charset.set(loader.getCharset());
 
         fxmlLoadingScope.exit();
 
-        final Result result = new Result();
-        result.location.set(loader.getLocation());
-        result.controller.set(loader.getController());
-        result.root.set(loader.getRoot());
-        result.charset.set(loader.getCharset());
         return result;
+
     }
 
     /**
@@ -141,11 +147,15 @@ public final class GuiceFXMLLoader {
      * A simple wrapper around the result of an FXML loading operation.
      * @author Benjamin P. Jung
      */
-    public final static class Result {
+    public static final class Result {
 
         private ReadOnlyObjectWrapper<URL> location = new ReadOnlyObjectWrapper<>();
         public ReadOnlyObjectProperty<URL> locationProperty() { return this.location.getReadOnlyProperty(); }
         public URL getUrl() { return this.location.get(); }
+
+        private ReadOnlyObjectWrapper<ResourceBundle> resources = new ReadOnlyObjectWrapper<>();
+        public ReadOnlyObjectProperty<ResourceBundle> resourcesProperty() { return this.resources.getReadOnlyProperty(); }
+        public ResourceBundle getResources() { return this.resources.get(); }
 
         private ReadOnlyObjectWrapper<Object> root = new ReadOnlyObjectWrapper<>();
         public ReadOnlyObjectProperty<Object> rootProperty() { return this.root.getReadOnlyProperty(); }

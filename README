@@ -15,8 +15,12 @@
       <dependency>
         <groupId>com.cathive.fx</groupId>
         <artifactId>fx-guice</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
 
-  Currently there is no stable version available (thus... you'll have to
-    use the current SNAPSHOT version instead... for now... :)
+  In your project all you need to do is create an application class 
+    that extends `com.cathive.fx.guice.GuiceApplication´ instead of the
+    `javafx.application.Application´ class that ships with JavaFX.
+
+  Next step: instead of using `javafx.fxml.FXMLLoader´ to load FXML files
+    you use `com.cathive.fx.guice.GuiceFXMLLoader´... that's basically it!

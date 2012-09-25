@@ -45,7 +45,7 @@ public class ControllerLookupApplicationTest {
         app = new ControllerLookupGuiceApplication();
         app.init();
 
-        loader = new GuiceFXMLLoader(app.getInjector());
+        loader = app.getInjector().getInstance(GuiceFXMLLoader.class);
         
         result = loader.load(
             getClass().getResource("/OuterLookupPane.fxml"), 
