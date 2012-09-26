@@ -17,7 +17,6 @@
 package com.cathive.fx.guice.controllerlookup;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * A store of all controller instances that have been injected while an FXML

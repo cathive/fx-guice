@@ -122,24 +122,27 @@ public abstract class GuiceApplication extends Application {
     }
 
     /**
-     * Helper method to determine whether a given constructor is annotated with one of the Inject annotations
-     * known by Guice.
-     * @param constructor
-     *     Constructor to be analyzed. Must not be <code>null</code>
+     * Helper method to determine whether a given {@link AccessibleObject} is annotated
+     * with one of the Inject annotations known by Guice.
+     * 
+     * @param object
+     *     Accessible object to be analyzed. Must not be <code>null</code>
      * @return
      *     <code>true</code> if the given constructor is annotated with an Inject annotation,
      *     <code>false<code> otherwise.
+     * 
      * @see javax.inject.Inject
      * @see com.google.inject.Inject
      */
-    private static final boolean isInjectAnnotationPresent(final AccessibleObject constructor) {
+    private static final boolean isInjectAnnotationPresent(final AccessibleObject object) {
+        boolean found = false;
         for (final Class<? extends Annotation> annotationClass: injectAnnotationClasses) {
-            if (constructor.isAnnotationPresent(annotationClass)) {
-                // Directly returns if an @Inject annotation can be found.
-                return true;
+            if (object.isAnnotationPresent(annotationClass)) {
+                found = true;
+                break;
             }
         }
-        return false;
+        return found;
     }
 
 }

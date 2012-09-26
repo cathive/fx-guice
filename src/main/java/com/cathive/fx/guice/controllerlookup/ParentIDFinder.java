@@ -23,8 +23,14 @@ import javafx.scene.Parent;
  * 
  * @author Andy Till
  */
-public class ParentIDFinder {
-    
+public final class ParentIDFinder {
+
+    /** Private constructor - should never be needed. */
+    private ParentIDFinder() {
+        // Intentionally left empty.
+        // No instance of this class should ever be needed.
+    }
+
     /**
      * Find a non {@code null} ID on the given {@link Parent}. If the ID is
      * {@code null} then search up the graph to find a node with an ID.
@@ -36,15 +42,16 @@ public class ParentIDFinder {
      *         be returned if non-{@code null} and so on. If no parent's have an
      *         ID set then {@code null} is returned.
      */
-    public static String getParentId(Node node) {
-        if(node == null) {
-            return null;
+    public static String getParentId(final Node node) {
+        final String parentId;
+        if (node == null) {
+            parentId = null;
+        } else if (node.getId() != null) {
+            parentId = node.getId();
+        } else {
+            parentId = getParentId(node.getParent());
         }
-        else if(node.getId() != null) {
-            return node.getId();
-        }
-        else {
-            return getParentId(node.getParent());
-        }
+        return parentId;
     }
+
 }
