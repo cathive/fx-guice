@@ -189,18 +189,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <resources>
-      <resource>
-        <directory>${project.build.sourceDirectory}</directory>
-        <filtering>false</filtering>
-        <includes>
-          <include>**/*.css</include>
-          <include>**/*.fxml</include>
-          <include>**/*.js</include>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
   </build>
 
   <dependencies>
