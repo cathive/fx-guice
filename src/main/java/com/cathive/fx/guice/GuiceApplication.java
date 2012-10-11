@@ -71,11 +71,11 @@ public abstract class GuiceApplication extends Application {
         // annotated with @Inject!
         for (final Constructor<?> c: instance.getClass().getConstructors()) {
             if (isInjectAnnotationPresent(c)) {
-                throw new IllegalStateException("GuiceApplication with construtor that is marked with @Inject is not allowed!");
+                throw new IllegalStateException("GuiceApplication with constructor that is marked with @Inject is not allowed!");
             }
         }
 
-        final Set<Module> modules = new HashSet<Module>();
+        final Set<Module> modules = new HashSet<>();
         modules.add(new AbstractModule() {
             @Override
             protected void configure() {
@@ -134,7 +134,7 @@ public abstract class GuiceApplication extends Application {
      * @see javax.inject.Inject
      * @see com.google.inject.Inject
      */
-    private static final boolean isInjectAnnotationPresent(final AccessibleObject object) {
+    private static boolean isInjectAnnotationPresent(final AccessibleObject object) {
         boolean found = false;
         for (final Class<? extends Annotation> annotationClass: injectAnnotationClasses) {
             if (object.isAnnotationPresent(annotationClass)) {
