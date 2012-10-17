@@ -29,6 +29,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.matcher.Matchers;
 
 /**
  * @author Benjamin P. Jung
@@ -80,6 +81,10 @@ public abstract class GuiceApplication extends Application {
             @Override
             protected void configure() {
                 bind(clazz).toInstance(instance);
+                bindInterceptor(
+                        Matchers.any(),
+                        Matchers.annotatedWith(FxApplicationThread.class), 
+                        new FxApplicationThreadMethodInterceptor());
             }
         });
         modules.add(new FXMLLoadingModule());
