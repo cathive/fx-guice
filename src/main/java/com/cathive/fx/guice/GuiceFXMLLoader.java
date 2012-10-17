@@ -148,7 +148,7 @@ public final class GuiceFXMLLoader {
 
 
     /**
-     * A simple wrapper around the result of an FXML loading operation.
+     * A simple wrapper around the result of a FXML loading operation.
      * @author Benjamin P. Jung
      */
     public static final class Result {
