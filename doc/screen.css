@@ -1,0 +1,22 @@
+html {
+  text-align: center;
+}
+
+body {
+  margin: 1em auto;
+  padding: 0;
+  text-align: left;
+  width: 60em;
+}
+
+#header {
+  background: #333333;
+  color: white;
+  border-radius: 0.3em;
+  padding: 0.5em 2em 0.5em 2em;
+  text-align: center;
+}
+#header h1 {
+  margin: 0;
+  padding: 0;
+}
