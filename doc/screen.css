@@ -9,6 +9,10 @@ body {
   width: 60em;
 }
 
+h2 {
+  border-bottom: 0.1em solid;
+}
+
 #header {
   background: #333333;
   color: white;
@@ -19,4 +23,18 @@ body {
 #header h1 {
   margin: 0;
   padding: 0;
+}
+
+.code-snippet {
+  border: 0.1em dotted #333333;
+  padding: 0.5em 1em;
+}
+
+.code-snippet .filename {
+  border: 0.1em solid #333333;
+  background-color: #aaaaaa;
+  float: right;
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0.2em 0.5em;
 }

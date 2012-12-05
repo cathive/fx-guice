@@ -1,22 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
 
+<!--
+ | Formatting of all the example code snippets has been done using
+ | http://tohtml.com/
+ +-->
 <html lang="en">
 <head>
-  <title>CathiveFX Guice Manual</title>
-  <link rel="stylesheet" media="screen" href="screen.css">
+<title>CathiveFX Guice Manual</title>
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Window-Target" content="_top">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="author" content="Benjamin P. Jung">
+<meta name="description" content="">
+<meta name="generator" content="Eclipse IDE">
+<meta name="robots" content="noindex,nofollow">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=60em">
+<link rel="stylesheet" media="screen" href="screen.css">
 </head>
 <body>
-  <div id="header">
-    <h1>CathiveFX Guice Manual</h1>
-    <span>Easily integrate Google Guice into your JavaFX app</span>
-  </div>
-  <h2>Introduction</h2>
-  <p>CathiveFX Guice provides some useful classees that help you integrate
-     Google Guice into your JavaFX2 based applications.</p>
-  <p>The initial idea to create that library was born after the author
-     read an article called "FXML&nbsp;+&nbsp;Guice" on
-     <a href="http://fxexperience.com/">fxexperience.com</a></p>
+
+<div id="header">
+<h1>CathiveFX Guice Manual</h1>
+<span>Easily integrate Google Guice into your JavaFX app</span>
+</div>
+
+<h2>Introduction</h2>
+<p>CathiveFX Guice provides some useful classees that help you integrate
+  Google Guice into your JavaFX2 based applications.</p>
+<p>The initial idea to create that library was born after the author
+  read an article called "FXML&nbsp;+&nbsp;Guice" on
+<a href="http://fxexperience.com/">fxexperience.com</a></p>
+
+<h2>Usage</h2>
+<p>A sample configuration file for a Maven project that uses the fx-guice
+library might look like that:</p>
+<div class="code-snippet">
+<div class="filename">pom.xml</div>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>xml</span> version=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>1.0</span><span style='color:#2a00ff; '>"</span> encoding=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>UTF-8</span><span style='color:#2a00ff; '>"</span><span style='color:#7f0055; '>></span>
+
+<span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>project</span> xmlns=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/POM/4.0.0</span><span style='color:#2a00ff; '>"</span>
+  xmlns:xsi=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>www.w3.org</span><span style='color:#3f3fbf; '>/2001/XMLSchema-instance</span><span style='color:#2a00ff; '>"</span>
+  xsi:schemaLocation=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/POM/4.0.0</span><span style='color:#2a00ff; '> </span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/maven-v4_0_0.xsd</span><span style='color:#2a00ff; '>"</span><span style='color:#7f0055; '>></span>
+
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>modelVersion</span><span style='color:#7f0055; '>></span>4.0.0<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>modelVersion</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>com.example<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>fx-guice-example-app<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>packaging</span><span style='color:#7f0055; '>></span>jar<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>packaging</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>1.0.0-SNAPSHOT<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>name</span><span style='color:#7f0055; '>></span>Example App<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>name</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>description</span><span style='color:#7f0055; '>></span>Example App to demonstrate the usage of fx-guice<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>description</span><span style='color:#7f0055; '>></span>
+
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>properties</span><span style='color:#7f0055; '>></span>
+    <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>fx-guice.version</span><span style='color:#7f0055; '>></span>1.0.0<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>fx-guice.version</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>properties</span><span style='color:#7f0055; '>></span>
+
+  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>dependencies</span><span style='color:#7f0055; '>></span>
+    <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>dependency</span><span style='color:#7f0055; '>></span>
+      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>com.cathive.fx<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>
+      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>fx-guice<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>
+      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>${fx-guice.version}<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>
+    <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>dependency</span><span style='color:#7f0055; '>></span>
+  <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>dependencies</span><span style='color:#7f0055; '>></span>
+
+<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>project</span><span style='color:#7f0055; '>></span>
+</pre>
+</div>
+<p>The main class of our Example App might look like that:</p>
+<div class="code-snippet">
+<div class="filename">ExampleApp.java</div>
+TODO
+</div>
 </body>
 </html>
