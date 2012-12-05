@@ -51,7 +51,7 @@ public class FxApplicationThreadMethodInterceptor implements MethodInterceptor {
         }
 
         if (invocation.getMethod().getExceptionTypes().length > 0) {
-            throw new RuntimeException("Only methods that don't declare exception types can be annotated with @RunOnFxApplicationThread!");
+            throw new RuntimeException("Only methods that don't declare exception types can be annotated with @FXApplicationThread!");
         }
 
         final Object retval;
