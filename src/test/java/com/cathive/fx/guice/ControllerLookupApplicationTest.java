@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -29,8 +30,8 @@ public class ControllerLookupApplicationTest {
         }
 
         @Override
-        public Collection<Module> initModules() {
-            return new HashSet<Module>();
+        public void init(List<Module> modules) throws Exception {
+            // Intentionally left empty
         }
     }
     

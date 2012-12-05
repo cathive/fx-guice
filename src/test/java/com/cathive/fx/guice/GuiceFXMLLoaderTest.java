@@ -24,6 +24,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.scene.layout.AnchorPane;
@@ -52,13 +53,13 @@ public class GuiceFXMLLoaderTest {
 
     @BeforeClass
     private void initialize() throws Exception {
-    	final GuiceApplication app = new GuiceApplication () {
+    	final GuiceApplication app = new GuiceApplication() {
             @Override
-            public Collection<Module> initModules() {
-                return new HashSet<Module>();
+            public void init(List<Module> modules) {
+                // Intentionally left empty!
             }
             @Override
-            public void start(Stage arg0) throws Exception {
+            public void start(Stage primaryStage) throws Exception {
                 // Intentionally left empty!
             }
         };

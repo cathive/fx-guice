@@ -19,8 +19,10 @@ package com.cathive.fx.guice;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javafx.application.Application;
@@ -88,7 +90,11 @@ public abstract class GuiceApplication extends Application {
             }
         });
         modules.add(new FXMLLoadingModule());
-        final Collection<Module> additionalModules = initModules();
+
+        // Propagates initialization of additional modules to the specific
+        // subclass of this GuiceApplication instance.
+        final List<Module> additionalModules = new ArrayList<>();
+        init(additionalModules);
         modules.addAll(additionalModules);
 
         // Creates an injector with all of the required modules.
@@ -105,14 +111,16 @@ public abstract class GuiceApplication extends Application {
      * <p>The modules that are returned by this methods will be used to
      * create the {@link Injector} instance that is used in the context
      * of this application.</p>
-     * <p>A <code>null</code> return value is not permitted.</p>
-     * 
-     * @return A list of modules that shall be used to create the injector
-     *         to be used in the context of this application.
+     * @param modules
+     *   A list of modules that shall be used to create the injector
+     *   to be used in the context of this application.
      * 
      * @see #getInjector()
+     * 
+     * @throws Exception
+     *   if anything goes wrong during initialization.
      */
-    public abstract Collection<Module> initModules();
+    public abstract void init(List<Module> modules) throws Exception;
 
     /**
      * Returns the Google Guice Injector that is used within the context
