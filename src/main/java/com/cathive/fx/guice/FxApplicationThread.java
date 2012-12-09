@@ -23,7 +23,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * This annotation marks methods that must be executed on the JavaFX application thread.
+ * This annotation marks methods that must be executed on the JavaFX application
+ * thread.
  * 
  * @author Benjamin P. Jung
  */

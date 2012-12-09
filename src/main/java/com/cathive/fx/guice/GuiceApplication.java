@@ -20,7 +20,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +33,9 @@ import com.google.inject.Module;
 import com.google.inject.matcher.Matchers;
 
 /**
+ * A simple replacement for the default JavaFX Application class that utilizes
+ * Google Guice for dependency injection.
+ * 
  * @author Benjamin P. Jung
  */
 public abstract class GuiceApplication extends Application {
@@ -108,12 +110,12 @@ public abstract class GuiceApplication extends Application {
     /**
      * This method is used to fetch and/or create (Guice) modules necessary
      * to fully construct this application.
-     * <p>The modules that are returned by this methods will be used to
-     * create the {@link Injector} instance that is used in the context
-     * of this application.</p>
+     * <p>The modules that are initialized in this method and added to the
+     * passed List will be used to create the {@link Injector} instance that is
+     * used in the context of this application.</p>
      * @param modules
-     *   A list of modules that shall be used to create the injector
-     *   to be used in the context of this application.
+     *   A list of modules (initially empty) that shall be used to create the
+     *   injector to be used in the context of this application.
      * 
      * @see #getInjector()
      * 
@@ -128,7 +130,7 @@ public abstract class GuiceApplication extends Application {
      * @return
      *     The Guice Injector that has been created during the initialization
      *     of this JavaFX Application.
-     * @see #initModules()
+     * @see #init(List)
      */
     public final Injector getInjector() {
         return this.injector;
