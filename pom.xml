@@ -90,7 +90,7 @@
 
   <scm>
     <connection>scm:git:https://github.com/cathive/fx-guice.git</connection>
-    <developerConnection>scm:git://github.com/cathive/fx-guice.git</developerConnection>
+    <developerConnection>scm:git:git@github.com/cathive/fx-guice.git</developerConnection>
     <tag>master</tag>
     <url>https://github.com/cathive/fx-guice/</url>
   </scm>
