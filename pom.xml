@@ -22,7 +22,7 @@
   <groupId>com.cathive.fx</groupId>
   <artifactId>fx-guice</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>CathiveFX Guice Library</name>
   <description>Classes and utilities that integrate Google Guice into your JavaFX2 applications</description>
   <url>http://www.cathive.com/</url>
@@ -46,7 +46,7 @@
       <name>Apache License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
       <distribution>repo</distribution>
-      <comments/>
+      <comments />
     </license>
   </licenses>
 
