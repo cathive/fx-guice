@@ -16,18 +16,15 @@
 
 package com.cathive.fx.guice;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.internal.MethodInstance;
 
 import com.cathive.fx.guice.example.ExampleFxHelper;
-import com.cathive.fx.guice.example.ExamplePaneController;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Scopes;
 import com.google.inject.matcher.Matchers;
 
 /**
