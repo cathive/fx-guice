@@ -52,9 +52,9 @@ class FXMLControllerMembersInjector<T> implements MembersInjector<T> {
         }
         try {
             field.set(instance, controllerInstance);
-          } catch (final IllegalAccessException e) {
+        } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
-          }
+        }
     }
 
 }
