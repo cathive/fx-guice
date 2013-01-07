@@ -222,7 +222,7 @@
 
   <profiles>
     <profile>
-      <id>javafx-runtime</id>
+      <id>javafx</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
