@@ -26,6 +26,7 @@ import java.util.Set;
 
 import javafx.application.Application;
 
+import com.cathive.fx.guice.prefs.PersistentPropertyModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -92,6 +93,7 @@ public abstract class GuiceApplication extends Application {
             }
         });
         modules.add(new FXMLLoadingModule());
+        modules.add(new PersistentPropertyModule());
 
         // Propagates initialization of additional modules to the specific
         // subclass of this GuiceApplication instance.
