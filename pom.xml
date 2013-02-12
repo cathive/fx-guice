@@ -36,6 +36,7 @@
 
   <properties>
     <javafx.runtime.jar>${java.home}/lib/jfxrt.jar</javafx.runtime.jar>
+    <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
   </properties>
 
   <prerequisites>
@@ -215,7 +216,7 @@
       <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
-        <version>6.7</version>
+        <version>6.8</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
