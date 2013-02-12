@@ -104,10 +104,10 @@ public final class GuiceFXMLLoader {
         loader.setResources(resources);
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
             @Override
-            public Object call(Class<?> param) {
+            public Object call(final Class<?> param) {
                 // Use our Guice injector to fetch an instance of the desired
                 // controller class
-                return injector.getInstance(param);
+                return param == null ? null : injector.getInstance(param);
             }
         });
 
