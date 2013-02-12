@@ -21,6 +21,8 @@ import static org.testng.Assert.*;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -65,21 +67,23 @@ public class PersistentPropertyTest {
 
         prefs.clear();
         ClassWithPersistentProperties cwppNull = injector.getInstance(ClassWithPersistentProperties.class);
-        assertNotNull(cwppNull.value1);
-        assertNull(cwppNull.value1.get());
+        assertNotNull(cwppNull.stringValue1);
+        assertNull(cwppNull.stringValue1.get());
 
-        prefs.put("value1", "whatever");
+        prefs.put("stringValue1", "whatever");
+        prefs.putBoolean("booleanValue1", false);
         ClassWithPersistentProperties cwppNotNull = injector.getInstance(ClassWithPersistentProperties.class);
-        assertNotNull(cwppNotNull.value1);
-        assertNotNull(cwppNotNull.value1.get());
-        assertEquals(cwppNotNull.value1.get(), "whatever");
+        assertEquals(cwppNotNull.stringValue1.get(), "whatever");
+        assertEquals(cwppNotNull.booleanValue1.get(), false);
 
     }
 
 
     static class ClassWithPersistentProperties {
-        @PersistentProperty(clazz = PersistentPropertyTest.class, key = "value1")
-        private final StringProperty value1 = new SimpleStringProperty();
+        @PersistentProperty(clazz = PersistentPropertyTest.class, key = "stringValue1")
+        private final StringProperty stringValue1 = new SimpleStringProperty();
+        @PersistentProperty(clazz = PersistentPropertyTest.class, key = "booleanValue1")
+        private final BooleanProperty booleanValue1 = new SimpleBooleanProperty();
         ClassWithPersistentProperties() {
             super();
         }
