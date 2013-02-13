@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Cat Hive Developers.
+ * Copyright (C) 2012 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice.prefs;
+package com.cathive.fx.guice.thread;
 
+import com.cathive.fx.guice.FxApplicationThread;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 
 /**
  * 
- * @author Benjamin P. Jung
+ * @author Benjamin p. Jung
  */
-public final class PersistentPropertyModule extends AbstractModule {
+public final class FxApplicationThreadModule extends AbstractModule {
 
     @Override
-    public void configure() {
-        bindListener(Matchers.any(), new PersistentPropertyTypeListener());
+    protected void configure() {
+        bindInterceptor(
+                Matchers.any(),
+                Matchers.annotatedWith(FxApplicationThread.class), 
+                new FxApplicationThreadMethodInterceptor());
     }
 
 }

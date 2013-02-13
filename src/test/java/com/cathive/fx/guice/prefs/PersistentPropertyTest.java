@@ -29,6 +29,7 @@ import javafx.beans.property.StringProperty;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.cathive.fx.guice.PersistentProperty;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -75,6 +76,24 @@ public class PersistentPropertyTest {
         ClassWithPersistentProperties cwppNotNull = injector.getInstance(ClassWithPersistentProperties.class);
         assertEquals(cwppNotNull.stringValue1.get(), "whatever");
         assertEquals(cwppNotNull.booleanValue1.get(), false);
+
+    }
+
+    @Test(dependsOnMethods = "testMembersInjection")
+    public void testPreferencesSynchronization() throws Exception {
+
+        prefs.clear();
+        final ClassWithPersistentProperties cwpp = injector.getInstance(ClassWithPersistentProperties.class);
+
+        cwpp.stringValue1.set("yeehhaaa!!1");
+        cwpp.booleanValue1.set(true);
+        assertEquals(prefs.get("stringValue1", null), "yeehhaaa!!1");
+        assertEquals(prefs.getBoolean("booleanValue1", false), true);
+
+        cwpp.stringValue1.set("yeehhaaa!!2");
+        cwpp.booleanValue1.set(false);
+        assertEquals(prefs.get("stringValue1", null), "yeehhaaa!!2");
+        assertEquals(prefs.getBoolean("booleanValue1", true), false);
 
     }
 

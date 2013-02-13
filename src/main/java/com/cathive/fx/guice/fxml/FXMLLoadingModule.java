@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice;
+package com.cathive.fx.guice.fxml;
 
+import com.cathive.fx.guice.FXMLController;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;

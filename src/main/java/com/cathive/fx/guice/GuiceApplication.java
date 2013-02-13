@@ -26,12 +26,13 @@ import java.util.Set;
 
 import javafx.application.Application;
 
+import com.cathive.fx.guice.fxml.FXMLLoadingModule;
 import com.cathive.fx.guice.prefs.PersistentPropertyModule;
+import com.cathive.fx.guice.thread.FxApplicationThreadModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.matcher.Matchers;
 
 /**
  * A simple replacement for the default JavaFX Application class that utilizes
@@ -86,13 +87,10 @@ public abstract class GuiceApplication extends Application {
             @Override
             protected void configure() {
                 bind(clazz).toInstance(instance);
-                bindInterceptor(
-                        Matchers.any(),
-                        Matchers.annotatedWith(FxApplicationThread.class), 
-                        new FxApplicationThreadMethodInterceptor());
             }
         });
         modules.add(new FXMLLoadingModule());
+        modules.add(new FxApplicationThreadModule());
         modules.add(new PersistentPropertyModule());
 
         // Propagates initialization of additional modules to the specific

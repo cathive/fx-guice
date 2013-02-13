@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice;
+package com.cathive.fx.guice.fxml;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.cathive.fx.guice.FXMLController;
+import com.cathive.fx.guice.GuiceFXMLLoader;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.cathive.fx.guice.controllerlookup.IdentifiableController;
 import com.google.inject.Key;
@@ -34,7 +36,7 @@ import com.google.inject.Singleton;
  *
  */
 @Singleton
-class FXMLLoadingScope implements Scope {
+public final class FXMLLoadingScope implements Scope {
 
     private GuiceFXMLLoader fxmlLoader;
 

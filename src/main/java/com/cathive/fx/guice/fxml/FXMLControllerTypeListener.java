@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice;
+package com.cathive.fx.guice.fxml;
 
 import java.lang.reflect.Field;
 
+import com.cathive.fx.guice.FXMLController;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;

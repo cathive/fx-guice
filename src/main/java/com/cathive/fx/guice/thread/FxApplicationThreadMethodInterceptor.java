@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice;
+package com.cathive.fx.guice.thread;
 
 import javafx.application.Platform;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+
+import com.cathive.fx.guice.FxApplicationThread;
 
 /**
  * This class can be used as an AOP interceptor in conjunction with the
@@ -34,7 +36,7 @@ import org.aopalliance.intercept.MethodInvocation;
  * 
  * @author Benjamin P. Jung
  */
-public class FxApplicationThreadMethodInterceptor implements MethodInterceptor {
+class FxApplicationThreadMethodInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {

@@ -14,29 +14,8 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice.prefs;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
 /**
- * 
- * @author Benjamin P. Jung
+ * Classes that help you to handle asynchronous tasks more easily. 
  */
-@Retention(RUNTIME)
-@Target({ FIELD })
-public @interface PersistentProperty {
 
-    public NodeType type() default NodeType.USER_NODE;
-    public Class<?> clazz();
-    public String key();
-
-    enum NodeType {
-        USER_NODE,
-        SYSTEM_NODE;
-    }
-
-}
+package com.cathive.fx.guice.thread;

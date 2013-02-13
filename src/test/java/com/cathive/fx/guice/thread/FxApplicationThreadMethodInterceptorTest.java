@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.cathive.fx.guice;
+package com.cathive.fx.guice.thread;
 
 import static org.testng.Assert.assertNotNull;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.cathive.fx.guice.FxApplicationThread;
 import com.cathive.fx.guice.example.ExampleFxHelper;
+import com.cathive.fx.guice.fxml.FXMLLoadingModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;

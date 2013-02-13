@@ -22,9 +22,12 @@ import static java.util.prefs.Preferences.userNodeForPackage;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WritableBooleanValue;
 import javafx.beans.value.WritableDoubleValue;
 import javafx.beans.value.WritableFloatValue;
@@ -33,14 +36,15 @@ import javafx.beans.value.WritableLongValue;
 import javafx.beans.value.WritableStringValue;
 import javafx.beans.value.WritableValue;
 
-import com.cathive.fx.guice.prefs.PersistentProperty.NodeType;
+import com.cathive.fx.guice.PersistentProperty;
+import com.cathive.fx.guice.PersistentProperty.NodeType;
 import com.google.inject.MembersInjector;
 
 /**
  * 
  * @author Benjamin P. Jung
  */
-class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
+final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
 
     private final Field field;
     private final PersistentProperty annotation;
@@ -53,7 +57,7 @@ class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
     }
 
     @Override
-    public void injectMembers(T instance) {
+    public void injectMembers(final T instance) {
 
         final NodeType nodeType = annotation.type();
         final Class<?> nodeClass = annotation.clazz();
@@ -70,32 +74,51 @@ class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
             throw new IllegalStateException(String.format("Unknown Preferences node type: %s!", nodeType));
         }
 
-        @SuppressWarnings("unchecked")
-        final Class<? extends Property<?>> fieldType = (Class<? extends Property<?>>) field.getType();
-        final String value = prefs.get(annotation.key(), null);
-        if (value != null) {
-            try {
-                final Object fieldInstance = field.get(instance);
-                final Method m = WritableValue.class.getMethod("setValue", Object.class);
-                if (WritableStringValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, value);
-                } else if (WritableBooleanValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, Boolean.valueOf(value));
-                } else if (WritableIntegerValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, Integer.valueOf(value));
-                } else if (WritableLongValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, Long.valueOf(value));
-                } else if (WritableDoubleValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, Double.valueOf(value));
-                } else if (WritableFloatValue.class.isAssignableFrom(fieldType)) {
-                    m.invoke(fieldInstance, Float.valueOf(value));
+        updatePropertyField(instance, prefs.get(annotation.key(), null));
+
+        try {
+            ((Property<?>) field.get(instance)).addListener(new ChangeListener<Object>() {
+                @Override
+                public void changed(ObservableValue<?> prop, Object oldValue, Object newValue) {
+                    final String curVal = prefs.get(annotation.key(), null);
+                    System.out.println("[PROP->PREF] current value: " + curVal + "  new value: " + newValue + "  equals==" + Objects.equals(curVal, newValue));
+                    prefs.put(annotation.key(), String.valueOf(newValue));
                 }
-            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                // TODO Use a more meaningful exception
-                throw new RuntimeException(e);
-            }
+            });
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            // TODO Use a more meaningful exception
+            throw new RuntimeException(e);
         }
 
+    }
+
+    private void updatePropertyField(T instance, String newVal) {
+        @SuppressWarnings("unchecked")
+        final Class<? extends Property<?>> fieldType = (Class<? extends Property<?>>) field.getType();
+        try {
+            final Object fieldInstance = field.get(instance);
+            final Method getter = WritableValue.class.getMethod("getValue");
+            final Object curVal = getter.invoke(fieldInstance);
+
+            System.out.println("[PREF->PROP] current value: " + curVal + "  new value: " + newVal + "  equals==" + Objects.equals(curVal, newVal));
+            final Method setter = WritableValue.class.getMethod("setValue", Object.class);
+            if (WritableStringValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, newVal);
+            } else if (WritableBooleanValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, Boolean.valueOf(newVal));
+            } else if (WritableIntegerValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, Integer.valueOf(newVal));
+            } else if (WritableLongValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, Long.valueOf(newVal));
+            } else if (WritableDoubleValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, Double.valueOf(newVal));
+            } else if (WritableFloatValue.class.isAssignableFrom(fieldType)) {
+                setter.invoke(fieldInstance, Float.valueOf(newVal));
+            }
+        } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            // TODO Use a more meaningful exception
+            throw new RuntimeException(e);
+        }
     }
 
 }

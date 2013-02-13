@@ -18,6 +18,7 @@ package com.cathive.fx.guice.prefs;
 
 import java.lang.reflect.Field;
 
+import com.cathive.fx.guice.PersistentProperty;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
