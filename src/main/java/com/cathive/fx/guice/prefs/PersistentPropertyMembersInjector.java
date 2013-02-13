@@ -105,15 +105,15 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
             if (WritableStringValue.class.isAssignableFrom(fieldType)) {
                 setter.invoke(fieldInstance, newVal);
             } else if (WritableBooleanValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, Boolean.valueOf(newVal));
+                setter.invoke(fieldInstance, newVal == null ? null : Boolean.valueOf(newVal));
             } else if (WritableIntegerValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, Integer.valueOf(newVal));
+                setter.invoke(fieldInstance, newVal == null ? null : Integer.valueOf(newVal));
             } else if (WritableLongValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, Long.valueOf(newVal));
+                setter.invoke(fieldInstance, newVal == null ? null : Long.valueOf(newVal));
             } else if (WritableDoubleValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, Double.valueOf(newVal));
+                setter.invoke(fieldInstance, newVal == null ? null : Double.valueOf(newVal));
             } else if (WritableFloatValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, Float.valueOf(newVal));
+                setter.invoke(fieldInstance, newVal == null ? null : Float.valueOf(newVal));
             }
         } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             // TODO Use a more meaningful exception
