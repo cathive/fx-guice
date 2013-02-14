@@ -22,7 +22,6 @@ import static java.util.prefs.Preferences.userNodeForPackage;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.prefs.Preferences;
 
 import javafx.beans.property.Property;
@@ -81,7 +80,6 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
                 @Override
                 public void changed(ObservableValue<?> prop, Object oldValue, Object newValue) {
                     final String curVal = prefs.get(annotation.key(), null);
-                    System.out.println("[PROP->PREF] current value: " + curVal + "  new value: " + newValue + "  equals==" + Objects.equals(curVal, newValue));
                     prefs.put(annotation.key(), String.valueOf(newValue));
                 }
             });
@@ -92,29 +90,34 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
 
     }
 
-    private void updatePropertyField(T instance, String newVal) {
+    private void updatePropertyField(T instance, String newValString) {
         @SuppressWarnings("unchecked")
         final Class<? extends Property<?>> fieldType = (Class<? extends Property<?>>) field.getType();
         try {
+
             final Object fieldInstance = field.get(instance);
             final Method getter = WritableValue.class.getMethod("getValue");
-            final Object curVal = getter.invoke(fieldInstance);
-
-            System.out.println("[PREF->PROP] current value: " + curVal + "  new value: " + newVal + "  equals==" + Objects.equals(curVal, newVal));
             final Method setter = WritableValue.class.getMethod("setValue", Object.class);
+
+            final Object curVal = getter.invoke(fieldInstance);
+            final Object newVal;
+
             if (WritableStringValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal);
+                newVal = newValString;
             } else if (WritableBooleanValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal == null ? null : Boolean.valueOf(newVal));
+                newVal = Boolean.valueOf(newValString);
             } else if (WritableIntegerValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal == null ? null : Integer.valueOf(newVal));
+                newVal = Integer.valueOf(newValString);
             } else if (WritableLongValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal == null ? null : Long.valueOf(newVal));
+                newVal = Long.valueOf(newValString);
             } else if (WritableDoubleValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal == null ? null : Double.valueOf(newVal));
+                newVal = Double.valueOf(newValString);
             } else if (WritableFloatValue.class.isAssignableFrom(fieldType)) {
-                setter.invoke(fieldInstance, newVal == null ? null : Float.valueOf(newVal));
+                newVal = Float.valueOf(newValString);
+            } else {
+                throw new IllegalStateException("Cannot inject value into field.");
             }
+            setter.invoke(fieldInstance, newVal);
         } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             // TODO Use a more meaningful exception
             throw new RuntimeException(e);
