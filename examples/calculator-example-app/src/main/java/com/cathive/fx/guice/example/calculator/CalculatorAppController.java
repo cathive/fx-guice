@@ -20,10 +20,12 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 
@@ -41,9 +43,18 @@ public final class CalculatorAppController {
 
     @FXML private BorderPane rootPane;
     @FXML private Rectangle rootPaneShape;
-    @FXML private Label output;
+    @FXML private TextField output;
 
     private int decimalPos = 0;
+
+    public void initialize() {
+        app.xRegisterProperty().addListener(new ChangeListener<BigDecimal>() {
+            @Override
+            public void changed(ObservableValue<? extends BigDecimal> observable, BigDecimal oldValue, BigDecimal newValue) {
+                output.setText(NumberFormat.getInstance().format(app.getXRegister().doubleValue()));
+            }
+        });
+    }
 
     @FXML
     public void onDigit(final ActionEvent event) {
@@ -60,13 +71,12 @@ public final class CalculatorAppController {
         } else {
             app.setXRegister(xRegValue.multiply(BigDecimal.valueOf(10)).add(BigDecimal.valueOf(digit)));
         }
-        updateOutput();
+        output.setText(NumberFormat.getInstance().format(app.getXRegister().doubleValue()));
     }
 
     @FXML
     void onDecimalMark(final ActionEvent event) {
         decimalPos = 10;
-        updateOutput();
     }
 
     @FXML
@@ -77,14 +87,12 @@ public final class CalculatorAppController {
         final Button button = (Button) event.getSource();
         final Operation operation = (Operation) button.getUserData();
         app.setFlagRegister(operation);
-        updateOutput();
     }
 
     @FXML
     void onGlobalClear(final ActionEvent event) {
         app.globalClear();
         decimalPos = 0;
-        updateOutput();
     }
 
     @FXML
@@ -117,17 +125,12 @@ public final class CalculatorAppController {
         app.setYRegister(null);
         app.setFlagRegister(null);
         decimalPos = 0;
-        updateOutput();
 
     }
 
     @FXML
     void exitApplication(final ActionEvent event) {
         Platform.exit();
-    }
-
-    protected void updateOutput() {
-        output.setText(NumberFormat.getInstance().format(app.getXRegister().doubleValue()));
     }
 
 }
