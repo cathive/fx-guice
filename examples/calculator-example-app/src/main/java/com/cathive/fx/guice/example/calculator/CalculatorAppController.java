@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Rectangle;
 
 import com.cathive.fx.guice.FXMLController;
 import com.google.inject.Inject;
@@ -39,6 +40,7 @@ public final class CalculatorAppController {
     @Inject private CalculatorApp app;
 
     @FXML private BorderPane rootPane;
+    @FXML private Rectangle rootPaneShape;
     @FXML private Label output;
 
     private int decimalPos = 0;

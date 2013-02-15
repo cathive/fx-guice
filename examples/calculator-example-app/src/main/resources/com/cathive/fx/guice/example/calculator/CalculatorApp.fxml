@@ -41,6 +41,7 @@ limitations under the License.
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -53,6 +54,7 @@ limitations under the License.
   <fx:define>
     <Boolean fx:value="false" fx:id="debugFlag" />
     <Double fx:value="1.7976931348623157E308" fx:id="maxValue" />
+    <Rectangle fx:id="rootPaneShape" arcHeight="16.0" arcWidth="16.0"/>
   </fx:define>
   <center>
     <VBox fillWidth="true" spacing="8.0">
@@ -100,7 +102,7 @@ limitations under the License.
                 <Integer fx:value="4" />
               </userData>
             </Button>
-            <Button fx:id="num6Button" maxHeight="${maxValue}" maxWidth="${maxValue}" onAction="#onDigit" text="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <Button fx:id="num5Button" maxHeight="${maxValue}" maxWidth="${maxValue}" onAction="#onDigit" text="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
               <userData>
                 <Integer fx:value="5" />
               </userData>
@@ -170,4 +172,9 @@ limitations under the License.
       </children>
     </AnchorPane>
   </top>
+  <fx:script>
+    rootPaneShape.widthProperty().bind(rootPane.widthProperty());
+    rootPaneShape.heightProperty().bind(rootPane.heightProperty());
+    rootPane.setClip(rootPaneShape);
+  </fx:script>
 </BorderPane>

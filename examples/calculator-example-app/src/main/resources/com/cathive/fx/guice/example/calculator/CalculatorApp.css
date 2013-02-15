@@ -58,8 +58,9 @@
 }
 
 #windowTitleLabel {
-  -fx-font-size: 12px;
-  -fx-font-weight: bold;
+  -fx-font-family: "monospace";
+  -fx-font-size: 10px;
+  -fx-font-weight: normal;
 }
 
 #exitButton {

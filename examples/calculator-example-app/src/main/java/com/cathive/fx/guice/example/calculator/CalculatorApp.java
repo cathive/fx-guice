@@ -28,8 +28,8 @@ import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.SceneBuilder;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageBuilder;
 import javafx.stage.StageStyle;
@@ -71,11 +71,12 @@ public final class CalculatorApp extends GuiceApplication {
         final MouseEventHandler meh = new MouseEventHandler(root);
         root.setOnMousePressed(meh);
         root.setOnMouseDragged(meh);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         StageBuilder.create()
             .title(resources.getString("APP_NAME"))
             .resizable(false)
             .scene(SceneBuilder.create()
+                .fill(Color.TRANSPARENT)
                 .root(root)
                 .build())
             .applyTo(primaryStage);
