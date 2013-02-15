@@ -36,6 +36,17 @@
 <meta name="keywords" content="">
 <meta name="viewport" content="width=60em">
 <link rel="stylesheet" media="screen" href="screen.css">
+<link rel="stylesheet" media="all" href="./sh/shCore.css"/>
+<link rel="Stylesheet" media="all" href="./sh/shThemeDefault.css" />
+<script type="text/javascript" src="./sh/XRegExp.js"></script>
+<script type="text/javascript" src="./sh/shCore.js"></script>
+<script type="text/javascript" src="./sh/shBrushJava.js"></script>
+<script type="text/javascript" src="./sh/shBrushJScript.js"></script>
+<script type="text/javascript" src="./sh/shBrushXml.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.defaults.toolbar = false;
+SyntaxHighlighter.all();
+</script>
 </head>
 <body>
 
@@ -51,44 +62,323 @@
   read an article called "FXML&nbsp;+&nbsp;Guice" on
 <a href="http://fxexperience.com/">fxexperience.com</a></p>
 
+<p>Most recent documentation and examples can usually be found on the project's
+Wiki page: <a href="https://github.com/cathive/fx-guice/wiki/">https://github.com/cathive/fx-guice/wiki/</a></p>
+
 <h2>Usage</h2>
-<p>A sample configuration file for a Maven project that uses the fx-guice
-library might look like that:</p>
-<div class="code-snippet">
-<div class="filename">pom.xml</div>
-<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>xml</span> version=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>1.0</span><span style='color:#2a00ff; '>"</span> encoding=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>UTF-8</span><span style='color:#2a00ff; '>"</span><span style='color:#7f0055; '>></span>
-
-<span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>project</span> xmlns=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/POM/4.0.0</span><span style='color:#2a00ff; '>"</span>
-  xmlns:xsi=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>www.w3.org</span><span style='color:#3f3fbf; '>/2001/XMLSchema-instance</span><span style='color:#2a00ff; '>"</span>
-  xsi:schemaLocation=<span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/POM/4.0.0</span><span style='color:#2a00ff; '> </span><span style='color:#2a00ff; '>http</span><span style='color:#2a00ff; '>:</span><span style='color:#7f0055; font-weight:bold; '>//</span><span style='color:#3f3fbf; '>maven.apache.org</span><span style='color:#3f3fbf; '>/maven-v4_0_0.xsd</span><span style='color:#2a00ff; '>"</span><span style='color:#7f0055; '>></span>
-
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>modelVersion</span><span style='color:#7f0055; '>></span>4.0.0<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>modelVersion</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>com.example<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>fx-guice-example-app<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>packaging</span><span style='color:#7f0055; '>></span>jar<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>packaging</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>1.0.0-SNAPSHOT<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>name</span><span style='color:#7f0055; '>></span>Example App<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>name</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>description</span><span style='color:#7f0055; '>></span>Example App to demonstrate the usage of fx-guice<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>description</span><span style='color:#7f0055; '>></span>
-
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>properties</span><span style='color:#7f0055; '>></span>
-    <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>fx-guice.version</span><span style='color:#7f0055; '>></span>1.0.0<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>fx-guice.version</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>properties</span><span style='color:#7f0055; '>></span>
-
-  <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>dependencies</span><span style='color:#7f0055; '>></span>
-    <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>dependency</span><span style='color:#7f0055; '>></span>
-      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>com.cathive.fx<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>groupId</span><span style='color:#7f0055; '>></span>
-      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>fx-guice<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>artifactId</span><span style='color:#7f0055; '>></span>
-      <span style='color:#7f0055; '>&lt;</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>${fx-guice.version}<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>version</span><span style='color:#7f0055; '>></span>
-    <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>dependency</span><span style='color:#7f0055; '>></span>
-  <span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>dependencies</span><span style='color:#7f0055; '>></span>
-
-<span style='color:#7f0055; '>&lt;/</span><span style='color:#7f0055; '>project</span><span style='color:#7f0055; '>></span>
-</pre>
-</div>
 <p>The main class of our Example App might look like that:</p>
 <div class="code-snippet">
 <div class="filename">ExampleApp.java</div>
-TODO
+<pre class="brush: java;">
+package com.cathive.fx.guice.example;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import javafx.application.Application;
+import javafx.scene.SceneBuilder;
+import javafx.scene.control.LabelBuilder;
+import javafx.stage.Stage;
+import javafx.stage.StageBuilder;
+
+import com.cathive.fx.guice.GuiceApplication;
+import com.google.inject.AbstractModule;
+import com.google.inject.Module;
+import com.google.inject.name.Names;
+
+/**
+ * Example app to show off some of the nice features of the "CathiveFX Guice"
+ * (fx-guice) library.
+ * 
+ * @author Benjamin P. Jung
+ */
+public class ExampleApp extends GuiceApplication {
+
+    @Inject
+    @Named("app-title-string")
+    private String appTitle;
+
+    @Inject
+    @Named("hello-world-string")
+    private String helloWorldString;
+
+    @Override
+    public void init(final List&lt;Module> modules) throws Exception {
+        modules.add(new ExampleModule());
+    }
+
+    @Override
+    public void start(final Stage primaryStage) throws Exception {
+        // Construct a very simple example user interface.
+        // Note that we can use injected fields that have been defined
+        // in our example guice module after the initialization of the
+        // app has been done.
+        StageBuilder.create()
+        .title(appTitle)
+        .resizable(false)
+        .scene(SceneBuilder.create()
+            .root(LabelBuilder.create()
+            .text(helloWorldString)
+            .build())
+        .build()).applyTo(primaryStage);
+        primaryStage.show();
+    }
+
+    private static class ExampleModule extends AbstractModule {
+        @Override
+        protected void configure() {
+            // Binds two named String instances.
+            bind(String.class).annotatedWith(Names.named("app-title-string"))
+            .toInstance("CathiveFX Guice Example");
+            bind(String.class).annotatedWith(Names.named("hello-world-string"))
+            .toInstance("Hello World!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}
+</pre>
+</div>
+<h2>Maven integration</h2>
+<p>A sample configuration file for a Maven project that uses the fx-guice
+library is provided below.<br>
+This POM file might seem over-complicated, but
+it also ensures that Maven will automatically work with your existing
+JavaFX runtime and it adds a bunch of helper functionality to make
+sure that you'll have a working executable JAR file in your target directory
+after executing "mvn package".</p>
+<div class="code-snippet">
+<div class="filename">pom.xml</div>
+<pre class="brush: xml;">
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  &lt;modelVersion>4.0.0&lt;/modelVersion>
+  &lt;groupId>com.cathive.fx&lt;/groupId>
+  &lt;artifactId>fx-guice-example-app&lt;/artifactId>
+  &lt;version>1.0.0-SNAPSHOT&lt;/version>
+  &lt;name>CathiveFX Guice Example App&lt;/name>
+  &lt;prerequisites>
+    &lt;maven>3.0.0&lt;/maven>
+  &lt;/prerequisites>
+  &lt;properties>
+    &lt;javafx.runtime.jar>${java.home}/lib/jfxrt.jar&lt;/javafx.runtime.jar>
+    &lt;javafx.ant.jar>${java.home}/../lib/ant-javafx.jar&lt;/javafx.ant.jar>
+    &lt;netbeans.hint.jdkPlatform>JDK_1.7&lt;/netbeans.hint.jdkPlatform>
+  &lt;/properties>
+  &lt;build>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+        &lt;artifactId>maven-antrun-plugin&lt;/artifactId>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>ant-fx-package&lt;/id>
+            &lt;phase>prepare-package&lt;/phase>
+            &lt;goals>
+              &lt;goal>run&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;target xmlns:fx="javafx:com.sun.javafx.tools.ant" name="fx-package">
+                &lt;taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant">
+                  &lt;classpath>
+                    &lt;pathelement path="${javafx.ant.jar}"/>
+                    &lt;pathelement path="${javafx.runtime.jar}"/>
+                  &lt;/classpath>
+                &lt;/taskdef>
+                &lt;unzip src="${javafx.ant.jar}" dest="${project.build.outputDirectory}">
+                  &lt;patternset>
+                    &lt;include name="resources/classes/com/javafx/main/*.class"/>
+                  &lt;/patternset>
+                  &lt;mapper>
+                    &lt;chainedmapper>
+                      &lt;flattenmapper/>
+                      &lt;globmapper from="*" to="com/javafx/main/*"/>
+                    &lt;/chainedmapper>
+                  &lt;/mapper>
+                &lt;/unzip>
+              &lt;/target>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+        &lt;artifactId>maven-dependency-plugin&lt;/artifactId>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>copy-dependencies&lt;/id>
+            &lt;phase>package&lt;/phase>
+            &lt;goals>
+              &lt;goal>copy-dependencies&lt;/goal>
+            &lt;/goals>
+            &lt;configuration>
+              &lt;outputDirectory>${project.build.directory}/lib&lt;/outputDirectory>
+            &lt;/configuration>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+      &lt;plugin>
+        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+        &lt;artifactId>maven-jar-plugin&lt;/artifactId>
+        &lt;configuration>
+          &lt;archive>
+            &lt;manifest>
+              &lt;addClasspath>true&lt;/addClasspath>
+              &lt;classpathPrefix>lib/&lt;/classpathPrefix>
+              &lt;mainClass>com.javafx.main.Main&lt;/mainClass>
+            &lt;/manifest>
+            &lt;manifestEntries>
+              &lt;JavaFX-Application-Class>com.cathive.fx.guice.example.ExampleApp&lt;/JavaFX-Application-Class>
+              &lt;JavaFX-Version>2.3+&lt;/JavaFX-Version>
+            &lt;/manifestEntries>
+          &lt;/archive>
+        &lt;/configuration>
+      &lt;/plugin>
+    &lt;/plugins>
+    &lt;pluginManagement>
+      &lt;plugins>
+        &lt;plugin>
+          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+          &lt;artifactId>maven-antrun-plugin&lt;/artifactId>
+          &lt;version>1.7&lt;/version>
+        &lt;/plugin>
+        &lt;plugin>
+          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+          &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+          &lt;version>3.0&lt;/version>
+          &lt;configuration>
+            &lt;compilerId>javac&lt;/compilerId>
+            &lt;compilerVersion>1.7&lt;/compilerVersion>
+            &lt;encoding>UTF-8&lt;/encoding>
+            &lt;showDeprecation>true&lt;/showDeprecation>
+            &lt;showWarnings>true&lt;/showWarnings>
+            &lt;source>1.7&lt;/source>
+            &lt;target>1.7&lt;/target>
+          &lt;/configuration>
+        &lt;/plugin>
+        &lt;plugin>
+          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+          &lt;artifactId>maven-dependency-plugin&lt;/artifactId>
+          &lt;version>2.4&lt;/version>
+        &lt;/plugin>
+        &lt;plugin>
+          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+          &lt;artifactId>maven-jar-plugin&lt;/artifactId>
+          &lt;version>2.4&lt;/version>
+        &lt;/plugin>
+        &lt;plugin>
+          &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+          &lt;artifactId>maven-resources-plugin&lt;/artifactId>
+          &lt;version>2.6&lt;/version>
+          &lt;configuration>
+            &lt;encoding>UTF-8&lt;/encoding>
+            &lt;includeEmptyDirs>true&lt;/includeEmptyDirs>
+          &lt;/configuration>
+        &lt;/plugin>
+      &lt;/plugins>
+    &lt;/pluginManagement>
+    &lt;resources>
+      &lt;resource>
+        &lt;directory>src/main/resources&lt;/directory>
+        &lt;filtering>false&lt;/filtering>
+        &lt;includes>
+          &lt;include>**/*&lt;/include>
+        &lt;/includes>
+      &lt;/resource>
+      &lt;resource>
+        &lt;directory>${project.build.sourceDirectory}&lt;/directory>
+        &lt;filtering>true&lt;/filtering>
+        &lt;includes>
+          &lt;include>**/*.css&lt;/include>
+          &lt;include>**/*.fxml&lt;/include>
+          &lt;include>**/*.js&lt;/include>
+          &lt;include>**/*.properties&lt;/include>
+        &lt;/includes>
+      &lt;/resource>
+    &lt;/resources>
+  &lt;/build>
+  &lt;dependencies>
+    &lt;dependency>
+      &lt;groupId>com.cathive.fx&lt;/groupId>
+      &lt;artifactId>fx-guice&lt;/artifactId>
+      &lt;scope>compile&lt;/scope>
+    &lt;/dependency>
+  &lt;/dependencies>
+  &lt;dependencyManagement>
+    &lt;dependencies>
+      &lt;dependency>
+        &lt;groupId>com.cathive.fx&lt;/groupId>
+        &lt;artifactId>fx-guice&lt;/artifactId>
+        &lt;version>2.0.0&lt;/version>
+      &lt;/dependency>
+    &lt;/dependencies>
+  &lt;/dependencyManagement>
+  &lt;profiles>
+    &lt;profile>
+      &lt;id>javafx&lt;/id>
+      &lt;activation>
+        &lt;property>
+          &lt;name>!skip-javafx-profile&lt;/name>
+        &lt;/property>
+      &lt;/activation>
+      &lt;dependencies>
+        &lt;dependency>
+          &lt;groupId>com.oracle&lt;/groupId>
+          &lt;artifactId>javafx-runtime&lt;/artifactId>
+          &lt;version>RELEASE&lt;/version>
+          &lt;scope>system&lt;/scope>
+          &lt;systemPath>${javafx.runtime.jar}&lt;/systemPath>
+        &lt;/dependency>
+      &lt;/dependencies>
+    &lt;/profile>
+    &lt;profile>
+      &lt;id>m2e&lt;/id>
+      &lt;activation>
+        &lt;property>
+          &lt;name>m2e.version&lt;/name>
+        &lt;/property>
+      &lt;/activation>
+      &lt;build>
+        &lt;pluginManagement>
+          &lt;plugins>
+            &lt;plugin>
+              &lt;groupId>org.eclipse.m2e&lt;/groupId>
+              &lt;artifactId>lifecycle-mapping&lt;/artifactId>
+              &lt;version>1.0.0&lt;/version>
+              &lt;configuration>
+                &lt;lifecycleMappingMetadata>
+                  &lt;pluginExecutions>
+                    &lt;pluginExecution>
+                      &lt;pluginExecutionFilter>
+                        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                        &lt;artifactId>maven-dependency-plugin&lt;/artifactId>
+                        &lt;versionRange>[2.4,)&lt;/versionRange>
+                        &lt;goals>
+                          &lt;goal>copy-dependencies&lt;/goal>
+                        &lt;/goals>
+                      &lt;/pluginExecutionFilter>
+                      &lt;action>
+                         &lt;execute>
+                           &lt;runOnIncremental>false&lt;/runOnIncremental>
+                           &lt;runOnConfiguration>false&lt;/runOnConfiguration>
+                         &lt;/execute>
+                      &lt;/action>
+                    &lt;/pluginExecution>
+                  &lt;/pluginExecutions>
+                &lt;/lifecycleMappingMetadata>
+              &lt;/configuration>
+             &lt;/plugin>
+          &lt;/plugins>
+        &lt;/pluginManagement>
+      &lt;/build>
+    &lt;/profile>
+  &lt;/profiles>
+&lt;/project>
+</pre>
 </div>
 </body>
 </html>
