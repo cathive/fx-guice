@@ -35,7 +35,11 @@
     solarized-green: #859900;
 
     -fx-background-color: solarized-base0;
-    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: solarized-base03;
+    -fx-border-radius: 8px;
+    -fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.7) , 6, 0.0 , 0 , 2 );
 
 }
 
@@ -44,9 +48,27 @@
   -fx-border-color: solarized-base03;
   -fx-border-radius: 4px;
   -fx-background-radius: 4px;
+  
 }
 
 /* ------------------------------------------------------------------------- */
+
+#windowTitle {
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#windowTitleLabel {
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+}
+
+#exitButton {
+  -fx-border-radius: 8px;
+  -fx-border-color: solarized-base02;
+  -fx-border-width: 1px;
+  -fx-background-radius: 8px;
+  -fx-base: solarized-red;
+}
 
 .lcd {
   -fx-font-family: "Liquid Crystal Normal";
@@ -65,7 +87,7 @@
 }
 
 #globalClearButton {
-  -fx-base: solarized-red;
+  -fx-base: solarized-orange;
 }
 
 #addButton, #subButton, #mulButton, #divButton {

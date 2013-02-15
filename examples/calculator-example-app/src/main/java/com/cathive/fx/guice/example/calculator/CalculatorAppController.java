@@ -19,6 +19,7 @@ package com.cathive.fx.guice.example.calculator;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -118,6 +119,10 @@ public final class CalculatorAppController {
 
     }
 
+    @FXML
+    void exitApplication(final ActionEvent event) {
+        Platform.exit();
+    }
 
     protected void updateOutput() {
         output.setText(NumberFormat.getInstance().format(app.getXRegister().doubleValue()));

@@ -23,10 +23,16 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.SceneBuilder;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageBuilder;
+import javafx.stage.StageStyle;
 
 import com.cathive.fx.guice.GuiceApplication;
 import com.cathive.fx.guice.GuiceFXMLLoader;
@@ -62,7 +68,10 @@ public final class CalculatorApp extends GuiceApplication {
     public void start(final Stage primaryStage) throws Exception {
 
         final Parent root = fxmlLoader.load(getClass().getResource("CalculatorApp.fxml"), resources).getRoot();
-
+        final MouseEventHandler meh = new MouseEventHandler(root);
+        root.setOnMousePressed(meh);
+        root.setOnMouseDragged(meh);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         StageBuilder.create()
             .title(resources.getString("APP_NAME"))
             .resizable(false)
@@ -123,6 +132,27 @@ public final class CalculatorApp extends GuiceApplication {
      */
     public static void main(String[] args) {
         Application.launch(args);
+    }
+
+    static class MouseEventHandler implements EventHandler<MouseEvent> {
+        final Node node;
+        double initialX;
+        double initialY;
+        MouseEventHandler(final Node node) {
+            super();
+            this.node = node;
+        }
+        @Override
+        public void handle(MouseEvent me) {
+            final EventType<?> eventType = me.getEventType();
+            if (eventType.equals(MouseEvent.MOUSE_DRAGGED)) {
+                node.getScene().getWindow().setX(me.getScreenX() - initialX);
+                node.getScene().getWindow().setY(me.getScreenY() - initialY);   
+            } else  if (eventType.equals(MouseEvent.MOUSE_PRESSED)) {
+                initialX = me.getSceneX();
+                initialY = me.getSceneY();
+            }
+        }
     }
 
 }
