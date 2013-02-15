@@ -41,6 +41,7 @@ limitations under the License.
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
@@ -54,8 +55,13 @@ limitations under the License.
   <fx:define>
     <Boolean fx:value="false" fx:id="debugFlag" />
     <Double fx:value="1.7976931348623157E308" fx:id="maxValue" />
-    <Rectangle fx:id="rootPaneShape" arcHeight="16.0" arcWidth="16.0"/>
+    <Rectangle fx:id="rootPaneShape" arcHeight="16.0" arcWidth="16.0" />
   </fx:define>
+  <fx:script><![CDATA[
+    rootPaneShape.widthProperty().bind(rootPane.widthProperty());
+    rootPaneShape.heightProperty().bind(rootPane.heightProperty());
+    rootPane.setClip(rootPaneShape);
+  ]]></fx:script>
   <center>
     <VBox fillWidth="true" spacing="8.0">
       <children>
@@ -153,7 +159,7 @@ limitations under the License.
   <top>
     <AnchorPane fx:id="windowTitle" prefHeight="-1.0" prefWidth="-1.0" BorderPane.margin="$x1">
       <children>
-        <Label fx:id="windowTitleLabel" alignment="TOP_CENTER" labelFor="$rootPane" maxWidth="-1.0" prefWidth="-1.0" text="%APP_NAME" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="windowTitleLabel" alignment="TOP_CENTER" labelFor="$rootPane" maxWidth="-1.0" prefWidth="-1.0" text="%APP_NAME" textAlignment="LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Button fx:id="exitButton" contentDisplay="GRAPHIC_ONLY" minHeight="16.0" minWidth="16.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="16.0" prefWidth="16.0" text="Exit" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <graphic>
             <Text fontSmoothingType="LCD" opacity="0.8" smooth="false" stroke="WHITE" strokeType="CENTERED" strokeWidth="1.0" text="x">
@@ -161,7 +167,7 @@ limitations under the License.
                 <DropShadow />
               </effect>
               <font>
-                <Font size="9.0" />
+                <Font name="Monospaced Regular" size="9.0" />
               </font>
             </Text>
           </graphic>
@@ -172,9 +178,4 @@ limitations under the License.
       </children>
     </AnchorPane>
   </top>
-  <fx:script>
-    rootPaneShape.widthProperty().bind(rootPane.widthProperty());
-    rootPaneShape.heightProperty().bind(rootPane.heightProperty());
-    rootPane.setClip(rootPaneShape);
-  </fx:script>
 </BorderPane>
