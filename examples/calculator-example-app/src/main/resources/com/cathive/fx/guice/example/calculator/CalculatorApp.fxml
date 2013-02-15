@@ -65,7 +65,7 @@ limitations under the License.
   <center>
     <VBox fillWidth="true" spacing="8.0">
       <children>
-        <Label fx:id="output" alignment="BASELINE_RIGHT" maxWidth="${maxValue}" minWidth="160.0" mnemonicParsing="false" styleClass="lcd" text="0" />
+        <TextField fx:id="output" alignment="BASELINE_RIGHT" editable="false" maxWidth="${maxValue}" minWidth="-1.0" prefColumnCount="6" styleClass="lcd" text="0" VBox.vgrow="NEVER" />
         <GridPane alignment="CENTER" gridLinesVisible="${debugFlag}" hgap="4.0" styleClass="buttons" vgap="4.0" VBox.vgrow="ALWAYS">
           <children>
             <Button fx:id="globalClearButton" maxHeight="${maxValue}" maxWidth="${maxValue}" onAction="#onGlobalClear" text="C" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
