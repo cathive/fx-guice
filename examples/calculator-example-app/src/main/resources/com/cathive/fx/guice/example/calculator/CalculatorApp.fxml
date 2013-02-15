@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright (C) 2013 The Cat Hive Developers.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<?language javascript?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+
+<?import com.cathive.fx.guice.example.calculator.Operation?>
+
+<?scenebuilder-stylesheet CalculatorApp.css?>
+<?scenebuilder-preview-i18n-resource CalculatorApp.properties?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:id="rootPane" fx:controller="com.cathive.fx.guice.example.calculator.CalculatorAppController" stylesheets="com/cathive/fx/guice/example/calculator/CalculatorApp.css" blendMode="SRC_OVER">
+
+  <fx:define>
+    <Boolean fx:id="debugFlag" fx:value="false"/>
+    <Double fx:id="maxValue" fx:constant="MAX_VALUE"/>
+  </fx:define>
+
+  <center>
+    <VBox fillWidth="true" spacing="8.0">
+      <BorderPane.margin>
+        <Insets top="4.0" right="4.0" bottom="4.0" left="4.0"/>
+      </BorderPane.margin>
+      <children>
+        <Label fx:id="output" styleClass="lcd" mnemonicParsing="false" text="0" minWidth="160" maxWidth="${maxValue}" alignment="BASELINE_RIGHT"/>
+        <GridPane styleClass="buttons" alignment="CENTER" gridLinesVisible="${debugFlag}" VBox.vgrow="ALWAYS" hgap="2.0" vgap="2.0">
+          <children>
+            <Button fx:id="globalClearButton" id="globalClearButton" text="C" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onGlobalClear">
+              <tooltip><Tooltip text="%GLOBAL_CLEAR_TOOLTIP"/></tooltip>
+            </Button>
+            <Button fx:id="divButton" id="divButton" text="÷" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onOperation">
+              <userData><Operation fx:constant="DIVIDE"/></userData>
+            </Button>
+            <Button fx:id="mulButton" id="mulButton" text="×" GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onOperation">
+              <userData><Operation fx:constant="MULTIPLY"/></userData>
+            </Button>
+            <Button fx:id="subButton" id="subButton" text="−" GridPane.columnIndex="3" GridPane.rowIndex="0" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onOperation">
+              <userData><Operation fx:constant="SUBTRACT"/></userData>
+            </Button>
+            <Button fx:id="num7Button" id="num7Button" text="7" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="7"/></userData>
+            </Button>
+            <Button fx:id="num8Button" id="num8Button" text="8" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="8"/></userData>
+            </Button>
+            <Button fx:id="num9Button" id="num9Button" text="9" GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="9"/></userData>
+            </Button>
+            <Button fx:id="num4Button" id="num4Button" text="4" GridPane.columnIndex="0" GridPane.rowIndex="2" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="4"/></userData>
+            </Button>
+            <Button fx:id="num6Button" id="num6Button" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="5"/></userData>
+            </Button>
+            <Button fx:id="num6Button" id="num6Button" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="6"/></userData>
+            </Button>
+            <Button fx:id="num1Button" id="num1Button" text="1" GridPane.columnIndex="0" GridPane.rowIndex="3" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="1"/></userData>
+            </Button>
+            <Button fx:id="num2Button" id="num2Button" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="2"/></userData>
+            </Button>
+            <Button fx:id="num3Button" id="num3Button" text="3" GridPane.columnIndex="2" GridPane.rowIndex="3" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit">
+              <userData><Integer fx:value="3"/></userData>
+            </Button>
+            <Button fx:id="num0Button" id="num0Button" text="0" GridPane.columnIndex="0" GridPane.rowIndex="4" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDigit" GridPane.columnSpan="2">
+              <userData><Integer fx:value="0"/></userData>
+            </Button>
+            <Button fx:id="decimalMarkButton" id="decimalMarkButton" text="%DECIMAL_MARK" GridPane.columnIndex="2" GridPane.rowIndex="4" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" onAction="#onDecimalMark"/>
+            <Button fx:id="addButton" id="addButton" styleClass="addButton" text="+" GridPane.columnIndex="3" GridPane.rowIndex="1" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" onAction="#onOperation" GridPane.vgrow="ALWAYS" GridPane.rowSpan="2">
+              <userData><Operation fx:constant="ADD"/></userData>
+            </Button>
+            <Button fx:id="equalsButton" text="=" GridPane.columnIndex="3" GridPane.rowIndex="3" maxWidth="${maxValue}" maxHeight="${maxValue}" GridPane.hgrow="ALWAYS" onAction="#onEnter" GridPane.vgrow="ALWAYS" GridPane.rowSpan="2"/>
+          </children>
+        </GridPane>
+      </children>
+    </VBox>
+  </center>
+
+  <fx:script source="CalculatorApp.js"/>
+
+</BorderPane>

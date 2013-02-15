@@ -1,0 +1,85 @@
+/*
+ * Copyright (C) 2013 The Cat Hive Developers.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.root {
+
+    /* Looked up colors */
+    solarized-base03: #002b36;
+    solarized-base02: #073642;
+    solarized-base01: #586e75;
+    solarized-base00: #657b83;
+    solarized-base0: #839496;
+    solarized-base1: #93a1a1;
+    solarized-base2: #eee8d5;
+    solarized-base3: #fdf6e3;
+    solarized-yellow: #b58900;
+    solarized-orange: #cb4b16;
+    solarized-red: #dc322f;
+    solarized-magenta: #d33682;
+    solarized-violet: #6c71c4;
+    solarized-blue: #268bd2;
+    solarized-cyan: #2aa198;
+    solarized-green: #859900;
+
+    -fx-background-color: solarized-base0;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+
+}
+
+.button {
+  -fx-border-width: 1px;
+  -fx-border-color: solarized-base03;
+  -fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.lcd {
+  -fx-font-family: "Liquid Crystal Normal";
+  -fx-font-size: 32px;
+  -fx-background-color: solarized-base3;
+  -fx-background-radius: 4px;
+  -fx-border-width: 1px;
+  -fx-border-color: solarized-base03;
+  -fx-border-radius: 4px;
+  -fx-padding: 4px 8px;
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+.lcd .text {
+  -fx-fill: solarized-base03;
+}
+
+#globalClearButton {
+  -fx-base: solarized-red;
+}
+
+#addButton, #subButton, #mulButton, #divButton {
+  -fx-base: solarized-yellow;
+}
+
+#num0Button, #num1Button, #num2Button, #num3Button, #num4Button, #num5Button, #num6Button, #num7Button, #num8Button, #num9Button {
+  -fx-base: solarized-base1;
+}
+
+#decimalMarkButton {
+  -fx-base: solarized-base1;
+}
+
+#equalsButton {
+  -fx-base: solarized-green;
+}
