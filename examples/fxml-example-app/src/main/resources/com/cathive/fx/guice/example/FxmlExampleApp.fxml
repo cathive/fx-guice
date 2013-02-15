@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-preview-i18n-resource FxmlExampleApp.properties?>
+
+<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.example.FxmlExampleAppController">
+  <fx:script><![CDATA[
+    var MAX_DOUBLE = java.lang.Double.MAX_VALUE;
+  ]]></fx:script>
+  <bottom>
+    <VBox alignment="TOP_LEFT" spacing="8.0">
+      <children>
+        <Button fx:id="redButton" maxWidth="${MAX_DOUBLE}" onAction="#redButtonPressed" text="%RED_BUTTON_TEXT"/>
+        <Button fx:id="greenButton" maxWidth="${MAX_DOUBLE}" onAction="#greenButtonPressed" text="%GREEN_BUTTON_TEXT"/>
+        <Label fx:id="statusLabel" maxHeight="${MAX_DOUBLE}" maxWidth="${MAX_DOUBLE}" text="Press any of the buttons!" textAlignment="CENTER"/>
+      </children>
+      <padding>
+        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+      </padding>
+    </VBox>
+  </bottom>
+</BorderPane>
