@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="CathiveFX Guice : Google Guice integration for JavaFX applications" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>CathiveFX Guice</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/cathive/fx-guice">View on GitHub</a>
+
+          <h1 id="project_title">CathiveFX Guice</h1>
+          <h2 id="project_tagline">Google Guice integration for JavaFX applications</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/cathive/fx-guice/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/cathive/fx-guice/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This library provides some useful classes that help you integrate
+Google Guice into your JavaFX2 based applications.</p>
+
+<p>The idea for that class was born after I read an article on
+fxexperience.com (<a href="http://fxexperience.com/2011/10/fxml-guice/">http://fxexperience.com/2011/10/fxml-guice/</a>).
+Therefore,... credits go to 'Richard Bair' for the initial idea.</p>
+
+<p>A compiled and ready-to-use version of this library can be found in the
+Sonatype OSS Maven Repository (oss.sonatype.org). To use the library
+in your Maven based projects just add the following lines to your
+'pom.xml':</p>
+
+<div class="highlight"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.cathive.fx<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>fx-guice<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>2.0.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<p>In your project all you need to do is create an application class 
+that extends <code>com.cathive.fx.guice.GuiceApplication</code> instead of the
+<code>javafx.application.Application</code> class that ships with JavaFX.</p>
+
+<p>Next step: instead of using <code>javafx.fxml.FXMLLoader</code> to load FXML files
+you use <code>com.cathive.fx.guice.GuiceFXMLLoader</code>... that's basically it!</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CathiveFX Guice maintained by <a href="https://github.com/cathive">cathive</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-37475496-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
