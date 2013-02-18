@@ -102,7 +102,9 @@ public final class GuiceFXMLLoader {
 
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
-        loader.setResources(resources);
+        if (resources != null) {
+            loader.setResources(resources);
+        }
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
             @Override
             public Object call(final Class<?> param) {
