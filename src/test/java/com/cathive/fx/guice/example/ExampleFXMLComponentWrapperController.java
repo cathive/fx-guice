@@ -16,19 +16,19 @@ public class ExampleFXMLComponentWrapperController {
 
     @Inject private Injector injector;
 
-    @FXML ExampleFXMLComponentWithoutBuilder simpleComponent;
-    @FXML ExampleFXMLComponentWithBuilder builtComponent;
+    @FXML SimpleFXMLComponent simpleComponent1;
+    @FXML SimpleFXMLComponent simpleComponent2;
 
     public Injector getInjector() {
         return this.injector;
     }
 
-    public ExampleFXMLComponentWithoutBuilder getSimpleComponent() {
-        return this.simpleComponent;
+    public SimpleFXMLComponent getSimpleComponent1() {
+        return this.simpleComponent1;
     }
 
-    public ExampleFXMLComponentWithBuilder getBuiltComponent() {
-        return this.builtComponent;
+    public SimpleFXMLComponent getSimpleComponent2() {
+        return this.simpleComponent2;
     }
 
 }

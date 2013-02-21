@@ -22,13 +22,9 @@ import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
-
 import javafx.fxml.FXMLLoader;
 
 import com.cathive.fx.guice.FXMLComponent;
-import com.cathive.fx.guice.FXMLComponentBuilder;
-import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
 
 /**
@@ -43,9 +39,6 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
     /** Logger for this class. */
     private static final Logger LOGGER = Logger.getLogger(FXMLComponentMembersInjector.class.getName());
-
-    @Inject private Injector injector;
-    @Inject private FXMLComponentBuilderFactory builderFactory;
 
     private final FXMLComponent annotation;
 
@@ -73,20 +66,14 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
             fxmlLoader.setCharset(Charset.forName(annotation.charset()));
             fxmlLoader.setController(instance);
             fxmlLoader.setRoot(instance);
-            fxmlLoader.setBuilderFactory(builderFactory);
             final Object loaded = fxmlLoader.load();
-            final Class<?> builderClass =  annotation.builderClass();
-            if (builderClass != FXMLComponent.NopBuilder.class) {
-                @SuppressWarnings("unchecked")
-                final FXMLComponentBuilder<T> builderInstance = (FXMLComponentBuilder<T>) injector.getInstance(builderClass);
-                builderInstance.applyTo(instance);
-            }
             if (loaded != instance) {
                 throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
             }
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 }

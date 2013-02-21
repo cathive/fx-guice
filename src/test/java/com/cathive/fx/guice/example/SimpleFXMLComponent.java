@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,8 +37,10 @@ import com.google.inject.Injector;
  * 
  * @author Benjamin P. Jung
  */
-@FXMLComponent(location = "/ExampleFXMLComponentWithoutBuilder.fxml", resources = "ExampleFXMLComponentWithoutBuilder")
-public final class ExampleFXMLComponentWithoutBuilder extends VBox {
+@FXMLComponent(location = "/SimpleFXMLComponent.fxml", resources = "SimpleFXMLComponent")
+public final class SimpleFXMLComponent extends VBox {
+
+    private final IntegerProperty theAnswerToEverything = new SimpleIntegerProperty();
 
     @Inject private Injector injector;
 
@@ -48,7 +52,7 @@ public final class ExampleFXMLComponentWithoutBuilder extends VBox {
 
     private boolean initialized = false;
 
-    public ExampleFXMLComponentWithoutBuilder() {
+    public SimpleFXMLComponent() {
         super();
     }
 
@@ -70,6 +74,18 @@ public final class ExampleFXMLComponentWithoutBuilder extends VBox {
 
     public boolean isInitialized() {
         return this.initialized;
+    }
+
+    public int getTheAnswerToEverything() {
+        return this.theAnswerToEverything.get();
+    }
+
+    public void setTheAnswerToEverything(final int theAnswerToEverything) {
+        this.theAnswerToEverything.set(theAnswerToEverything);
+    }
+
+    public IntegerProperty theAnswerToEverythingProperty() {
+        return this.theAnswerToEverything;
     }
 
 }

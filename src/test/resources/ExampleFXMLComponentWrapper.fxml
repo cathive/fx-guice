@@ -18,12 +18,13 @@ limitations under the License.
 
 <?language javascript?>
 
-<?import com.cathive.fx.guice.example.ExampleFXMLComponentWithBuilder?>
-<?import com.cathive.fx.guice.example.ExampleFXMLComponentWithoutBuilder?>
+<?import com.cathive.fx.guice.example.SimpleFXMLComponent?>
 <?import javafx.scene.layout.VBox?>
 
 
 <fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.example.ExampleFXMLComponentWrapperController">
-  <ExampleFXMLComponentWithoutBuilder fx:id="simpleComponent"/>
-  <ExampleFXMLComponentWithBuilder fx:id="builtComponent" someInt="43"/>
+  <SimpleFXMLComponent fx:id="simpleComponent1" theAnswerToEverything="42"/>
+  <SimpleFXMLComponent fx:id="simpleComponent2">
+    <theAnswerToEverything>43</theAnswerToEverything>
+  </SimpleFXMLComponent>
 </fx:root>

@@ -16,8 +16,6 @@
 
 package com.cathive.fx.guice.fxml;
 
-import javafx.util.BuilderFactory;
-
 import com.cathive.fx.guice.FXMLController;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
@@ -52,9 +50,6 @@ public final class FXMLLoadingModule extends AbstractModule {
         bind(FXMLControllerTypeListener.class).toInstance(fxmlControllerTypeListener);
         bindListener(Matchers.any(), fxmlControllerTypeListener);
 
-        // FXMLComponentBuilderFactory
-        bind(BuilderFactory.class).to(FXMLComponentBuilderFactory.class);
-        
         // FXMLComponentTypeListener
         final FXMLComponentTypeListener fxmlComponentTypeListener = new FXMLComponentTypeListener();
         requestInjection(fxmlComponentTypeListener);

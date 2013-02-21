@@ -43,7 +43,7 @@ public @interface FXMLComponent {
      *     A String that represents the location of the FXML file
      *     that shall be loaded.
      */
-    public String location();
+    public String location() default "";
 
     /**
      * Location of the {@link java.util.ResourceBundle} to be used when loading the FXML
@@ -56,13 +56,6 @@ public @interface FXMLComponent {
     public String resources() default "";
 
     /**
-     * @see FXMLLoader#setBuilderFactory(javafx.util.BuilderFactory)
-     * @return
-     *     The class of the builder that can be used to construct instances
-     */
-    public Class<? extends FXMLComponentBuilder<?>> builderClass() default NopBuilder.class;
-
-    /**
      * Character set that has to be used, when parsing the FXML input given.
      * <p>Default: UTF-8</p>
      * @see FXMLLoader#setCharset(java.nio.charset.Charset)
@@ -70,19 +63,5 @@ public @interface FXMLComponent {
      *     The charset of the FXML file
      */
     public String charset() default "UTF-8";
-
-
-    /**
-     * Just a "marker" class that means: "no builder available".
-     * @author Benjamin P. Jung
-     */
-    static abstract class NopBuilder extends FXMLComponentBuilder<Object> {
-        // Private constructor.
-        // Instances of this class should (hopefully) never be needed.
-        private NopBuilder() {
-            super(Object.class);
-            throw new IllegalStateException("Instantiation of this class should never happen");
-        }
-    }
 
 }

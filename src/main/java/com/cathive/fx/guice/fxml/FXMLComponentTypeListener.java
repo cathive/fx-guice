@@ -33,7 +33,6 @@ final class FXMLComponentTypeListener implements TypeListener {
 
     @Inject private Injector injector;
     @Inject private FXMLLoadingScope fxmlLoadingScope;
-    @Inject private FXMLComponentBuilderFactory fxmlComponentBuilderFactory;
 
     FXMLComponentTypeListener() {
         super();
@@ -44,9 +43,6 @@ final class FXMLComponentTypeListener implements TypeListener {
         final Class<? super T> rawType = typeLiteral.getRawType();
         if (rawType.isAnnotationPresent(FXMLComponent.class)) {
             final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
-            if (annotation.builderClass() != FXMLComponent.NopBuilder.class) {
-                fxmlComponentBuilderFactory.registerBuilder(rawType, annotation.builderClass());
-            }
             final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<T>(annotation);
             injector.injectMembers(membersInjector);
             typeEncounter.register(membersInjector);

@@ -23,13 +23,11 @@ import static org.testng.Assert.assertTrue;
 import java.io.IOException;
 
 import javafx.scene.Parent;
-import javafx.util.BuilderFactory;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.cathive.fx.guice.example.ExampleFXMLComponentWithBuilder;
-import com.cathive.fx.guice.example.ExampleFXMLComponentWithoutBuilder;
+import com.cathive.fx.guice.example.SimpleFXMLComponent;
 import com.cathive.fx.guice.example.ExampleFXMLComponentWrapperController;
 import com.cathive.fx.guice.fxml.FXMLLoadingModule;
 import com.google.inject.Guice;
@@ -44,8 +42,7 @@ public class FXMLComponentTest {
 
     private Injector injector;
 
-    private ExampleFXMLComponentWithoutBuilder simpleComponent;
-    private ExampleFXMLComponentWithBuilder builtComponent;
+    private SimpleFXMLComponent simpleComponent;
 
     @BeforeTest
     protected void initialize() {
@@ -55,7 +52,7 @@ public class FXMLComponentTest {
     @Test(description = "Test the instantiation of classes annotated with @FXMLComponent via Google Guice")
     public void testSimpleComponentInstantiation() {
 
-        simpleComponent = injector.getInstance(ExampleFXMLComponentWithoutBuilder.class);
+        simpleComponent = injector.getInstance(SimpleFXMLComponent.class);
 
         assertNotNull(simpleComponent);
         assertTrue(simpleComponent.isInitialized());
@@ -64,24 +61,11 @@ public class FXMLComponentTest {
 
     }
 
+
     @Test(dependsOnMethods = "testSimpleComponentInstantiation")
-    public void testComponentWithBuilderInstantiation() {
-
-        builtComponent = injector.getInstance(ExampleFXMLComponentWithBuilder.class);
-
-        assertNotNull(builtComponent);
-        assertNotNull(builtComponent.getBuilder());
-        assertEquals(builtComponent.getSomeInt(), 42);
-
-    }
-
-    @Test(dependsOnMethods = "testComponentWithBuilderInstantiation")
     public void testComponentInstantiationWithinFxmlFile() throws IOException {
 
         final GuiceFXMLLoader fxmlLoader = injector.getInstance(GuiceFXMLLoader.class);
-        
-        final BuilderFactory builderFactory = injector.getInstance(BuilderFactory.class);
-        assertNotNull(builderFactory.getBuilder(ExampleFXMLComponentWithBuilder.class));
 
         final GuiceFXMLLoader.Result loadingResult = fxmlLoader.load(getClass().getResource("/ExampleFXMLComponentWrapper.fxml"));
 
@@ -92,10 +76,10 @@ public class FXMLComponentTest {
         assertNotNull(ctrl);
 
         assertNotNull(ctrl.getInjector());
-        assertNotNull(ctrl.getSimpleComponent());
-        assertNotNull(ctrl.getBuiltComponent());
-        assertNotNull(ctrl.getBuiltComponent().getBuilder());
-        assertEquals(ctrl.getBuiltComponent().getSomeInt(), 43);
+        assertNotNull(ctrl.getSimpleComponent1());
+        assertEquals(ctrl.getSimpleComponent1().getTheAnswerToEverything(), 42);
+        assertNotNull(ctrl.getSimpleComponent2());
+        assertEquals(ctrl.getSimpleComponent2().getTheAnswerToEverything(), 43);
 
     }
 

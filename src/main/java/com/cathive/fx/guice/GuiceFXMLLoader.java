@@ -25,7 +25,6 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 
 import com.cathive.fx.guice.fxml.FXMLLoadingScope;
@@ -106,7 +105,6 @@ public final class GuiceFXMLLoader {
         if (resources != null) {
             loader.setResources(resources);
         }
-        loader.setBuilderFactory(injector.getInstance(BuilderFactory.class));
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
             @Override
             public Object call(final Class<?> param) {
