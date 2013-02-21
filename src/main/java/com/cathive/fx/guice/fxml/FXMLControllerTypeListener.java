@@ -21,7 +21,6 @@ import java.lang.reflect.Field;
 import javax.inject.Inject;
 
 import com.cathive.fx.guice.FXMLController;
-import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -32,7 +31,6 @@ import com.google.inject.spi.TypeListener;
  */
 final class FXMLControllerTypeListener implements TypeListener {
 
-    @Inject private Injector injector;
     @Inject private FXMLLoadingScope fxmlLoadingScope;
 
     FXMLControllerTypeListener() {

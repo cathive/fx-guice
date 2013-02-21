@@ -29,15 +29,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 
-import com.cathive.fx.guice.FXMLController;
+import com.cathive.fx.guice.FXMLComponent;
 import com.google.inject.Inject;
 
 /**
  * Controller for the calculator app user interface.
  * @author Benjamin P. Jung
  */
-@FXMLController
-public final class CalculatorAppController {
+@FXMLComponent(resources="com.cathive.fx.guice.example.calculator.CalculatorAppPane")
+public final class CalculatorAppPane extends BorderPane {
 
     @Inject private CalculatorApp app;
 

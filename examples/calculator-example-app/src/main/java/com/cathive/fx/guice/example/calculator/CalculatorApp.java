@@ -20,6 +20,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -36,16 +39,15 @@ import javafx.stage.StageStyle;
 
 import com.cathive.fx.guice.GuiceApplication;
 import com.cathive.fx.guice.GuiceFXMLLoader;
-import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.name.Named;
 
 /**
  * @author Benjamin P. Jung
  */
 public final class CalculatorApp extends GuiceApplication {
 
-    @Inject private GuiceFXMLLoader fxmlLoader;
+    @Inject private CalculatorAppPane rootPane;
 
     /** Resource Bundle being used to translate the application */
     @Inject @Named("resources")
@@ -67,7 +69,7 @@ public final class CalculatorApp extends GuiceApplication {
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
-        final Parent root = fxmlLoader.load(getClass().getResource("CalculatorApp.fxml"), resources).getRoot();
+        final Parent root = rootPane;
         final MouseEventHandler meh = new MouseEventHandler(root);
         root.setOnMousePressed(meh);
         root.setOnMouseDragged(meh);

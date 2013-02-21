@@ -51,7 +51,7 @@ limitations under the License.
 <?scenebuilder-stylesheet CalculatorApp.css?>
 <?scenebuilder-preview-i18n-resource CalculatorApp.properties?>
 
-<BorderPane fx:id="rootPane" blendMode="SRC_OVER" stylesheets="com/cathive/fx/guice/example/calculator/CalculatorApp.css" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.example.calculator.CalculatorAppController">
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane" blendMode="SRC_OVER" stylesheets="com/cathive/fx/guice/example/calculator/CalculatorAppPane.css" xmlns:fx="http://javafx.com/fxml">
   <fx:define>
     <Boolean fx:value="false" fx:id="debugFlag" />
     <Double fx:value="1.7976931348623157E308" fx:id="maxValue" />
@@ -178,4 +178,4 @@ limitations under the License.
       </children>
     </AnchorPane>
   </top>
-</BorderPane>
+</fx:root>

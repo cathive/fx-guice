@@ -17,11 +17,13 @@
 package com.cathive.fx.guice.fxml;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
 import com.cathive.fx.guice.FXMLComponent;
@@ -50,29 +52,46 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
     @Override
     public void injectMembers(final T instance) {
 
-        try {
-            final String locationString = annotation.location();
-            URL location;
-            location = instance.getClass().getResource(locationString);
-            if (location == null) {
-                LOGGER.fine(String.format("Location '%s' cannot be found on the classpath. Trying to construct a new URL...", locationString));
-                location = new URL(locationString);
-            }
-            final FXMLLoader fxmlLoader = new FXMLLoader(location);
-            final String resourcesString = annotation.resources();
-            if (!resourcesString.isEmpty()) {
-                fxmlLoader.setResources(ResourceBundle.getBundle(resourcesString));
-            }
-            fxmlLoader.setCharset(Charset.forName(annotation.charset()));
-            fxmlLoader.setController(instance);
-            fxmlLoader.setRoot(instance);
-            final Object loaded = fxmlLoader.load();
-            if (loaded != instance) {
-                throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
-            }
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        String locationString = annotation.location();
+        if (locationString.isEmpty()) {
+            LOGGER.fine(String.format("No location for FXML component has been set for class '%s'. Assuming default ('%s').", instance.getClass().getName(), instance.getClass().getSimpleName()));
+            locationString = String.format("%s.fxml", instance.getClass().getSimpleName());
         }
+        URL location;
+        location = instance.getClass().getResource(locationString);
+        if (location == null) {
+            LOGGER.fine(String.format("Location '%s' cannot be found on the classpath. Trying to construct a new URL...", locationString));
+            try {
+                location = new URL(locationString);
+            } catch (final MalformedURLException e) {
+                throw new RuntimeException(String.format("Cannot construct URL from string '%s'.", locationString), e);
+            }
+        }
+        final FXMLLoader fxmlLoader = new FXMLLoader(location);
+        final String resourcesString = annotation.resources();
+        if (!resourcesString.isEmpty()) {
+            fxmlLoader.setResources(ResourceBundle.getBundle(resourcesString));
+        }
+        fxmlLoader.setCharset(Charset.forName(annotation.charset()));
+        fxmlLoader.setController(instance);
+        fxmlLoader.setRoot(instance);
+
+        // Actual instantiation of the component has to happen on the JavaFX thread.
+        // We simply delegate the loading.
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final Object loaded = fxmlLoader.load();
+                    if (loaded != instance) {
+                        throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
+                    }
+                } catch (final IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
 
     }
 

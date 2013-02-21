@@ -30,7 +30,7 @@ public final class CalculatorAppModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(ResourceBundle.class).annotatedWith(Names.named("resources"))
-            .toInstance(ResourceBundle.getBundle(CalculatorApp.class.getName()));
+            .toInstance(ResourceBundle.getBundle(CalculatorAppPane.class.getName()));
     }
 
 }

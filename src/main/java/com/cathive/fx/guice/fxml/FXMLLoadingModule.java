@@ -52,7 +52,6 @@ public final class FXMLLoadingModule extends AbstractModule {
 
         // FXMLComponentTypeListener
         final FXMLComponentTypeListener fxmlComponentTypeListener = new FXMLComponentTypeListener();
-        requestInjection(fxmlComponentTypeListener);
         bind(FXMLComponentTypeListener.class).toInstance(fxmlComponentTypeListener);
         bindListener(Matchers.any(), fxmlComponentTypeListener);
 
