@@ -25,5 +25,5 @@ limitations under the License.
 
 <fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cathive.fx.guice.example.ExampleFXMLComponentWrapperController">
   <ExampleFXMLComponentWithoutBuilder fx:id="simpleComponent"/>
-  <ExampleFXMLComponentWithBuilder fx:id="builtComponent"/>
+  <ExampleFXMLComponentWithBuilder fx:id="builtComponent" someInt="43"/>
 </fx:root>

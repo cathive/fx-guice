@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -40,6 +41,9 @@ import com.google.inject.MembersInjector;
  */
 final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
+    /** Logger for this class. */
+    private static final Logger LOGGER = Logger.getLogger(FXMLComponentMembersInjector.class.getName());
+
     @Inject private Injector injector;
     @Inject private FXMLComponentBuilderFactory builderFactory;
 
@@ -54,10 +58,12 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
     public void injectMembers(final T instance) {
 
         try {
+            final String locationString = annotation.location();
             URL location;
-            location = instance.getClass().getResource(annotation.location());
+            location = instance.getClass().getResource(locationString);
             if (location == null) {
-                location = new URL(annotation.location());
+                LOGGER.fine(String.format("Location '%s' cannot be found on the classpath. Trying to construct a new URL...", locationString));
+                location = new URL(locationString);
             }
             final FXMLLoader fxmlLoader = new FXMLLoader(location);
             final String resourcesString = annotation.resources();

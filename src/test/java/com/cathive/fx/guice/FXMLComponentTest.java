@@ -16,11 +16,14 @@
 
 package com.cathive.fx.guice;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
 
 import javafx.scene.Parent;
+import javafx.util.BuilderFactory;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -68,6 +71,7 @@ public class FXMLComponentTest {
 
         assertNotNull(builtComponent);
         assertNotNull(builtComponent.getBuilder());
+        assertEquals(builtComponent.getSomeInt(), 42);
 
     }
 
@@ -75,6 +79,10 @@ public class FXMLComponentTest {
     public void testComponentInstantiationWithinFxmlFile() throws IOException {
 
         final GuiceFXMLLoader fxmlLoader = injector.getInstance(GuiceFXMLLoader.class);
+        
+        final BuilderFactory builderFactory = injector.getInstance(BuilderFactory.class);
+        assertNotNull(builderFactory.getBuilder(ExampleFXMLComponentWithBuilder.class));
+
         final GuiceFXMLLoader.Result loadingResult = fxmlLoader.load(getClass().getResource("/ExampleFXMLComponentWrapper.fxml"));
 
         final Parent root = loadingResult.getRoot();
@@ -87,6 +95,7 @@ public class FXMLComponentTest {
         assertNotNull(ctrl.getSimpleComponent());
         assertNotNull(ctrl.getBuiltComponent());
         assertNotNull(ctrl.getBuiltComponent().getBuilder());
+        assertEquals(ctrl.getBuiltComponent().getSomeInt(), 43);
 
     }
 

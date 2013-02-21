@@ -16,6 +16,8 @@
 
 package com.cathive.fx.guice;
 
+import java.util.AbstractMap;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -32,7 +34,7 @@ import javafx.util.Builder;
  * @author Benjamin P. Jung
  * @since 2.0.0
  */
-public abstract class FXMLComponentBuilder<T> implements Builder<T> {
+public abstract class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implements Builder<T> {
 
     /** Logger for this class */
     private static final Logger LOGGER = Logger.getLogger(FXMLComponentBuilder.class.getName());
@@ -55,8 +57,37 @@ public abstract class FXMLComponentBuilder<T> implements Builder<T> {
 
 
     /**
-     * This method must not be overriden, since creation of all instances is done via Guice.
-     * <p>Implement {@link FXMLComponentBuilder#applyTo(Object)} instead.
+     * This method is used to prepare the different properties of the object
+     * that will be constructed by this builder.
+     * <p>Implementations of this class will be responsible to store the key-value
+     * pair in an appropriate way and use it later on when the {@link #applyTo(Object)}
+     * method is called.
+     *  
+     * @param key
+     *     property name.
+     * @param value
+     *     property value
+     * @return
+     *     Anything. The return value doesn't matter. It's best to set it to <code>null</code>.
+     */
+    @Override
+    public abstract Object put(String key, Object value);
+
+    /**
+     * Throws an {@UnsupportedOperationException}, because this method is not needed.
+     */
+    @Override
+    public Set<Entry<String, Object>> entrySet() {
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * Creates a new instance of &lt;T&gt; using Google Guice.
+     * After initial creation, the (abstract) method {@link #applyTo(Object)} will be called,
+     * which has to be overwritten by implementations of this class.
+     * <p>This method must not be overwritten, since creation of all instances is done via Guice.
+     * Implement {@link FXMLComponentBuilder#applyTo(Object)} instead.</p>
      */
     @Override
     public final T build() {
@@ -68,6 +99,7 @@ public abstract class FXMLComponentBuilder<T> implements Builder<T> {
         applyTo(instance);
         return instance;
     }
+
 
     /**
      * TODO Javadoc

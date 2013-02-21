@@ -23,7 +23,7 @@ limitations under the License.
 <?import javafx.scene.layout.VBox?>
 
 
-<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml" someInt="42">
   <Label fx:id="label" text="%label.text"/>
   <Button fx:id="button" text="%button.text"/>
 </fx:root>
