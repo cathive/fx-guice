@@ -24,7 +24,7 @@
   <packaging>jar</packaging>
   <version>2.0.0-SNAPSHOT</version>
   <name>CathiveFX Guice Library</name>
-  <description>Classes and utilities that integrate Google Guice into your JavaFX2 applications</description>
+  <description>Classes and utilities that integrate Google Guice into your JavaFX applications</description>
   <url>https://github.com/cathive/fx-guice/</url>
   <inceptionYear>2012</inceptionYear>
 
@@ -72,9 +72,7 @@
       <organizationUrl>http://terreon.de/</organizationUrl>
       <timezone>Europe/Berlin</timezone>
       <properties />
-      <roles>
-        <role>Lead Developer</role>
-      </roles>
+      <roles/>
     </developer>
   </developers>
 
@@ -85,8 +83,7 @@
       <email>atill@mail.com</email>
       <url>http://andrewtill.blogspot.co.uk/</url>
       <properties />
-      <roles>
-      </roles>
+      <roles/>
     </contributor>
   </contributors>
 
@@ -148,6 +145,9 @@
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                 <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
               </manifest>
+              <manifestEntries>
+                <Export-Package>com.cathive.fx.guice, com.cathive.fx.guice.controllerlookup</Export-Package>
+              </manifestEntries>
             </archive>
           </configuration>
         </plugin>

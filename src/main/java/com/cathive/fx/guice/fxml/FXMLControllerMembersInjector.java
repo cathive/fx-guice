@@ -26,7 +26,7 @@ import com.google.inject.MembersInjector;
  * 
  * @author Benjamin P. Jung
  */
-class FXMLControllerMembersInjector<T> implements MembersInjector<T> {
+final class FXMLControllerMembersInjector<T> implements MembersInjector<T> {
 
     private final Field field;
     private final FXMLController annotation;

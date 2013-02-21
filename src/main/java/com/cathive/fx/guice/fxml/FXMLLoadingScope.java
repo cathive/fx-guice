@@ -50,6 +50,8 @@ public final class FXMLLoadingScope implements Scope {
      * {@link IdentifiableController} and annotated wih {@link FXMLController} will
      * be retrievable from any {@link ControllerLookup} instance that is
      * injected.
+     * @param fxmlLoader
+     *     The FXML Loader to be used within this scope.
      */
     public void enter(final GuiceFXMLLoader fxmlLoader) {
         this.fxmlLoader = fxmlLoader;

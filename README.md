@@ -1,5 +1,5 @@
 This library provides some useful classes that help you integrate
-Google Guice into your JavaFX2 based applications.
+Google Guice into your JavaFX based applications.
 
 The idea for that class was born after I read an article on
 fxexperience.com (http://fxexperience.com/2011/10/fxml-guice/).
@@ -14,7 +14,7 @@ in your Maven based projects just add the following lines to your
 <dependency>
   <groupId>com.cathive.fx</groupId>
   <artifactId>fx-guice</artifactId>
-  <version>2.0.0</version>
+  <version>${fx-guice.version}</version>
 </dependency>
 ```
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,9 @@
 
 package com.cathive.fx.guice.fxml;
 
-import java.lang.reflect.Field;
-
 import javax.inject.Inject;
 
-import com.cathive.fx.guice.FXMLController;
+import com.cathive.fx.guice.FXMLComponent;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
@@ -29,23 +27,29 @@ import com.google.inject.spi.TypeListener;
 /**
  * 
  * @author Benjamin P. Jung
+ * @since 2.0.0
  */
-final class FXMLControllerTypeListener implements TypeListener {
+final class FXMLComponentTypeListener implements TypeListener {
 
     @Inject private Injector injector;
     @Inject private FXMLLoadingScope fxmlLoadingScope;
+    @Inject private FXMLComponentBuilderFactory fxmlComponentBuilderFactory;
 
-    FXMLControllerTypeListener() {
+    FXMLComponentTypeListener() {
         super();
     }
 
     @Override
     public <T> void hear(TypeLiteral<T> typeLiteral, TypeEncounter<T> typeEncounter) {
-        for (final Field field : typeLiteral.getRawType().getDeclaredFields()) {
-            if (field.isAnnotationPresent(FXMLController.class)) {
-                final FXMLController annotation = field.getAnnotation(FXMLController.class);
-                typeEncounter.register(new FXMLControllerMembersInjector<T>(field, annotation, fxmlLoadingScope));
+        final Class<? super T> rawType = typeLiteral.getRawType();
+        if (rawType.isAnnotationPresent(FXMLComponent.class)) {
+            final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
+            if (annotation.builderClass() != FXMLComponent.NopBuilder.class) {
+                fxmlComponentBuilderFactory.registerBuilder(rawType, annotation.builderClass());
             }
+            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<T>(annotation);
+            injector.injectMembers(membersInjector);
+            typeEncounter.register(membersInjector);
         }
     }
 

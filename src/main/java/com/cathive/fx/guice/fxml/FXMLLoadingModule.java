@@ -16,6 +16,8 @@
 
 package com.cathive.fx.guice.fxml;
 
+import javafx.util.BuilderFactory;
+
 import com.cathive.fx.guice.FXMLController;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
@@ -28,8 +30,9 @@ import com.google.inject.matcher.Matchers;
  * one control.
  * 
  * @author Andy Till
+ * @author Benjamin P. Jung
  */
-public class FXMLLoadingModule extends AbstractModule {
+public final class FXMLLoadingModule extends AbstractModule {
 
     public FXMLLoadingModule() {
         super();
@@ -37,11 +40,30 @@ public class FXMLLoadingModule extends AbstractModule {
 
     @Override
     protected void configure() {
+
+        // FXMLLoadingScope
         final FXMLLoadingScope fxmlLoadingScope = new FXMLLoadingScope();
-        bindScope(FXMLController.class, fxmlLoadingScope);
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
+        bindScope(FXMLController.class, fxmlLoadingScope);
+
+        // FXMLControllerTypeListener
+        final FXMLControllerTypeListener fxmlControllerTypeListener = new FXMLControllerTypeListener();
+        requestInjection(fxmlControllerTypeListener);
+        bind(FXMLControllerTypeListener.class).toInstance(fxmlControllerTypeListener);
+        bindListener(Matchers.any(), fxmlControllerTypeListener);
+
+        // FXMLComponentBuilderFactory
+        bind(BuilderFactory.class).to(FXMLComponentBuilderFactory.class);
+        
+        // FXMLComponentTypeListener
+        final FXMLComponentTypeListener fxmlComponentTypeListener = new FXMLComponentTypeListener();
+        requestInjection(fxmlComponentTypeListener);
+        bind(FXMLComponentTypeListener.class).toInstance(fxmlComponentTypeListener);
+        bindListener(Matchers.any(), fxmlComponentTypeListener);
+
+        // ControllerLookup
         bind(ControllerLookup.class).toProvider(new ControllerLookupProvider(fxmlLoadingScope));
-        bindListener(Matchers.any(), new FXMLControllerTypeListener(fxmlLoadingScope));
+
     }
 
 
@@ -54,8 +76,7 @@ public class FXMLLoadingModule extends AbstractModule {
         @Override
         public ControllerLookup get() {
             if (!fxmlLoadingScope.isActive()) {
-                throw new IllegalStateException(
-                        "A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
+                throw new IllegalStateException("A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
             }
             return new ControllerLookup(fxmlLoadingScope.getIdentifiables());
         }
