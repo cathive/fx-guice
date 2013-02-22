@@ -94,6 +94,10 @@
     <url>https://github.com/cathive/fx-guice/</url>
   </scm>
 
+  <ciManagement>
+    <system>jenkins</system>
+    <url>https://cathive.ci.cloudbees.com/job/fx-guice-integration-build/</url>
+  </ciManagement>
 
   <build>
     <plugins>
