@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Callback;
 
+import com.cathive.fx.guice.fxml.FXMLComponentBuilderFactory;
 import com.cathive.fx.guice.fxml.FXMLLoadingScope;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -105,6 +106,7 @@ public final class GuiceFXMLLoader {
         if (resources != null) {
             loader.setResources(resources);
         }
+        loader.setBuilderFactory(injector.getInstance(FXMLComponentBuilderFactory.class));
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
             @Override
             public Object call(final Class<?> param) {
