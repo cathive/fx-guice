@@ -17,6 +17,8 @@
 package com.cathive.fx.guice.fxml;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -54,8 +56,8 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
         String locationString = annotation.location();
         if (locationString.isEmpty()) {
-            LOGGER.fine(String.format("No location for FXML component has been set for class '%s'. Assuming default ('%s').", instance.getClass().getName(), instance.getClass().getSimpleName()));
             locationString = String.format("%s.fxml", instance.getClass().getSimpleName());
+            LOGGER.fine(String.format("No location for FXML component has been set for class '%s'. Assuming default ('%s').", instance.getClass().getName(), locationString));
         }
         URL location;
         location = instance.getClass().getResource(locationString);
@@ -67,7 +69,8 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
                 throw new RuntimeException(String.format("Cannot construct URL from string '%s'.", locationString), e);
             }
         }
-        final FXMLLoader fxmlLoader = new FXMLLoader(location);
+        final FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
         final String resourcesString = annotation.resources();
         if (!resourcesString.isEmpty()) {
             fxmlLoader.setResources(ResourceBundle.getBundle(resourcesString));
@@ -75,6 +78,16 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
         fxmlLoader.setCharset(Charset.forName(annotation.charset()));
         fxmlLoader.setController(instance);
         fxmlLoader.setRoot(instance);
+
+        // Invoke "fxmlLoader.setTemplate(true)" if we are using JavaFX 8.0 or
+        // higher to improve performance on objects that are created multiple times.
+        try {
+            final Method setTemplateMethod = FXMLLoader.class.getMethod("setTemplate", boolean.class);
+            setTemplateMethod.invoke(fxmlLoader, Boolean.TRUE);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            // We simply ignore this exception. It means that we are using
+            // a JavaFX runtime prior to JavaFX 8.0.
+        }
 
         // Actual instantiation of the component has to happen on the JavaFX thread.
         // We simply delegate the loading.
