@@ -45,7 +45,7 @@ public abstract class GuiceApplication extends Application {
     /**
      * The Guice Injector instance that is being used within
      * the context of this application.
-     * @see #initModules()
+     * @see #init(List)
      * @see #getInjector()
      */
     private Injector injector;
