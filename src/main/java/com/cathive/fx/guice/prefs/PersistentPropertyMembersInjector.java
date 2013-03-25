@@ -73,7 +73,12 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
             throw new IllegalStateException(String.format("Unknown Preferences node type: %s!", nodeType));
         }
 
-        updatePropertyField(instance, prefs.get(annotation.key(), null));
+        // Only set the initial value of the property during injection if the
+        // field that has been stored in the preferences backend is not null.
+        final String initialValue =  prefs.get(annotation.key(), null);
+        if (initialValue != null && !initialValue.isEmpty()) {
+            updatePropertyField(instance, initialValue);
+        }
 
         try {
             ((Property<?>) field.get(instance)).addListener(new ChangeListener<Object>() {

@@ -22,7 +22,9 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -87,13 +89,17 @@ public class PersistentPropertyTest {
 
         cwpp.stringValue1.set("yeehhaaa!!1");
         cwpp.booleanValue1.set(true);
+        cwpp.doubleValue1.set(42.0);
         assertEquals(prefs.get("stringValue1", null), "yeehhaaa!!1");
+        assertEquals(prefs.getDouble("doubleValue1", 0.0), 42.0);
         assertEquals(prefs.getBoolean("booleanValue1", false), true);
 
         cwpp.stringValue1.set("yeehhaaa!!2");
         cwpp.booleanValue1.set(false);
+        cwpp.doubleValue1.set(43.0);
         assertEquals(prefs.get("stringValue1", null), "yeehhaaa!!2");
         assertEquals(prefs.getBoolean("booleanValue1", true), false);
+        assertEquals(prefs.getDouble("doubleValue1", 0.0), 43.0);
 
     }
 
@@ -103,6 +109,8 @@ public class PersistentPropertyTest {
         private final StringProperty stringValue1 = new SimpleStringProperty();
         @PersistentProperty(clazz = PersistentPropertyTest.class, key = "booleanValue1")
         private final BooleanProperty booleanValue1 = new SimpleBooleanProperty();
+        @PersistentProperty(clazz = PersistentPropertyTest.class, key = "doubleValue1")
+        private final DoubleProperty doubleValue1 = new SimpleDoubleProperty();
         ClassWithPersistentProperties() {
             super();
         }
