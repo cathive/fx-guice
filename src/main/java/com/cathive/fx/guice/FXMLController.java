@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.cathive.fx.guice;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
@@ -34,9 +35,10 @@ import com.google.inject.ScopeAnnotation;
  * 
  * @see IdentifiableController
  */
+@Documented
 @ScopeAnnotation
 @Retention(RUNTIME) 
-@Target({ TYPE, FIELD }) 
+@Target({ TYPE, FIELD })
 public @interface FXMLController {
 
     public String controllerId() default "";

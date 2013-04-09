@@ -19,8 +19,11 @@ package com.cathive.fx.guice;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+
+import com.google.inject.ScopeAnnotation;
 
 import javafx.fxml.FXMLLoader;
 
@@ -29,6 +32,7 @@ import javafx.fxml.FXMLLoader;
  * @author Benjamin P. Jung
  * @since 2.0.0
  */
+@Documented
 @Retention(RUNTIME)
 @Target({ TYPE })
 public @interface FXMLComponent {

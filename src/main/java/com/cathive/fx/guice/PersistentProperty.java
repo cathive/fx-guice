@@ -19,6 +19,7 @@ package com.cathive.fx.guice;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -33,6 +34,7 @@ import java.lang.annotation.Target;
  * 
  * @author Benjamin P. Jung
  */
+@Documented
 @Retention(RUNTIME)
 @Target({ FIELD })
 public @interface PersistentProperty {
