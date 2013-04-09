@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,11 +40,13 @@ public class ControllerLookup {
      * Returns a controller instance with the given ID.
      * 
      * @param id
-     *            The string ID of the controller as returned by
-     *            {@link IdentifiableController#getId()}
+     *     The string ID of the controller as returned by
+     *     {@link IdentifiableController#getId()}
      * @return
+     *     The controller with the given ID that has just been
+     *     looked up.
      * @throws IllegalArgumentException
-     *             thrown if a controller cannot be found with the given ID.
+     *     thrown if a controller cannot be found with the given ID.
      */
     @SuppressWarnings("unchecked")
     public <T> T lookup(String id) {
