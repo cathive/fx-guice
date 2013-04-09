@@ -28,11 +28,12 @@ import java.util.Collection;
  * @author Andy Till
  * 
  */
-public class ControllerLookup {
+public final class ControllerLookup {
     
     private final Collection<IdentifiableController> identifiables;
 
     public ControllerLookup(Collection<IdentifiableController> identifiables) {
+        super();
         this.identifiables = identifiables;
     }
     
