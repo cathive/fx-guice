@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.cathive.fx.guice.fxml;
 
+import com.cathive.fx.guice.FXMLComponent;
 import com.cathive.fx.guice.FXMLController;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
@@ -43,6 +44,7 @@ public final class FXMLLoadingModule extends AbstractModule {
         final FXMLLoadingScope fxmlLoadingScope = new FXMLLoadingScope();
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
         bindScope(FXMLController.class, fxmlLoadingScope);
+        bindScope(FXMLComponent.class, fxmlLoadingScope);
 
         // FXMLControllerTypeListener
         final FXMLControllerTypeListener fxmlControllerTypeListener = new FXMLControllerTypeListener();

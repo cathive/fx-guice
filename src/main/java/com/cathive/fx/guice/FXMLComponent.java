@@ -33,6 +33,7 @@ import javafx.fxml.FXMLLoader;
  * @since 2.0.0
  */
 @Documented
+@ScopeAnnotation
 @Retention(RUNTIME)
 @Target({ TYPE })
 public @interface FXMLComponent {
