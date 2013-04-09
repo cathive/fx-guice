@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,24 +53,28 @@ public class FxApplicationThreadMethodInterceptorTest {
 
     @Test(description = "Make sure that methods annotated with @FxApplicationThread can be identified correctly during runtime!")
     public void testAnnotationRetention() throws NoSuchMethodException, SecurityException {
-        final FxApplicationThread annotation = ExampleFxHelper.class.getMethod("methodAnnotatedWithFxAppThread").getAnnotation(FxApplicationThread.class);
+        final FxApplicationThread annotation = ExampleFxHelper.class.getMethod("methodAnnotatedWithFxAppThread1").getAnnotation(FxApplicationThread.class);
         assertNotNull(annotation, "No @FxApplicationThread annotation found. This probably means, that someone changed the 'Retention' of the class from 'RetentionPolicy.RUNTIME' to something useless!");
     }
 
     @Test
-    public void testInterceptorWithNonAnnotatedMethod() {
+    public void testInterceptorWithNonAnnotatedMethods() {
         injector.getInstance(ExampleFxHelper.class).methodNotAnnotatedWithFxAppThread();
     }
 
     @Test(dependsOnMethods = "testAnnotationRetention", expectedExceptions = RuntimeException.class)
-    public void testInterceptorWithAnnotatedMethodWithReturnType() {
+    public void testInterceptorWithAnnotatedMethodsWithReturnType() {
         injector.getInstance(ExampleFxHelper.class).methodAnnotatedFxAppThreadWithReturnType();
     }
 
     @Test(dependsOnMethods = "testAnnotationRetention", expectedExceptions = RuntimeException.class)
-    public void testInterceptorWithAnnotatedMethodThatThrowsException() throws Exception {
+    public void testInterceptorWithAnnotatedMethodsThatThrowsException() throws Exception {
         injector.getInstance(ExampleFxHelper.class).methodAnnotatedWithFxAppThreadThatThrowsException();
     }
 
+    @Test(dependsOnMethods = "testAnnotationRetention")
+    public void testCorrectlyAnnotatedMethods() throws Exception {
+        // TODO How can we correctly test this?
+    }
 
 }
