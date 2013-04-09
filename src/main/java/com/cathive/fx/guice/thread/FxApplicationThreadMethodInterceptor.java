@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2013 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,8 @@ class FxApplicationThreadMethodInterceptor implements MethodInterceptor {
             throw new IllegalStateException("Method is not annotated with '@FxApplicationThread'!");
         }
 
-        if (!invocation.getMethod().getReturnType().equals(Void.class)) {
+        final Class<?> returnType = invocation.getMethod().getReturnType();
+        if (!(returnType.equals(void.class) || returnType.equals(Void.class))) {
             throw new RuntimeException(String.format("[%s#%s] Only methods with return type 'void' can be annotated with @FXApplicationThread!", invocation.getThis().getClass().getName(), invocation.getMethod().getName()));
         }
 
