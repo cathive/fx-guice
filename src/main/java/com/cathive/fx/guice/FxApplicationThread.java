@@ -28,6 +28,8 @@ import java.lang.annotation.Target;
  * thread.
  * 
  * @author Benjamin P. Jung
+ * @see javafx.application.Platform#isFxApplicationThread()
+ * @see javafx.application.Platform#runLater(java.lang.Runnable)
  */
 @Documented
 @Retention(RUNTIME)

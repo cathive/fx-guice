@@ -42,7 +42,7 @@ final class FXMLComponentTypeListener implements TypeListener {
         final Class<? super T> rawType = typeLiteral.getRawType();
         if (rawType.isAnnotationPresent(FXMLComponent.class)) {
             final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
-            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<T>(injector, annotation);
+            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(injector, annotation);
             typeEncounter.register(membersInjector);
         }
     }

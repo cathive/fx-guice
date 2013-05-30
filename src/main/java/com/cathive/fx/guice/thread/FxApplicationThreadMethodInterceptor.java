@@ -45,12 +45,12 @@ class FxApplicationThreadMethodInterceptor implements MethodInterceptor {
         final FxTask fxTask = new FxTask(invocation);
 
         if (annotation == null) {
-            throw new IllegalStateException("Method is not annotated with '@FxApplicationThread'!");
+            throw new IllegalStateException("Method is not annotated with @FxApplicationThread!");
         }
 
         final Class<?> returnType = invocation.getMethod().getReturnType();
         if (!(returnType.equals(void.class) || returnType.equals(Void.class))) {
-            throw new RuntimeException(String.format("[%s#%s] Only methods with return type 'void' can be annotated with @FXApplicationThread!", invocation.getThis().getClass().getName(), invocation.getMethod().getName()));
+            throw new RuntimeException(String.format("[%s#%s] Only methods with return type 'void' can be annotated with @FxApplicationThread!", invocation.getThis().getClass().getName(), invocation.getMethod().getName()));
         }
 
         if (invocation.getMethod().getExceptionTypes().length > 0) {

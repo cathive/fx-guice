@@ -141,7 +141,7 @@ public abstract class GuiceApplication extends Application {
      * with one of the Inject annotations known by Guice.
      * 
      * @param object
-     *     Accessible object to be analyzed. Must not be <code>null</code>
+     *     Accessible object to be analyzed. Must not be {@code null}
      * @return
      *     <code>true</code> if the given constructor is annotated with an Inject annotation,
      *     <code>false<code> otherwise.

@@ -62,7 +62,7 @@ public final class GuiceFXMLLoader {
      * @param fxmlLoadingScope
      *              Usually injected via Guice.
      * @throws IllegalArgumentException
-     *              if you try to pass a <code>null</code> value as
+     *              if you try to pass a {@code null} value as
      *              injector instance.
      * @throws IllegalStateException
      *              if the injector has no binding for the {@link FXMLController}

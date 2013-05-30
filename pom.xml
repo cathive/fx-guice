@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- Copyright (C) 2012 The Cat Hive Developers.
+ Copyright (C) 2012-2013 The Cat Hive Developers.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,273 +16,150 @@
  limitations under the License.
  -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cathive.fx</groupId>
-  <artifactId>fx-guice</artifactId>
-  <packaging>jar</packaging>
-  <version>2.1.0-SNAPSHOT</version>
-  <name>CathiveFX Guice Library</name>
-  <description>Classes and utilities that integrate Google Guice into your JavaFX applications</description>
-  <url>https://github.com/cathive/fx-guice/</url>
-  <inceptionYear>2012</inceptionYear>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cathive.fx</groupId>
+    <artifactId>fx-guice</artifactId>
+    <packaging>bundle</packaging>
+    <version>2.1.0-SNAPSHOT</version>
+    <name>Guice Integration for JavaFX</name>
+    <description>Classes and utilities that integrate Google Guice into your JavaFX applications</description>
+    <url>https://github.com/cathive/${project.artifactId}/</url>
+    <inceptionYear>2012</inceptionYear>
 
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
+    <parent>
+        <groupId>com.cathive</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>1</version>
+    </parent>
 
-  <properties>
-    <javafx.runtime.jar>${java.home}/lib/jfxrt.jar</javafx.runtime.jar>
-    <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
-  </properties>
+    <properties>
+        <guice.version>3.0</guice.version>
+    </properties>
 
-  <prerequisites>
-    <maven>3.0.0</maven>
-  </prerequisites>
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
 
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      <distribution>repo</distribution>
-      <comments />
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+            <comments/>
+        </license>
+    </licenses>
 
-  <organization>
-    <name>The Cat Hive Developers</name>
-    <url>http://www.cathive.com/</url>
-  </organization>
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/cathive/${project.artifactId}/issues</url>
+    </issueManagement>
 
-  <issueManagement>
-    <system>github</system>
-    <url>https://github.com/cathive/fx-guice/issues</url>
-  </issueManagement>
+    <developers>
+        <developer>
+            <id>headcr4sh</id>
+            <name>Benjamin P. Jung</name>
+            <email>headcr4sh@gmail.com</email>
+            <url>http://profiles.google.com/headcr4sh</url>
+            <timezone>Europe/Berlin</timezone>
+            <properties/>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <developers>
-    <developer>
-      <id>headcr4sh</id>
-      <name>Benjamin P. Jung</name>
-      <email>headcr4sh@googlemail.com</email>
-      <url>http://profiles.google.com/headcr4sh</url>
-      <organization>Terreon</organization>
-      <organizationUrl>http://terreon.de/</organizationUrl>
-      <timezone>Europe/Berlin</timezone>
-      <properties />
-      <roles />
-    </developer>
-  </developers>
+    <contributors>
+        <contributor>
+            <!--<id>andytill</id>-->
+            <name>Andy Till</name>
+            <email>atill@mail.com</email>
+            <url>http://andrewtill.blogspot.co.uk/</url>
+            <properties/>
+            <roles/>
+        </contributor>
+    </contributors>
 
-  <contributors>
-    <contributor>
-      <!--<id>andytill</id>-->
-      <name>Andy Till</name>
-      <email>atill@mail.com</email>
-      <url>http://andrewtill.blogspot.co.uk/</url>
-      <properties />
-      <roles />
-    </contributor>
-  </contributors>
+    <scm>
+        <connection>scm:git:https://github.com/cathive/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:git@github.com:cathive/${project.artifactId}.git</developerConnection>
+        <url>https://github.com/cathive/${project.artifactId}/</url>
+    </scm>
 
-  <scm>
-    <connection>scm:git:https://github.com/cathive/fx-guice.git</connection>
-    <developerConnection>scm:git:git@github.com:cathive/fx-guice.git</developerConnection>
-    <tag>master</tag>
-    <url>https://github.com/cathive/fx-guice/</url>
-  </scm>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://cathive.ci.cloudbees.com/job/${project.artifactId}-integration-build/</url>
+    </ciManagement>
 
-  <ciManagement>
-    <system>jenkins</system>
-    <url>https://cathive.ci.cloudbees.com/job/fx-guice-integration-build/</url>
-  </ciManagement>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.0</version>
-          <configuration>
-            <compilerId>javac</compilerId>
-            <compilerVersion>1.7</compilerVersion>
-            <encoding>UTF-8</encoding>
-            <showDeprecation>true</showDeprecation>
-            <showWarnings>true</showWarnings>
-            <source>1.7</source>
-            <target>1.7</target>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>2.4</version>
-          <configuration>
-            <archive>
-              <index>true</index>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-              </manifest>
-              <manifestEntries>
-                <Export-Package>com.cathive.fx.guice, com.cathive.fx.guice.controllerlookup</Export-Package>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.9</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.6</version>
-          <configuration>
-            <encoding>UTF-8</encoding>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>2.2.1</version>
-          <configuration>
-            <attach>true</attach>
-            <excludeResources>false</excludeResources>
-            <includePom>true</includePom>
-            <useDefaultExcludes>true</useDefaultExcludes>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.google.inject</groupId>
-      <artifactId>guice</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.google.inject</groupId>
-        <artifactId>guice</artifactId>
-        <version>3.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>6.8</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <profiles>
-    <profile>
-      <id>javafx</id>
-      <activation>
-        <property>
-          <name>!skip-javafx-profile</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>com.oracle</groupId>
-          <artifactId>javafx-runtime</artifactId>
-          <version>RELEASE</version>
-          <scope>system</scope>
-          <systemPath>${javafx.runtime.jar}</systemPath>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>m2e</id>
-      <activation>
-        <property>
-          <name>m2e.version</name>
-        </property>
-      </activation>
-      <build>
-        <pluginManagement>
-          <plugins>
+    <build>
+        <plugins>
             <plugin>
-              <groupId>org.eclipse.m2e</groupId>
-              <artifactId>lifecycle-mapping</artifactId>
-              <version>1.0.0</version>
-              <configuration>
-                <lifecycleMappingMetadata>
-                  <pluginExecutions>
-                    <pluginExecution>
-                      <pluginExecutionFilter>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <versionRange>[1.0,)</versionRange>
-                        <goals>
-                          <goal>enforce</goal>
-                        </goals>
-                      </pluginExecutionFilter>
-                      <action>
-                        <execute>
-                          <runOnIncremental>false</runOnIncremental>
-                        </execute>
-                      </action>
-                    </pluginExecution>
-                  </pluginExecutions>
-                </lifecycleMappingMetadata>
-              </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-  </profiles>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                        </manifest>>
+                    </archive>
+                    <instructions>
+                        <module>com.cathive.fx.guice</module>
+                        <_exportcontents>
+                            !*.internal.*,$(module).*;version=${project.version}
+                        </_exportcontents>
+                        <Import-Package>
+                            javafx.*,
+                            javax.inject.*;version="1",
+                            org.aopalliance.intercept.*;version="1.0.0",
+                            com.google.inject.*;version="${guice.version}"
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
