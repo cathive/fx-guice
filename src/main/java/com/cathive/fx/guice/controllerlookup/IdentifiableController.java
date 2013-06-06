@@ -37,4 +37,5 @@ public interface IdentifiableController {
      *         this control in the {@link Parent}.
      */
     String getId();
+
 }

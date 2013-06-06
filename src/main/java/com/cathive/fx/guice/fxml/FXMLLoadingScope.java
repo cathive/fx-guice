@@ -45,6 +45,8 @@ public final class FXMLLoadingScope implements Scope {
     public FXMLLoadingScope() {
         super();
     }
+
+
     /**
      * Enter the scope. From here on in, controllers implementing
      * {@link IdentifiableController} and annotated wih {@link FXMLController} will
@@ -84,9 +86,7 @@ public final class FXMLLoadingScope implements Scope {
 	public <T> T getInstance(final String controllerId) {
         for (final IdentifiableController identifiable: identifiables) {
             if (identifiable.getId().equals(controllerId)) {
-                @SuppressWarnings("unchecked")
-                T controllerInstance = (T) identifiable;
-                return controllerInstance;
+                return (T) identifiable;
             }
         }
         // TODO Throw an exception maybe?
@@ -99,7 +99,7 @@ public final class FXMLLoadingScope implements Scope {
 
     /**
      * Checks whether the FXML Loading Scope is currently being used.
-     * @return <code>true</code> if this scope is currently active, <code>false</code> otherwise.
+     * @return {@code true} if this scope is currently active, {@code false} otherwise.
      */
     public boolean isActive() {
         return (identifiables != null);

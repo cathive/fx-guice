@@ -33,7 +33,7 @@ public final class ParentIDFinder {
 
     /**
      * Find a non {@code null} ID on the given {@link Parent}. If the ID is
-     * {@code null} then search up the graph to find a node with an ID.
+     * {@code null} then search up the graph to find a node with the given ID.
      * 
      * @param node
      *            The starting node.

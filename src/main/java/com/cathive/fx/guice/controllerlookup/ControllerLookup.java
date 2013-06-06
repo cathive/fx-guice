@@ -50,7 +50,7 @@ public final class ControllerLookup {
      *     thrown if a controller cannot be found with the given ID.
      */
     @SuppressWarnings("unchecked")
-    public <T> T lookup(String id) {
+    public <T> T lookup(final String id) {
         for (final IdentifiableController controller : identifiables) {
             if(controller.getId().equals(id)) {
                 return (T) controller;

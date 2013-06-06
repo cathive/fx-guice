@@ -50,7 +50,7 @@ public final class FXMLComponentBuilderFactory implements BuilderFactory {
             LOGGER.fine(String.format("Creating FXMLComponentBuilder for class '%s'.", className));
             return new FXMLComponentBuilder(injector, componentClass);
         }
-        // Fall back to the default builder factory if 
+        // Fall back to the default builder factory if we are not dealing with a FXMLComponent class.
         return defaultBuilderFactory.getBuilder(componentClass);
     }
 

@@ -51,7 +51,7 @@ final class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implemen
 
     // FIXME The whole logic that finds appropriate setter methods and look ups the
     //       StringConverters in a Map seems a duplicate of what has already been implemented
-    //       in the JavaFX runtime already. Unfortunately I couldn't think of any better
+    //       in the JavaFX runtime. Unfortunately I couldn't think of any better
     //       solution... :-(
     
     private static final Map<Class<?>, Class<? extends StringConverter<?>>> STRING_CONVERTERS;
@@ -84,8 +84,8 @@ final class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implemen
         STRING_CONVERTERS.put(BigDecimal.class, BigDecimalStringConverter.class);
         STRING_CONVERTERS.put(BigInteger.class, BigIntegerStringConverter.class);
     }
-    
-    private Injector injector;
+
+    private final Injector injector;
     private final Class<T> componentClass;
 
     private final Map<String, Object> componentProperties = new HashMap<>();
