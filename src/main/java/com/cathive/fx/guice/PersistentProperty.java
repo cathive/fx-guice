@@ -81,7 +81,7 @@ public @interface PersistentProperty {
         USER_NODE,
 
         /**
-         * Indicated, that the property shall be persisted using the </strong>system</strong> preference tree
+         * Indicated, that the property shall be persisted using the <strong>system</strong> preference tree
          * @see java.util.prefs.Preferences#systemNodeForPackage(Class)
          */
         SYSTEM_NODE;
