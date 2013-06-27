@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -51,7 +52,7 @@ public class GuiceFXMLLoaderTest {
 
     @BeforeClass
     private void initialize() throws Exception {
-    	final GuiceApplication app = new GuiceApplication() {
+        final GuiceApplication app = new GuiceApplication() {
             @Override
             public void init(List<Module> modules) {
                 // Intentionally left empty!
@@ -65,7 +66,7 @@ public class GuiceFXMLLoaderTest {
         this.injector = app.getInjector();
     }
 
-    @Test(description = "Assert that an instance of the GuiceFXMLLoader without an Injector Instance cannot be created", expectedExceptions = IllegalArgumentException.class)
+    @Test(description = "Assert that an instance of the GuiceFXMLLoader without an Injector instance cannot be created", expectedExceptions = IllegalArgumentException.class)
     public void instantiationViaConstructorTest() throws Exception {
         // Constructor call with null arguments must fail!
         new GuiceFXMLLoader(null, null);
@@ -110,6 +111,17 @@ public class GuiceFXMLLoaderTest {
         assertEquals(ctrl.getRootPane(), pane);
         assertTrue(ctrl.getMethodCalls().contains("initialize(java.net.URL, java.util.ResourceBundle)"));
         assertEquals(ctrl.getMethodCalls().size(), 2);
+
+    }
+
+    /**
+     * @see <a href="https://github.com/cathive/fx-guice/issues/3">Issue&nbsp;#3</a>
+     */
+    @Test(description = "Ensures that instances of GuiceFXMLLoader can be mocked by 'Mockito'")
+    public void testMockitoCompatibility() throws Exception {
+
+        final GuiceFXMLLoader mock = Mockito.mock(GuiceFXMLLoader.class);
+        assertNotNull(mock);
 
     }
 

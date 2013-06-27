@@ -40,7 +40,7 @@ import com.google.inject.Injector;
  * @see javafx.fxml.FXMLLoader
  * @author Benjamin P. Jung
  */
-public final class GuiceFXMLLoader {
+public class GuiceFXMLLoader {
 
     /**
      * Guice Injector that will be used to fetch an instance of our `controller
