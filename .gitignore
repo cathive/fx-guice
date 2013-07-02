@@ -33,6 +33,10 @@ tmtags
 *.orig
 *.releaseBackup
 
+# IntelliJIDEA specific settings
+.idea/
+*.iml
+
 # Eclipse specific settings
 .classpath
 .project
