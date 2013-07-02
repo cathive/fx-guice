@@ -25,6 +25,7 @@ import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import com.cathive.fx.guice.GuiceFXMLLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
@@ -42,16 +43,16 @@ import com.google.inject.MembersInjector;
  */
 final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
-    private final Injector injector;
+    private final GuiceFXMLLoader fxmlLoader;
 
     /** Logger for this class. */
     private static final Logger LOGGER = Logger.getLogger(FXMLComponentMembersInjector.class.getName());
 
     private final FXMLComponent annotation;
 
-    FXMLComponentMembersInjector(final Injector injector, final FXMLComponent annotation) {
+    FXMLComponentMembersInjector(final GuiceFXMLLoader fxmlLoader, final FXMLComponent annotation) {
         super();
-        this.injector = injector;
+        this.fxmlLoader = fxmlLoader;
         this.annotation = annotation;
     }
 
@@ -82,7 +83,6 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
         fxmlLoader.setCharset(Charset.forName(annotation.charset()));
         fxmlLoader.setController(instance);
         fxmlLoader.setRoot(instance);
-        fxmlLoader.setBuilderFactory(injector.getInstance(FXMLComponentBuilderFactory.class));
 
         // Invoke "fxmlLoader.setTemplate(true)" if we are using JavaFX 8.0 or
         // higher to improve performance on objects that are created multiple times.

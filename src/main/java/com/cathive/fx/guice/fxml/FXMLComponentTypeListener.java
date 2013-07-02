@@ -17,8 +17,10 @@
 package com.cathive.fx.guice.fxml;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import com.cathive.fx.guice.FXMLComponent;
+import com.cathive.fx.guice.GuiceFXMLLoader;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
@@ -31,7 +33,7 @@ import com.google.inject.spi.TypeListener;
  */
 final class FXMLComponentTypeListener implements TypeListener {
 
-    @Inject private Injector injector;
+    @Inject private GuiceFXMLLoader fxmlLoader;
 
     FXMLComponentTypeListener() {
         super();
@@ -42,7 +44,7 @@ final class FXMLComponentTypeListener implements TypeListener {
         final Class<? super T> rawType = typeLiteral.getRawType();
         if (rawType.isAnnotationPresent(FXMLComponent.class)) {
             final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
-            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(injector, annotation);
+            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(fxmlLoader, annotation);
             typeEncounter.register(membersInjector);
         }
     }

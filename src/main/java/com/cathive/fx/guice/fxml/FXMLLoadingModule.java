@@ -18,8 +18,10 @@ package com.cathive.fx.guice.fxml;
 
 import com.cathive.fx.guice.FXMLComponent;
 import com.cathive.fx.guice.FXMLController;
+import com.cathive.fx.guice.GuiceFXMLLoader;
 import com.cathive.fx.guice.controllerlookup.ControllerLookup;
 import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.matcher.Matchers;
@@ -45,6 +47,9 @@ public final class FXMLLoadingModule extends AbstractModule {
         bind(FXMLLoadingScope.class).toInstance(fxmlLoadingScope);
         bindScope(FXMLController.class, fxmlLoadingScope);
         bindScope(FXMLComponent.class, fxmlLoadingScope);
+
+        // GuiceFXMLLoader
+        bind(GuiceFXMLLoader.class);
 
         // FXMLControllerTypeListener
         final FXMLControllerTypeListener fxmlControllerTypeListener = new FXMLControllerTypeListener();
