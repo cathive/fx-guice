@@ -109,7 +109,7 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
-                        </manifest>&gt;
+                        </manifest>
                     </archive>
                     <instructions>
                         <module>com.cathive.fx.guice</module>
