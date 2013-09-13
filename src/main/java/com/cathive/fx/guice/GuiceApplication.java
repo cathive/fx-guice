@@ -63,7 +63,9 @@ public abstract class GuiceApplication extends Application {
     /**
      * To make sure that the initialization of Guice-based JavaFX application
      * works flawlessly, the original init method of the base JavaFX Application
-     * class is overwritten here. All of the 
+     * class is overwritten here.
+     * <p>This class offers it's own method for custom initialization, which will be called
+     * during the invocation of this overriden method: {@link #init(java.util.List)}.</p>
      */
     @Override
     public final void init() throws Exception {
