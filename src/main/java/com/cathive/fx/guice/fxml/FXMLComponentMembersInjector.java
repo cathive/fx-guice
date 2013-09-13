@@ -30,7 +30,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
 import com.cathive.fx.guice.FXMLComponent;
-import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
 
 /**

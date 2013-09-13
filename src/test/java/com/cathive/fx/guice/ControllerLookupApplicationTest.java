@@ -71,7 +71,7 @@ public class ControllerLookupApplicationTest {
     @Test
     public void parentControllerCanLookupNestedControllers() throws Exception {
         
-        OuterLookupController controller = (OuterLookupController) result.getController();
+        OuterLookupController controller = result.getController();
         InnerLookupController controllerForPane1 = controller.getControllerForPane1();
         InnerLookupController controllerForPane2 = controller.getControllerForPane2();
         
@@ -82,7 +82,7 @@ public class ControllerLookupApplicationTest {
     @Test(expectedExceptions={IllegalArgumentException.class})
     public void illegalArgumentExceptionThrownWhenNoControllerExistsWithMatchingID() throws Exception {
         
-        OuterLookupController controller = (OuterLookupController) result.getController();
+        OuterLookupController controller = result.getController();
         
         controller.getAnyController("Frederick");
     }

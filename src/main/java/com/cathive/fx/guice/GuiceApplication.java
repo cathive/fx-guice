@@ -19,10 +19,7 @@ package com.cathive.fx.guice;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javafx.application.Application;
 
@@ -54,10 +51,12 @@ public abstract class GuiceApplication extends Application {
      * List of annotations that are not allowed on constructors of
      * {@code GuiceApplication} instances.
      */
-    private static final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
+    private static final Set<Class<? extends Annotation>> INJECT_ANNOTATION_CLASSES;
     static {
+        final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
         injectAnnotationClasses.add(com.google.inject.Inject.class);
         injectAnnotationClasses.add(javax.inject.Inject.class);
+        INJECT_ANNOTATION_CLASSES = Collections.unmodifiableSet(injectAnnotationClasses);
     }
 
     /**
@@ -145,7 +144,7 @@ public abstract class GuiceApplication extends Application {
      * @param object
      *     Accessible object to be analyzed. Must not be {@code null}
      * @return
-     *     {@code true} if the given constructor is annotated with an Inject annotation,
+     *     {@code true} if the given object is annotated with an {@code @Inject} annotation,
      *     {@code false} otherwise.
      * 
      * @see javax.inject.Inject
@@ -153,7 +152,7 @@ public abstract class GuiceApplication extends Application {
      */
     private static boolean isInjectAnnotationPresent(final AccessibleObject object) {
         boolean found = false;
-        for (final Class<? extends Annotation> annotationClass: injectAnnotationClasses) {
+        for (final Class<? extends Annotation> annotationClass: INJECT_ANNOTATION_CLASSES) {
             if (object.isAnnotationPresent(annotationClass)) {
                 found = true;
                 break;
