@@ -62,7 +62,9 @@
             <email>headcr4sh@gmail.com</email>
             <url>http://profiles.google.com/headcr4sh</url>
             <timezone>Europe/Berlin</timezone>
-            <properties/>
+            <properties>
+                <github.username>headcr4sh</github.username>
+            </properties>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -71,11 +73,21 @@
 
     <contributors>
         <contributor>
-            <!--<id>andytill</id>-->
             <name>Andy Till</name>
             <email>atill@mail.com</email>
             <url>http://andrewtill.blogspot.co.uk/</url>
-            <properties/>
+            <properties>
+                <github.username>andytill</github.username>
+            </properties>
+            <roles/>
+        </contributor>
+        <contributor>
+            <name>Erik De Rijcke</name>
+            <email>derijcke.erik@gmail.com</email>
+            <url/>
+            <properties>
+                <github.username>Zubnix</github.username>
+            </properties>
             <roles/>
         </contributor>
     </contributors>
