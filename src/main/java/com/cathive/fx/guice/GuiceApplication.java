@@ -101,7 +101,7 @@ public abstract class GuiceApplication extends Application {
         modules.addAll(additionalModules);
 
         // Creates an injector with all of the required modules.
-        injector = Guice.createInjector(modules);
+        injector = createInjector(modules);
 
         // Injects all fields annotated with @Inject into this GuiceApplication instance.
         injector.injectMembers(instance);
@@ -124,6 +124,20 @@ public abstract class GuiceApplication extends Application {
      *   if anything goes wrong during initialization.
      */
     public abstract void init(List<Module> modules) throws Exception;
+
+    /**
+     * Internal factory method for creating the the {@link Injector}. This method
+     * can be overwritten to allow for more control on how the the {@link Injector} is created.
+     * This method is only called once after the initialization phase.
+     *
+     * @param modules All modules.
+     *
+     * @return The {@link Injector} that will be used for the the initialization
+     *     of this JavaFX Application.
+     */
+    protected Injector createInjector(Set<Module> modules) {
+        return Guice.createInjector(modules);
+    }
 
     /**
      * Returns the Google Guice Injector that is used within the context
