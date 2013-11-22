@@ -1,3 +1,8 @@
+fx-guice
+========
+
+[![Build Status](https://travis-ci.org/cathive/fx-guice.png)](https://travis-ci.org/cathive/fx-guice)
+
 This library provides some useful classes that help you integrate
 Google Guice into your JavaFX based applications.
 
