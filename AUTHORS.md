@@ -3,3 +3,4 @@
 
 ## Contributors
 * Andy Till
+* Erik De Rijcke
