@@ -34,7 +34,7 @@ import com.google.inject.Injector;
 
 /**
  * If you want to `guicify` your JavaFX experience you can use an instance of
- * this class instead of the FXMLLoader that ships with JavaFX 2.x.
+ * this class instead of the FXMLLoader that ships with JavaFX.
  * <p>The easiest way to use this class is by just injecting it into your
  * JavaFX application in the right places.</p>
  * @see javafx.fxml.FXMLLoader

@@ -15,7 +15,7 @@
  */
 
 /**
- * Google Guice Integration for JavaFX 2. 
+ * Google Guice Integration for JavaFX. 
  */
 
 package com.cathive.fx.guice;
