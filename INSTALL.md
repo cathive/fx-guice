@@ -11,11 +11,3 @@ repository should be the execution of the following maven command line:
 ```sh
 mvn install
 ```
-
-If your JavaFX runtime (jfxrt.jar) cannot be found automatically, you'll
-have to set the variable `javafx-runtime-jar` to the ABSOLUTE PATH of your
-jfxrt.jar file as well.
-
-```sh
-mvn -Djavafx-runtime-jar=/path/to/your/jfxrt.jar install
-```
