@@ -31,7 +31,7 @@
     <parent>
         <groupId>com.cathive</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>3</version>
+        <version>7</version>
     </parent>
 
     <properties>
