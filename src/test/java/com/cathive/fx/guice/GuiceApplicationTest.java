@@ -115,4 +115,41 @@ public class GuiceApplicationTest {
 
     }
 
+
+	/**
+	 * @see <a href="https://github.com/cathive/fx-guice/issues/12">Issue&nbsp;#12</a>
+	 */
+	@Test
+	public void testInjectedClassMayOnlyBeInstantiatedOnce() throws Exception{
+
+		TestService.counter = 0;
+
+		GuiceApplicationWithInjection app = new GuiceApplicationWithInjection();
+		app.init();
+
+		assertEquals(TestService.counter, 1);
+	}
+	
+	static class TestService {
+		public static int counter = 0;
+		
+		public TestService(){
+			counter ++;
+		}
+	}
+	
+	static class GuiceApplicationWithInjection extends GuiceApplication{
+		@Inject
+		private TestService service;
+		
+		@Override public void init(List<Module> modules) throws Exception {
+			// Intentionally left empty! 
+		}
+
+		@Override public void start(Stage primaryStage) throws Exception {
+			// Do nothing...
+		}
+	}
+	
+	
 }
