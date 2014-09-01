@@ -16,15 +16,24 @@
 
 package com.cathive.fx.guice.controllerlookup;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
 public class ParentIDFinderTest {
 
+	@BeforeClass
+	public void setup(){
+		// this way the tests are running on the JavaFX application thread 
+		// which is needed to instantiate Controls (like Label) in JavaFX 8. 
+		new JFXPanel();
+	}
+	
     @Test
     public void IDFinderSearchesUpHierarchyUntilItFindsANodeWithAnID() {
 

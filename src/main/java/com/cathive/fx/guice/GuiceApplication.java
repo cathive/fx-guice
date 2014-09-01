@@ -21,6 +21,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+import com.google.inject.Provider;
 import javafx.application.Application;
 
 import com.cathive.fx.guice.fxml.FXMLLoadingModule;
@@ -87,7 +88,11 @@ public abstract class GuiceApplication extends Application {
         modules.add(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(clazz).toInstance(instance);
+				bind(clazz).toProvider(new Provider<GuiceApplication>() {
+					@Override public GuiceApplication get() {
+						return instance;
+					}
+				});
             }
         });
         modules.add(new FXMLLoadingModule());
