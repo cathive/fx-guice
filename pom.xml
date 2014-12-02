@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-  Copyright (C) 2012-2013 The Cat Hive Developers.
+  Copyright (C) 2012-2014 The Cat Hive Developers.
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
   limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cathive.fx</groupId>
@@ -35,6 +37,10 @@
     </parent>
 
     <properties>
+        <!-- Maven compiler settings -->
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <guice.version>3.0</guice.version>
         <mockito.version>1.9.5</mockito.version>
     </properties>
