@@ -16,6 +16,12 @@
 
 package com.cathive.fx.guice.fxml;
 
+import com.cathive.fx.guice.FXMLComponent;
+import com.cathive.fx.guice.GuiceFXMLLoader;
+import com.google.inject.MembersInjector;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,26 +31,18 @@ import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-import com.cathive.fx.guice.GuiceFXMLLoader;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-
-import com.cathive.fx.guice.FXMLComponent;
-import com.google.inject.MembersInjector;
-
 /**
- * 
- * @author Benjamin P. Jung
- * 
- * @since 2.0.0
- *
  * @param <T>
+ * @author Benjamin P. Jung
+ * @since 2.0.0
  */
 final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
     private final GuiceFXMLLoader fxmlLoader;
 
-    /** Logger for this class. */
+    /**
+     * Logger for this class.
+     */
     private static final Logger LOGGER = Logger.getLogger(FXMLComponentMembersInjector.class.getName());
 
     private final FXMLComponent annotation;
@@ -95,20 +93,23 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
         // Actual instantiation of the component has to happen on the JavaFX thread.
         // We simply delegate the loading.
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final Object loaded = fxmlLoader.load();
-                    if (loaded != instance) {
-                        throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
-                    }
-                } catch (final IOException e) {
-                    throw new RuntimeException(e);
+        Runnable loader = () -> {
+            try {
+                final Object loaded = fxmlLoader.load();
+                if (loaded != instance) {
+                    throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
                 }
-
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
             }
-        });
+
+        };
+
+        if (Platform.isFxApplicationThread()) {
+            loader.run();
+        } else {
+            Platform.runLater(loader);
+        }
 
     }
 
