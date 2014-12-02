@@ -88,6 +88,13 @@
             </properties>
             <roles />
         </contributor>
+        <contributor>
+          <name>Thijs Walcarius</name>
+          <email>thijs.walcarius@intec.ugent.be</email>
+          <properties>
+            <github.username>twalcari</github.username>
+          </properties>
+        </contributor>
     </contributors>
 
     <scm>
