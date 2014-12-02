@@ -4,3 +4,4 @@
 ## Contributors
 * Andy Till
 * Erik De Rijcke
+* Thijs Walcarius
