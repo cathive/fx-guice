@@ -16,15 +16,13 @@
   limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cathive.fx</groupId>
     <artifactId>fx-guice</artifactId>
     <packaging>bundle</packaging>
-    <version>8.0.0-SNAPSHOT</version>
+    <version>8.0.0</version>
     <name>Guice Integration for JavaFX</name>
     <description>Integration of the Google Guice framework for JavaFX applications</description>
     <url>https://github.com/cathive/fx-guice/</url>
@@ -114,7 +112,7 @@
         <connection>scm:git:https://github.com/cathive/fx-guice.git</connection>
         <developerConnection>scm:git:git@github.com:cathive/fx-guice.git</developerConnection>
         <url>https://github.com/cathive/fx-guice/</url>
-        <tag>master</tag>
+        <tag>v8.0.0</tag>
     </scm>
 
     <ciManagement>
