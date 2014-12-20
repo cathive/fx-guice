@@ -93,16 +93,19 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
         // Actual instantiation of the component has to happen on the JavaFX thread.
         // We simply delegate the loading.
-        Runnable loader = () -> {
-            try {
-                final Object loaded = fxmlLoader.load();
-                if (loaded != instance) {
-                    throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
+        final Runnable loader = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final Object loaded = fxmlLoader.load();
+                    if (loaded != instance) {
+                        throw new IllegalStateException("Loading of FXML component went terribly wrong! :-(");
+                    }
+                } catch (final IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (final IOException e) {
-                throw new RuntimeException(e);
-            }
 
+            }
         };
 
         if (Platform.isFxApplicationThread()) {
