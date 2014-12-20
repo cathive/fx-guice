@@ -31,17 +31,10 @@
     <parent>
         <groupId>com.cathive</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>8</version>
+        <version>10</version>
     </parent>
 
-    <properties>
-        <!-- Maven compiler settings -->
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <guice.version>3.0</guice.version>
-        <mockito.version>1.10.8</mockito.version>
-    </properties>
+    <properties/>
 
     <licenses>
         <license>
@@ -81,16 +74,13 @@
             <properties>
                 <github.username>andytill</github.username>
             </properties>
-            <roles />
         </contributor>
         <contributor>
             <name>Erik De Rijcke</name>
             <email>derijcke.erik@gmail.com</email>
-            <url />
             <properties>
                 <github.username>Zubnix</github.username>
             </properties>
-            <roles />
         </contributor>
         <contributor>
           <name>Manuel Mauky</name>
@@ -191,22 +181,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.inject</groupId>
-                <artifactId>guice</artifactId>
-                <version>${guice.version}</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <type>jar</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 </project>
