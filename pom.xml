@@ -143,7 +143,7 @@
                             com.google.inject.util;version="1.3",
                             com.google.inject;version="1.3"
                         </Import-Package>
-                        <Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
+                        <Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
                         <Bundle-Copyright>Copyright (c) ${project.inceptionYear}-2014 ${project.organization.name}
                         </Bundle-Copyright>
                     </instructions>
