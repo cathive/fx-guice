@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Cat Hive Developers.
+ * Copyright (C) 2013-2015 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.cathive.fx.guice.fxml;
 
 import com.cathive.fx.guice.FXMLComponent;
 import com.cathive.fx.guice.GuiceFXMLLoader;
+import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,8 @@ import java.util.logging.Logger;
  */
 final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
+    private Injector injector;
+
     private final GuiceFXMLLoader fxmlLoader;
 
     /**
@@ -47,8 +50,9 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
     private final FXMLComponent annotation;
 
-    FXMLComponentMembersInjector(final GuiceFXMLLoader fxmlLoader, final FXMLComponent annotation) {
+    FXMLComponentMembersInjector(final Injector injector, final GuiceFXMLLoader fxmlLoader, final FXMLComponent annotation) {
         super();
+        this.injector = injector;
         this.fxmlLoader = fxmlLoader;
         this.annotation = annotation;
     }
@@ -78,7 +82,11 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
             fxmlLoader.setResources(ResourceBundle.getBundle(resourcesString));
         }
         fxmlLoader.setCharset(Charset.forName(annotation.charset()));
-        fxmlLoader.setController(instance);
+        fxmlLoader.setControllerFactory(param -> {
+            // Use our Guice injector to fetch an instance of the desired
+            // controller class
+            return param == null ? null : this.injector.getInstance(param);
+        });
         fxmlLoader.setRoot(instance);
 
         // Invoke "fxmlLoader.setTemplate(true)" if we are using JavaFX 8.0 or

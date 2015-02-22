@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Cat Hive Developers.
+ * Copyright (C) 2013-2015 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package com.cathive.fx.guice.fxml;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import com.cathive.fx.guice.FXMLComponent;
 import com.cathive.fx.guice.GuiceFXMLLoader;
@@ -33,6 +32,7 @@ import com.google.inject.spi.TypeListener;
  */
 final class FXMLComponentTypeListener implements TypeListener {
 
+    @Inject private Injector injector;
     @Inject private GuiceFXMLLoader fxmlLoader;
 
     FXMLComponentTypeListener() {
@@ -44,7 +44,7 @@ final class FXMLComponentTypeListener implements TypeListener {
         final Class<? super T> rawType = typeLiteral.getRawType();
         if (rawType.isAnnotationPresent(FXMLComponent.class)) {
             final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
-            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(fxmlLoader, annotation);
+            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(injector, fxmlLoader, annotation);
             typeEncounter.register(membersInjector);
         }
     }
