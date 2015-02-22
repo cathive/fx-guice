@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Cat Hive Developers.
+ * Copyright (C) 2012-2015 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,19 @@
 
 package com.cathive.fx.guice;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ResourceBundle;
-
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.util.Callback;
-
 import com.cathive.fx.guice.fxml.FXMLComponentBuilderFactory;
 import com.cathive.fx.guice.fxml.FXMLLoadingScope;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ResourceBundle;
 
 /**
  * If you want to `guicify` your JavaFX experience you can use an instance of
@@ -107,13 +105,10 @@ public class GuiceFXMLLoader {
             loader.setResources(resources);
         }
         loader.setBuilderFactory(injector.getInstance(FXMLComponentBuilderFactory.class));
-        loader.setControllerFactory(new Callback<Class<?>, Object>() {
-            @Override
-            public Object call(final Class<?> param) {
-                // Use our Guice injector to fetch an instance of the desired
-                // controller class
-                return param == null ? null : injector.getInstance(param);
-            }
+        loader.setControllerFactory(param -> {
+            // Use our Guice injector to fetch an instance of the desired
+            // controller class
+            return param == null ? null : injector.getInstance(param);
         });
 
         final Node root = (Node) loader.load(url.openStream());
