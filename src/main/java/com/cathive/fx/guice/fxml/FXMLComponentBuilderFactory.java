@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Cat Hive Developers.
+ * Copyright (C) 2013-2015 The Cat Hive Developers.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,16 @@
 
 package com.cathive.fx.guice.fxml;
 
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import com.cathive.fx.guice.FXMLComponent;
 import com.google.inject.Injector;
-
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @see FXMLComponentBuilder
@@ -45,9 +44,9 @@ public final class FXMLComponentBuilderFactory implements BuilderFactory {
     @Override
     public Builder<?> getBuilder(final Class<?> componentClass) {
         final String className = componentClass.getName();
-        LOGGER.fine(String.format("Searching builder for component class '%s'.", className));
+        LOGGER.log(Level.FINE, "Searching builder for component class '{0}'.", className);
         if (componentClass.isAnnotationPresent(FXMLComponent.class)) {
-            LOGGER.fine(String.format("Creating FXMLComponentBuilder for class '%s'.", className));
+            LOGGER.log(Level.FINE, "Creating FXMLComponentBuilder for class '{0}'.", className);
             return new FXMLComponentBuilder(injector, componentClass);
         }
         // Fall back to the default builder factory if we are not dealing with a FXMLComponent class.

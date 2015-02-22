@@ -30,7 +30,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.lang.String.format;
 
 /**
  * @param <T>
@@ -62,17 +65,17 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
         String locationString = annotation.location();
         if (locationString.isEmpty()) {
-            locationString = String.format("%s.fxml", instance.getClass().getSimpleName());
-            LOGGER.fine(String.format("No location for FXML component has been set for class '%s'. Assuming default ('%s').", instance.getClass().getName(), locationString));
+            locationString = format("%s.fxml", instance.getClass().getSimpleName());
+            LOGGER.log(Level.FINE, "No location for FXML component has been set for class '{0}'. Assuming default ('{1}').", new Object[] { instance.getClass().getName(), locationString });
         }
         URL location;
         location = instance.getClass().getResource(locationString);
         if (location == null) {
-            LOGGER.fine(String.format("Location '%s' cannot be found on the classpath. Trying to construct a new URL...", locationString));
+            LOGGER.log(Level.FINE, "Location '{0}' cannot be found on the classpath. Trying to construct a new URL...", locationString);
             try {
                 location = new URL(locationString);
             } catch (final MalformedURLException e) {
-                throw new RuntimeException(String.format("Cannot construct URL from string '%s'.", locationString), e);
+                throw new RuntimeException(format("Cannot construct URL from string '%s'.", locationString), e);
             }
         }
         final FXMLLoader fxmlLoader = new FXMLLoader();
