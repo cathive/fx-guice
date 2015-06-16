@@ -61,12 +61,6 @@ public @interface PersistentProperty {
     public Class<?> clazz();
 
     /**
-     * @return
-     *     The key that will be used to store the persistent property.
-     */
-    public String key();
-
-    /**
      * Enumeration over the different storage facilities for your
      * persistent properties.
      * 

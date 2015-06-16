@@ -26,21 +26,19 @@ import com.google.inject.spi.TypeListener;
 /**
  * 
  * @author Benjamin P. Jung
+ * @author comtel2000
  */
 class PersistentPropertyTypeListener implements TypeListener {
 
-    PersistentPropertyTypeListener() {
-        super();
-    }
+	@Override
+	public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+		for (Field field : type.getRawType().getDeclaredFields()) {
+			if (field.getType() == PersistentPropertyBinder.class && field.isAnnotationPresent(PersistentProperty.class)) {
+				PersistentProperty annotation = field.getAnnotation(PersistentProperty.class);
+				encounter.register(new PersistentPropertyMembersInjector<I>(field, annotation));
+			}
+		}
 
-    @Override
-    public <T> void hear(TypeLiteral<T> typeLiteral, TypeEncounter<T> typeEncounter) {
-        for (final Field field : typeLiteral.getRawType().getDeclaredFields()) {
-            if (field.isAnnotationPresent(PersistentProperty.class)) {
-                final PersistentProperty annotation = field.getAnnotation(PersistentProperty.class);
-                typeEncounter.register(new PersistentPropertyMembersInjector<T>(field, annotation));
-            }
-        }
-    }
+	}
 
 }
